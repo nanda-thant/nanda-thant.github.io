@@ -1,8 +1,56 @@
 <!DOCTYPE html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Genba MM</title></head>
-<body style="font-family:sans-serif;max-width:40rem;margin:3rem auto;padding:0 1rem;color:#1A2433">
-<h1>Genba MM</h1>
-<p>IT-Japanese for Myanmar and English-speaking engineers in Japan.</p>
-<p><a href="https://play.google.com/store/apps/details?id=com.genbamm.app">Google Play</a> · <a href="genba-mm-posts/">アルゴリズム問題</a></p>
-</body></html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Genba MM – IT-Japanese for Myanmar &amp; English-speaking engineers in Japan</title>
+<meta name="description" content="IT-Japanese dictionary with Burmese (မြန်မာ) and English, workplace phrases and a 技術者経歴書 résumé PDF maker. Free Android app.">
+<link rel="canonical" href="https://nanda-thant.github.io/">
+<meta property="og:title" content="Genba MM – IT-Japanese for Myanmar &amp; English-speaking engineers in Japan">
+<meta property="og:description" content="IT-Japanese dictionary with Burmese (မြန်မာ) and English, workplace phrases and a 技術者経歴書 résumé PDF maker. Free Android app.">
+<meta property="og:url" content="https://nanda-thant.github.io/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#23407A">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Old+Mincho:wght@700;900&family=Padauk:wght@400;700&display=swap">
+<link rel="stylesheet" href="/style.css">
+<script>(function(){var d=document.documentElement,l=null;try{l=localStorage.getItem('ui')}catch(e){}
+if(!l){var n=(navigator.language||'').toLowerCase();l=n.indexOf('my')==0?'my':n.indexOf('ja')==0?'ja':'en'}d.dataset.ui=l})();</script>
+<script src="/app.js" defer></script><script src="/search.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/"><span class="logo-sq" lang="ja">現</span>Genba MM</a>
+    <nav class="nav"><a href="/" aria-current="page"><span class="ui" data-l="ja" lang="ja">ホーム</span><span class="ui" data-l="en" lang="en">Home</span><span class="ui" data-l="my" lang="my">ပင်မ</span></a><a href="/dictionary/"><span class="ui" data-l="ja" lang="ja">辞書</span><span class="ui" data-l="en" lang="en">Dictionary</span><span class="ui" data-l="my" lang="my">အဘိဓာန်</span></a><a href="/genba-mm-posts/"><span class="ui" data-l="ja" lang="ja">アルゴリズム問題</span><span class="ui" data-l="en" lang="en">Algorithm problems</span><span class="ui" data-l="my" lang="my">Algorithm ပုစ္ဆာများ</span></a></nav>
+    <div class="langs" role="group" aria-label="Language"><button type="button" data-set="ja" lang="ja">日本語</button><button type="button" data-set="en" lang="en">English</button><button type="button" data-set="my" lang="my">မြန်မာ</button></div>
+  </div>
+</header>
+<main class="wrap">
+<section class="hero">
+  <div class="grid-paper"><div class="masu masu-xl" role="img" aria-label="現場（げんば）" lang="ja" aria-hidden="false"><span class="sq"><span class="fr">げん</span><span class="ch">現</span></span><span class="sq"><span class="fr">ば</span><span class="ch">場</span></span></div></div>
+  <p class="tagline"><span class="ui" data-l="ja" lang="ja">日本のIT現場で使う言葉を、<br>ミャンマー語と英語で。</span><span class="ui" data-l="en" lang="en">The words of Japanese IT workplaces,<br>explained in Burmese and English.</span><span class="ui" data-l="my" lang="my">ဂျပန် IT လုပ်ငန်းခွင်သုံး စကားလုံးများကို<br>မြန်မာနှင့် အင်္ဂလိပ်ဘာသာဖြင့် ရှင်းပြထားပါသည်။</span></p>
+  <p class="actions"><a class="btn" href="https://play.google.com/store/apps/details?id=com.genbamm.app"><span class="ui" data-l="ja" lang="ja">Google Playで入手</span><span class="ui" data-l="en" lang="en">Get it on Google Play</span><span class="ui" data-l="my" lang="my">Google Play တွင် ရယူပါ</span></a>
+    <a class="btn outline" href="/dictionary/"><span class="ui" data-l="ja" lang="ja">辞書を見る</span><span class="ui" data-l="en" lang="en">Browse the dictionary</span><span class="ui" data-l="my" lang="my">အဘိဓာန် ကြည့်ရန်</span></a></p>
+</section>
+<section class="wod" id="wod" hidden>
+  <h2><span class="ui" data-l="ja" lang="ja">今日の一語</span><span class="ui" data-l="en" lang="en">Word of the day</span><span class="ui" data-l="my" lang="my">ယနေ့ စကားလုံး</span></h2>
+  <a class="wod-card" id="wod-link" href="/dictionary/"><div id="wod-masu"></div>
+    <p class="en" id="wod-en" lang="en"></p><p class="mm" id="wod-mm" lang="my"></p></a>
+</section>
+<section><h2><span class="ui" data-l="ja" lang="ja">このアプリでできること</span><span class="ui" data-l="en" lang="en">What you can do with Genba MM</span><span class="ui" data-l="my" lang="my">ဒီ app နဲ့ လုပ်နိုင်တာတွေ</span></h2><ul class="features"><li><h3><span class="ui" data-l="ja" lang="ja">IT用語辞書</span><span class="ui" data-l="en" lang="en">IT-Japanese dictionary</span><span class="ui" data-l="my" lang="my">IT ဂျပန် စကားလုံး အဘိဓာန်</span></h3><p><span class="ui" data-l="ja" lang="ja">現場でよく使う1,000語以上を、読み方・英語・ミャンマー語で。例文と「現場では」のメモ付き。オフラインで使えます。</span><span class="ui" data-l="en" lang="en">1,000+ words used on Japanese IT sites, with readings, English, Burmese, example sentences and notes on how they&#x27;re really used. Works offline.</span><span class="ui" data-l="my" lang="my">ဂျပန် IT လုပ်ငန်းခွင်သုံး စကားလုံး ၁,၀၀၀ ကျော်ကို အသံထွက်၊ အင်္ဂလိပ်၊ မြန်မာ၊ ဥပမာဝါကျနဲ့ လက်တွေ့သုံးပုံ မှတ်စုများဖြင့်။ အင်တာနက် မလိုပါ။</span></p></li><li><h3><span class="ui" data-l="ja" lang="ja">場面別フレーズ</span><span class="ui" data-l="en" lang="en">Phrases for real situations</span><span class="ui" data-l="my" lang="my">အခြေအနေအလိုက် စကားစုများ</span></h3><p><span class="ui" data-l="ja" lang="ja">報連相・朝会・会議・メール・電話・謝罪・休みの連絡・面談など、すぐ使える日本語。丁寧さのレベル付き。</span><span class="ui" data-l="en" lang="en">Ready-to-use Japanese for reporting, stand-ups, meetings, email, phone calls, apologies, sick days, interviews and more, with politeness levels.</span><span class="ui" data-l="my" lang="my">သတင်းပို့ခြင်း၊ မနက်အစည်းအဝေး၊ အစည်းအဝေး၊ email၊ ဖုန်း၊ တောင်းပန်ခြင်း၊ နေမကောင်းလို့ ခွင့်ယူခြင်း၊ အင်တာဗျူး စသည်တို့အတွက် ချက်ချင်းသုံးနိုင်သော ဂျပန်စကားများ။ ယဉ်ကျေးစွာ ပြောဆိုမှုအဆင့်များလည်း ပါဝင်ပါတယ်။</span></p></li><li><h3><span class="ui" data-l="ja" lang="ja">技術者経歴書のPDF</span><span class="ui" data-l="en" lang="en">Engineer résumé PDF (技術者経歴書)</span><span class="ui" data-l="my" lang="my">အင်ဂျင်နီယာ ကိုယ်ရေးမှတ်တမ်း PDF (技術者経歴書)</span></h3><p><span class="ui" data-l="ja" lang="ja">5ステップで入力すると、日本のIT企業が求める標準形式のA4のPDFができます。</span><span class="ui" data-l="en" lang="en">Fill in 5 steps and get an A4 PDF in the standard format Japanese IT companies ask for.</span><span class="ui" data-l="my" lang="my">အဆင့် ၅ ဆင့် ဖြည့်ရုံဖြင့် ဂျပန် IT ကုမ္ပဏီများ တောင်းသော စံပုံစံ A4 PDF ရပါမယ်။</span></p></li></ul>
+  <p class="small"><span class="ui" data-l="ja" lang="ja">アカウント登録はありません。入力したデータはこの端末にだけ保存されます。</span><span class="ui" data-l="en" lang="en">No account needed. Everything you enter stays on this device.</span><span class="ui" data-l="my" lang="my">အကောင့်ဖွင့်ရန် မလိုပါ။ ထည့်သွင်းသော ဒေတာများကို ဤစက်ပစ္စည်းတွင်သာ သိမ်းဆည်းပါသည်။</span></p></section>
+<section><h2><span class="ui" data-l="ja" lang="ja">辞書</span><span class="ui" data-l="en" lang="en">Dictionary</span><span class="ui" data-l="my" lang="my">အဘိဓာန်</span></h2><p class="chips"><a class="chip cat" href="/dictionary/test/"><span class="ui" data-l="ja" lang="ja">テスト</span><span class="ui" data-l="en" lang="en">Testing</span><span class="ui" data-l="my" lang="my">စမ်းသပ်ခြင်း</span> <span class="n">77</span></a><a class="chip cat" href="/dictionary/design/"><span class="ui" data-l="ja" lang="ja">設計</span><span class="ui" data-l="en" lang="en">Design</span><span class="ui" data-l="my" lang="my">ဒီဇိုင်း</span> <span class="n">101</span></a><a class="chip cat" href="/dictionary/infra/"><span class="ui" data-l="ja" lang="ja">インフラ</span><span class="ui" data-l="en" lang="en">Infrastructure</span><span class="ui" data-l="my" lang="my">Infrastructure</span> <span class="n">184</span></a><a class="chip cat" href="/dictionary/meeting/"><span class="ui" data-l="ja" lang="ja">会議</span><span class="ui" data-l="en" lang="en">Meetings</span><span class="ui" data-l="my" lang="my">အစည်းအဝေး</span> <span class="n">115</span></a><a class="chip cat" href="/dictionary/manage/"><span class="ui" data-l="ja" lang="ja">管理</span><span class="ui" data-l="en" lang="en">Management</span><span class="ui" data-l="my" lang="my">စီမံခန့်ခွဲမှု</span> <span class="n">244</span></a><a class="chip cat" href="/dictionary/dev/"><span class="ui" data-l="ja" lang="ja">開発</span><span class="ui" data-l="en" lang="en">Development</span><span class="ui" data-l="my" lang="my">ဖွံ့ဖြိုးရေး</span> <span class="n">247</span></a><a class="chip cat" href="/dictionary/algo/"><span class="ui" data-l="ja" lang="ja">競プロ</span><span class="ui" data-l="en" lang="en">Algorithms</span><span class="ui" data-l="my" lang="my">Algorithm</span> <span class="n">77</span></a></p></section>
+<section><h2><span class="ui" data-l="ja" lang="ja">アルゴリズム問題</span><span class="ui" data-l="en" lang="en">Algorithm problems</span><span class="ui" data-l="my" lang="my">Algorithm ပုစ္ဆာများ</span></h2><p><a class="btn outline" href="/genba-mm-posts/"><span class="ui" data-l="ja" lang="ja">アルゴリズム問題</span><span class="ui" data-l="en" lang="en">Algorithm problems</span><span class="ui" data-l="my" lang="my">Algorithm ပုစ္ဆာများ</span> →</a></p></section>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <p><span class="ui" data-l="ja" lang="ja">Genba MM は日本で働くミャンマー人・英語話者のITエンジニアのためのアプリです。</span><span class="ui" data-l="en" lang="en">Genba MM is an app for Burmese and English-speaking IT engineers working in Japan.</span><span class="ui" data-l="my" lang="my">Genba MM သည် ဂျပန်တွင် အလုပ်လုပ်နေသော မြန်မာနှင့် အင်္ဂလိပ်စကားပြော IT အင်ဂျင်နီယာများအတွက် app ဖြစ်ပါတယ်။</span></p>
+    <p><a class="btn" href="https://play.google.com/store/apps/details?id=com.genbamm.app"><span class="ui" data-l="ja" lang="ja">Google Playで入手</span><span class="ui" data-l="en" lang="en">Get it on Google Play</span><span class="ui" data-l="my" lang="my">Google Play တွင် ရယူပါ</span></a></p>
+    <p class="small">© Genba MM · <a href="/genba-mm-posts/"><span class="ui" data-l="ja" lang="ja">アルゴリズム問題</span><span class="ui" data-l="en" lang="en">Algorithm problems</span><span class="ui" data-l="my" lang="my">Algorithm ပုစ္ဆာများ</span></a></p>
+  </div>
+</footer>
+</body>
+</html>

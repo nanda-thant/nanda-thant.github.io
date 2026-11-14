@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>部分文字列（ぶぶんもじれつ）の意味 – Substring | Genba MM</title>
+<meta name="description" content="部分文字列（ぶぶんもじれつ）: Substring. string အတွင်းမှ ဆက်တိုက် အပိုင်းတစ်ခု">
+<link rel="canonical" href="https://nanda-thant.github.io/w/1004/">
+<meta property="og:title" content="部分文字列（ぶぶんもじれつ）の意味 – Substring | Genba MM">
+<meta property="og:description" content="部分文字列（ぶぶんもじれつ）: Substring. string အတွင်းမှ ဆက်တိုက် အပိုင်းတစ်ခု">
+<meta property="og:url" content="https://nanda-thant.github.io/w/1004/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#23407A">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Old+Mincho:wght@700;900&family=Padauk:wght@400;700&display=swap">
+<link rel="stylesheet" href="/style.css">
+<script>(function(){var d=document.documentElement,l=null;try{l=localStorage.getItem('ui')}catch(e){}
+if(!l){var n=(navigator.language||'').toLowerCase();l=n.indexOf('my')==0?'my':n.indexOf('ja')==0?'ja':'en'}d.dataset.ui=l})();</script>
+<script src="/app.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/"><span class="logo-sq" lang="ja">現</span>Genba MM</a>
+    <nav class="nav"><a href="/"><span class="ui" data-l="ja" lang="ja">ホーム</span><span class="ui" data-l="en" lang="en">Home</span><span class="ui" data-l="my" lang="my">ပင်မ</span></a><a href="/dictionary/" aria-current="page"><span class="ui" data-l="ja" lang="ja">辞書</span><span class="ui" data-l="en" lang="en">Dictionary</span><span class="ui" data-l="my" lang="my">အဘိဓာန်</span></a><a href="/genba-mm-posts/"><span class="ui" data-l="ja" lang="ja">アルゴリズム問題</span><span class="ui" data-l="en" lang="en">Algorithm problems</span><span class="ui" data-l="my" lang="my">Algorithm ပုစ္ဆာများ</span></a></nav>
+    <div class="langs" role="group" aria-label="Language"><button type="button" data-set="ja" lang="ja">日本語</button><button type="button" data-set="en" lang="en">English</button><button type="button" data-set="my" lang="my">မြန်မာ</button></div>
+  </div>
+</header>
+<main class="wrap">
+<nav class="crumb"><a href="/dictionary/"><span class="ui" data-l="ja" lang="ja">辞書</span><span class="ui" data-l="en" lang="en">Dictionary</span><span class="ui" data-l="my" lang="my">အဘိဓာန်</span></a> ›
+  <a href="/dictionary/algo/"><span class="ui" data-l="ja" lang="ja">競プロ</span><span class="ui" data-l="en" lang="en">Algorithms</span><span class="ui" data-l="my" lang="my">Algorithm</span></a></nav>
+<section class="word">
+  <div class="masu masu-l" role="img" aria-label="部分文字列（ぶぶんもじれつ）" lang="ja" aria-hidden="false"><span class="sq"><span class="fr">ぶ</span><span class="ch">部</span></span><span class="sq"><span class="fr">ぶん</span><span class="ch">分</span></span><span class="sq"><span class="fr">も</span><span class="ch">文</span></span><span class="sq"><span class="fr">じ</span><span class="ch">字</span></span><span class="sq"><span class="fr">れつ</span><span class="ch">列</span></span></div>
+  <p class="reading" lang="ja">ぶぶんもじれつ <span class="romaji">bubun moji retsu</span> 
+    <button type="button" class="speak" data-say="部分文字列" hidden aria-label="Play pronunciation">🔊</button></p>
+  <p class="en" lang="en">Substring</p>
+  <p class="aliases" lang="en">contiguous substring</p>
+  <p class="mm big" lang="my">string အတွင်းမှ ဆက်တိုက် အပိုင်းတစ်ခု</p>
+</section>
+<section><h2><span class="ui" data-l="ja" lang="ja">例文</span><span class="ui" data-l="en" lang="en">Examples</span><span class="ui" data-l="my" lang="my">ဥပမာ ဝါကျများ</span></h2><ul class="examples"><li>
+  <p class="ex-jp" lang="ja"><ruby>文字列<rt>もじれつ</rt></ruby>Sの<u><ruby>部分文字列<rt>ぶぶんもじれつ</rt></ruby></u>の<ruby>中<rt>なか</rt></ruby>で、<ruby>回<rt>かい</rt></ruby><ruby>文<rt>ぶん</rt></ruby>になるものを<ruby>数<rt>かぞ</rt></ruby>えます。
+    <button type="button" class="speak" data-say="文字列Sの部分文字列の中で、回文になるものを数えます。" hidden aria-label="Play pronunciation">🔊</button></p>
+  <p class="ex-en" lang="en">Count the substrings of S that are palindromes.</p>
+  <p class="mm" lang="my">string S ရဲ့ substring တွေထဲက palindrome ဖြစ်တာတွေကို ရေတွက်ပါတယ်။</p>
+</li><li>
+  <p class="ex-jp" lang="ja"><u><ruby>部分文字列<rt>ぶぶんもじれつ</rt></ruby></u>はsubstringメソッドで<ruby>取<rt>と</rt></ruby>り<ruby>出<rt>だ</rt></ruby>せます。
+    <button type="button" class="speak" data-say="部分文字列はsubstringメソッドで取り出せます。" hidden aria-label="Play pronunciation">🔊</button></p>
+  <p class="ex-en" lang="en">You can take a substring with the substring method.</p>
+  <p class="mm" lang="my">substring method နဲ့ substring ကို ထုတ်ယူနိုင်ပါတယ်။</p>
+</li></ul></section>
+<section><h2><span class="ui" data-l="ja" lang="ja">漢字</span><span class="ui" data-l="en" lang="en">Kanji in this word</span><span class="ui" data-l="my" lang="my">ဤစကားလုံးရှိ ခန်းဂျီ</span></h2><ul class="kanjis"><li class="kanji">
+  <span class="k-ch" lang="ja">部</span>
+  <div class="k-body">
+    <p><span class="here" lang="ja">ぶ</span> <span class="k-read" lang="ja">ブ</span></p>
+    <p lang="en">part, department</p>
+    <p class="mm" lang="my">အပိုင်း၊ ဌာန</p>
+    <p class="chips"><a class="chip" href="/w/55/" lang="ja">外部設計</a><a class="chip" href="/w/56/" lang="ja">内部設計</a><a class="chip" href="/w/73/" lang="ja">外部連携</a><a class="chip" href="/w/81/" lang="ja">外部キー</a></p>
+  </div>
+</li><li class="kanji">
+  <span class="k-ch" lang="ja">分</span>
+  <div class="k-body">
+    <p><span class="here" lang="ja">ぶん</span> <span class="k-read" lang="ja">ブン・フン・わ(ける)・わ(かる)</span></p>
+    <p lang="en">part, minute, understand</p>
+    <p class="mm" lang="my">အပိုင်း၊ မိနစ်၊ နားလည်</p>
+    <p class="chips"><a class="chip" href="/w/20/" lang="ja">差分</a><a class="chip" href="/w/39/" lang="ja">切り分け</a><a class="chip" href="/w/366/" lang="ja">なぜなぜ分析</a><a class="chip" href="/w/444/" lang="ja">条件分岐</a></p>
+  </div>
+</li><li class="kanji">
+  <span class="k-ch" lang="ja">文</span>
+  <div class="k-body">
+    <p><span class="here" lang="ja">も</span> <span class="k-read" lang="ja">ブン・モン・ふみ</span></p>
+    <p lang="en">sentence, writing</p>
+    <p class="mm" lang="my">စာကြောင်း၊ စာ</p>
+    <p class="chips"><a class="chip" href="/w/177/" lang="ja">文字化け</a><a class="chip" href="/w/178/" lang="ja">文字コード</a><a class="chip" href="/w/329/" lang="ja">文言</a><a class="chip" href="/w/448/" lang="ja">文字列</a></p>
+  </div>
+</li><li class="kanji">
+  <span class="k-ch" lang="ja">字</span>
+  <div class="k-body">
+    <p><span class="here" lang="ja">じ</span> <span class="k-read" lang="ja">ジ・あざ</span></p>
+    <p lang="en">character, letter</p>
+    <p class="mm" lang="my">စာလုံး</p>
+    <p class="chips"><a class="chip" href="/w/177/" lang="ja">文字化け</a><a class="chip" href="/w/178/" lang="ja">文字コード</a><a class="chip" href="/w/448/" lang="ja">文字列</a><a class="chip" href="/w/456/" lang="ja">空文字</a></p>
+  </div>
+</li><li class="kanji">
+  <span class="k-ch" lang="ja">列</span>
+  <div class="k-body">
+    <p><span class="here" lang="ja">れつ</span> <span class="k-read" lang="ja">レツ</span></p>
+    <p lang="en">row, column</p>
+    <p class="mm" lang="my">တန်း၊ ကော်လံ</p>
+    <p class="chips"><a class="chip" href="/w/443/" lang="ja">配列</a><a class="chip" href="/w/448/" lang="ja">文字列</a><a class="chip" href="/w/451/" lang="ja">並列処理</a><a class="chip" href="/w/683/" lang="ja">連想配列</a></p>
+  </div>
+</li></ul></section>
+<section><h2><span class="ui" data-l="ja" lang="ja">関連語</span><span class="ui" data-l="en" lang="en">Related terms</span><span class="ui" data-l="my" lang="my">ဆက်စပ်ဝေါဟာရများ</span></h2><p class="chips"><a class="chip" href="/w/448/" lang="ja">文字列</a></p></section>
+<aside class="cta">
+  <h2><span class="ui" data-l="ja" lang="ja">アプリならオフラインで使えます</span><span class="ui" data-l="en" lang="en">Use it offline in the app</span><span class="ui" data-l="my" lang="my">App ဖြင့် အင်တာနက်မလိုဘဲ သုံးနိုင်ပါတယ်</span></h2>
+  <p><span class="ui" data-l="ja" lang="ja">単語テスト、ブックマーク、場面別フレーズ、技術者経歴書のPDFも。無料・アカウント不要。</span><span class="ui" data-l="en" lang="en">Plus word quizzes, bookmarks, workplace phrases and the engineer résumé PDF. Free, no account.</span><span class="ui" data-l="my" lang="my">စကားလုံးစမ်းသပ်မှု၊ bookmark၊ လုပ်ငန်းခွင်သုံး စကားစုများနှင့် 技術者経歴書 PDF လည်း ပါဝင်ပါတယ်။ အခမဲ့၊ အကောင့်မလိုပါ။</span></p>
+  <a class="btn" href="https://play.google.com/store/apps/details?id=com.genbamm.app"><span class="ui" data-l="ja" lang="ja">Google Playで入手</span><span class="ui" data-l="en" lang="en">Get it on Google Play</span><span class="ui" data-l="my" lang="my">Google Play တွင် ရယူပါ</span></a>
+</aside>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <p><span class="ui" data-l="ja" lang="ja">Genba MM は日本で働くミャンマー人・英語話者のITエンジニアのためのアプリです。</span><span class="ui" data-l="en" lang="en">Genba MM is an app for Burmese and English-speaking IT engineers working in Japan.</span><span class="ui" data-l="my" lang="my">Genba MM သည် ဂျပန်တွင် အလုပ်လုပ်နေသော မြန်မာနှင့် အင်္ဂလိပ်စကားပြော IT အင်ဂျင်နီယာများအတွက် app ဖြစ်ပါတယ်။</span></p>
+    <p><a class="btn" href="https://play.google.com/store/apps/details?id=com.genbamm.app"><span class="ui" data-l="ja" lang="ja">Google Playで入手</span><span class="ui" data-l="en" lang="en">Get it on Google Play</span><span class="ui" data-l="my" lang="my">Google Play တွင် ရယူပါ</span></a></p>
+    <p class="small">© Genba MM · <a href="/genba-mm-posts/"><span class="ui" data-l="ja" lang="ja">アルゴリズム問題</span><span class="ui" data-l="en" lang="en">Algorithm problems</span><span class="ui" data-l="my" lang="my">Algorithm ပုစ္ဆာများ</span></a></p>
+  </div>
+</footer>
+</body>
+</html>
