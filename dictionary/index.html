@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <title>IT-Japanese dictionary (日本語 ⇄ English ⇄ မြန်မာ) | Genba MM</title>
 <meta name="description" content="Search 1,000+ Japanese IT workplace words with readings, English and Burmese (မြန်မာ) explanations and examples.">
 <link rel="canonical" href="https://nanda-thant.github.io/dictionary/">
@@ -16,8 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Old+Mincho:wght@700;900&family=Padauk:wght@400;700&display=swap">
 <link rel="stylesheet" href="/style.css">
-<script>(function(){var d=document.documentElement,l=null;try{l=localStorage.getItem('ui')}catch(e){}
-if(!l){var n=(navigator.language||'').toLowerCase();l=n.indexOf('my')==0?'my':n.indexOf('ja')==0?'ja':'en'}d.dataset.ui=l})();</script>
+<script src="/lang.js"></script>
 <script src="/app.js" defer></script><script src="/search.js" defer></script>
 </head>
 <body>
@@ -30,7 +30,7 @@ if(!l){var n=(navigator.language||'').toLowerCase();l=n.indexOf('my')==0?'my':n.
 </header>
 <main class="wrap">
 <h1><span class="ui" data-l="ja" lang="ja">辞書</span><span class="ui" data-l="en" lang="en">Dictionary</span><span class="ui" data-l="my" lang="my">အဘိဓာန်</span></h1>
-<form class="search" role="search" onsubmit="return false">
+<form class="search" role="search">
   <input id="q" type="search" placeholder="Search in 日本語, English or မြန်မာ" autocomplete="off" autofocus aria-label="Search in 日本語, English or မြန်မာ">
 </form>
 <p class="hint" id="hint"><span class="ui" data-l="ja" lang="ja">日本語・英語・ミャンマー語のどれでも検索できます。</span><span class="ui" data-l="en" lang="en">Search in Japanese, English or Burmese.</span><span class="ui" data-l="my" lang="my">ဂျပန်၊ အင်္ဂလိပ် သို့မဟုတ် မြန်မာဘာသာဖြင့် ရှာနိုင်ပါသည်။</span></p>

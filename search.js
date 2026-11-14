@@ -100,6 +100,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     var q = document.getElementById('q');
     if (q) {
+      q.form.addEventListener('submit', function (e) { e.preventDefault(); });
       var results = document.getElementById('results'), idle = document.getElementById('idle'),
         hint = document.getElementById('hint'), empty = document.getElementById('empty');
       var initial = new URLSearchParams(location.search).get('q');
