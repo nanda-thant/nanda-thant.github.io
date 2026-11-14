@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ステップアップ6 括弧の対応チェック</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>ステップアップ6 括弧の対応チェック</h1><p class="meta">Step up 6 · Do the brackets match?</p><p class="meta">2026-11-08 · ふつう <span class="tag">ステップアップ</span><span class="tag">スタック</span><span class="tag">文字列</span></p><h2>問題</h2>
+<p>設定ファイルの括弧が正しく閉じられているか調べるツールを作ります。<code>(</code>、<code>)</code>、<code>[</code>、<code>]</code>、<code>{</code>、<code>}</code> だけからなる文字列 S が与えられます。</p>
+<p>次の条件を満たすとき <code>Yes</code>、そうでなければ <code>No</code> と出力してください。</p>
+<ul>
+<li>開き括弧には、同じ種類の閉じ括弧が対応している</li>
+<li>内側の括弧が先に閉じられている（<code>([)]</code> は正しくない）</li>
+</ul>
+<h2>問題 (en)</h2>
+<p>You are making a tool that checks whether the brackets in a config file are closed correctly. You are given a string S made only of <code>(</code>, <code>)</code>, <code>[</code>, <code>]</code>, <code>{</code> and <code>}</code>.</p>
+<p>Print <code>Yes</code> if both of these hold, otherwise <code>No</code>:</p>
+<ul>
+<li>every opening bracket is matched by a closing bracket of the same kind</li>
+<li>inner brackets are closed first (<code>([)]</code> is not correct)</li>
+</ul>
+<h2>問題 (my)</h2>
+<p>config file ၏ ကွင်းများကို မှန်ကန်စွာ ပိတ်ထားခြင်း ရှိမရှိ စစ်ဆေးသော tool ကို ပြုလုပ်မည်။ <code>(</code>၊ <code>)</code>၊ <code>[</code>၊ <code>]</code>၊ <code>{</code>၊ <code>}</code> များသာ ပါဝင်သော string S ကို ပေးထားသည်။</p>
+<p>အောက်ပါ အခြေအနေများ ပြည့်မီလျှင် <code>Yes</code>၊ မပြည့်မီလျှင် <code>No</code> ဟု ထုတ်ပြပါ။</p>
+<ul>
+<li>ကွင်းဖွင့်တိုင်းတွင် အမျိုးအစားတူ ကွင်းပိတ် ကိုက်ညီနေသည်</li>
+<li>အတွင်းဘက် ကွင်းကို အရင် ပိတ်ထားသည် (<code>([)]</code> သည် မမှန်ပါ)</li>
+</ul>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ |S| ≤ 2×10⁵</li>
+<li>S は <code>()[]{}</code> の 6 種類の文字だけからなる</li>
+</ul>
+<h2>入力</h2>
+<pre><code>S
+</code></pre>
+<h2>出力</h2>
+<p><code>Yes</code> または <code>No</code> を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>{[()]}
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>Yes
+</code></pre>
+<h2>入力例 2</h2>
+<pre><code>([)]
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>No
+</code></pre>
+<h2>入力例 3</h2>
+<pre><code>((
+</code></pre>
+<h2>出力例 3</h2>
+<pre><code>No
+</code></pre>
+<p>閉じられていない括弧があります。</p>
+<h2>入力例 4</h2>
+<pre><code>())(
+</code></pre>
+<h2>出力例 4</h2>
+<pre><code>No
+</code></pre>
+<h2>ヒント</h2>
+<p>閉じ括弧が来たとき、対応するのは「一番最近開いて、まだ閉じていない括弧」です。最後に入れたものを最初に取り出せるデータ構造を使いましょう。</p>
+<h2>ヒント (en)</h2>
+<p>A closing bracket must match the most recently opened bracket that is still open. Use a data structure where the last thing you put in is the first thing you take out.</p>
+<h2>ヒント (my)</h2>
+<p>ကွင်းပိတ် ရောက်လာလျှင် ၎င်းနှင့် ကိုက်ရမည့်အရာမှာ «နောက်ဆုံးဖွင့်ခဲ့ပြီး မပိတ်ရသေးသော ကွင်း» ဖြစ်သည်။ နောက်ဆုံး ထည့်ထားသည့်အရာကို အရင်ဆုံး ပြန်ထုတ်နိုင်သော data structure ကို သုံးပါ။</p>
+<h2>解説</h2>
+<p><strong>スタック</strong>を使います。Java では <code>ArrayDeque&lt;Character&gt;</code> の <code>push</code>（積む）と <code>pop</code>（取り出す）を使います（古い <code>Stack</code> クラスより速いです）。</p>
+<ul>
+<li>開き括弧なら積む。</li>
+<li>閉じ括弧なら、スタックが空なら <code>No</code>。空でなければ取り出して、種類が合わなければ <code>No</code>。</li>
+<li>最後までいったら、スタックが空なら <code>Yes</code>（入力例 3 のように残っていたら <code>No</code>）。</li>
+</ul>
+<p>全体で O(|S|) です。コンパイラやエディタの括弧チェックも同じ仕組みです。</p>
+<h2>解説 (en)</h2>
+<p>Use a <strong>stack</strong>. In Java, <code>ArrayDeque&lt;Character&gt;</code> with <code>push</code> and <code>pop</code> (faster than the old <code>Stack</code> class).</p>
+<ul>
+<li>Opening bracket: push it.</li>
+<li>Closing bracket: if the stack is empty, <code>No</code>; otherwise pop, and if the kinds differ, <code>No</code>.</li>
+<li>At the end, <code>Yes</code> only if the stack is empty (sample 3 leaves brackets on it).</li>
+</ul>
+<p>This is O(|S|), and it is how compilers and editors check brackets too.</p>
+<h2>解説 (my)</h2>
+<p><strong>Stack</strong> ကို သုံးပါ။ Java တွင် <code>ArrayDeque&lt;Character&gt;</code> ၏ <code>push</code> နှင့် <code>pop</code> ကို သုံးပါ။</p>
+<ul>
+<li>ကွင်းဖွင့် ဖြစ်လျှင် push လုပ်ပါ။</li>
+<li>ကွင်းပိတ် ဖြစ်လျှင် stack ဗလာဖြစ်နေပါက <code>No</code>။ မဟုတ်ပါက pop လုပ်ပြီး အမျိုးအစား မတူလျှင် <code>No</code>။</li>
+<li>အဆုံးတွင် stack ဗလာဖြစ်မှသာ <code>Yes</code> (ဥပမာ ၃ ကဲ့သို့ ကျန်နေလျှင် <code>No</code>)။</li>
+</ul>
+<p>ဤနည်း၏ အချိန်ရှုပ်ထွေးမှုမှာ O(|S|) ဖြစ်ပြီး compiler နှင့် editor များတွင်လည်း ကွင်းများ ကိုက်ညီမှု စစ်ရန် သုံးသည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        Deque&lt;Character&gt; stack = new ArrayDeque&lt;&gt;();
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '[' || c == '{') {
+                stack.push(c);
+            } else {
+                if (stack.isEmpty()) {
+                    System.out.println(&quot;No&quot;);
+                    return;
+                }
+                char open = stack.pop();
+                if ((c == ')' &amp;&amp; open != '(') || (c == ']' &amp;&amp; open != '[') || (c == '}' &amp;&amp; open != '{')) {
+                    System.out.println(&quot;No&quot;);
+                    return;
+                }
+            }
+        }
+        System.out.println(stack.isEmpty() ? &quot;Yes&quot; : &quot;No&quot;);
+    }
+}
+</code></pre>
+</body></html>

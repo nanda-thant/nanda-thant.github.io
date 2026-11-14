@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門11 キャメルケースをスネークケースに</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>入門11 キャメルケースをスネークケースに</h1><p class="meta">Basics 11 · camelCase to snake_case</p><p class="meta">2026-11-08 · やさしい <span class="tag">入門</span><span class="tag">文字列</span></p><h2>問題</h2>
+<p>Java の変数名 S（キャメルケース）を、データベースの列名（スネークケース）に変換してください。</p>
+<ul>
+<li>大文字の前に <code>_</code> を入れ、その大文字を小文字にします。</li>
+<li>例：<code>userName</code> → <code>user_name</code></li>
+</ul>
+<h2>問題 (en)</h2>
+<p>Convert the Java variable name S (camelCase) into a database column name (snake_case).</p>
+<ul>
+<li>Put <code>_</code> in front of each capital letter and make that letter lowercase.</li>
+<li>Example: <code>userName</code> → <code>user_name</code></li>
+</ul>
+<h2>問題 (my)</h2>
+<p>Java variable အမည် S (camel case) ကို database column အမည် (snake case) သို့ ပြောင်းပါ။</p>
+<ul>
+<li>စာလုံးကြီး၏ ရှေ့တွင် <code>_</code> ထည့်ပြီး ထိုစာလုံးကြီးကို စာလုံးသေးသို့ ပြောင်းပါ။</li>
+<li>ဥပမာ: <code>userName</code> → <code>user_name</code></li>
+</ul>
+<h2>制約</h2>
+<ul>
+<li>S は英字のみからなる 1 文字以上 50 文字以下の文字列</li>
+<li>S の最初の文字は小文字</li>
+</ul>
+<h2>入力</h2>
+<pre><code>S
+</code></pre>
+<h2>出力</h2>
+<p>変換した文字列を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>userName
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>user_name
+</code></pre>
+<h2>入力例 2</h2>
+<pre><code>getHttpResponseCode
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>get_http_response_code
+</code></pre>
+<h2>入力例 3</h2>
+<pre><code>id
+</code></pre>
+<h2>出力例 3</h2>
+<pre><code>id
+</code></pre>
+<h2>ヒント</h2>
+<p>文字列を 1 文字ずつ見ていきます。<code>s.charAt(i)</code> で i 番目の文字（<code>char</code>）が取れます。大文字かどうかは <code>Character.isUpperCase(c)</code> で調べられます。結果は <code>StringBuilder</code> に足していきましょう。</p>
+<h2>ヒント (en)</h2>
+<p>Look at the string one character at a time: <code>s.charAt(i)</code> gives the i-th <code>char</code>, and <code>Character.isUpperCase(c)</code> tells you whether it is a capital. Build the result in a <code>StringBuilder</code>.</p>
+<h2>ヒント (my)</h2>
+<p>String ကို စာလုံးတစ်လုံးချင်း ကြည့်ပါ။ <code>s.charAt(i)</code> ဖြင့် i ကြိမ်မြောက် <code>char</code> ကို ရနိုင်ပြီး <code>Character.isUpperCase(c)</code> ဖြင့် စာလုံးကြီး ဟုတ်မဟုတ် စစ်နိုင်သည်။ ရလဒ်ကို <code>StringBuilder</code> ထဲ ဆက်ထည့်ပါ။</p>
+<h2>解説</h2>
+<ul>
+<li><code>StringBuilder</code> の <code>append</code> で 1 文字ずつ足し、最後に <code>toString()</code> で文字列にします。</li>
+<li>大文字なら <code>_</code> を足してから <code>Character.toLowerCase(c)</code> を足します。</li>
+<li><code>String</code> を <code>+=</code> でつなげても動きますが、毎回新しい文字列が作られます。長い文字列を作るときは <code>StringBuilder</code> を使う習慣をつけましょう。</li>
+</ul>
+<p><code>for (char c : s.toCharArray())</code> と書くと、添字なしで 1 文字ずつ取り出せます。</p>
+<h2>解説 (en)</h2>
+<ul>
+<li><code>append</code> each character to a <code>StringBuilder</code>, then call <code>toString()</code> at the end.</li>
+<li>For a capital, append <code>_</code> and then <code>Character.toLowerCase(c)</code>.</li>
+<li>Joining with <code>String +=</code> also works, but it creates a new string every time. Get used to <code>StringBuilder</code> for building long strings.</li>
+</ul>
+<p><code>for (char c : s.toCharArray())</code> loops over the characters without an index.</p>
+<h2>解説 (my)</h2>
+<ul>
+<li>စာလုံးတစ်လုံးချင်းကို <code>StringBuilder</code> ထဲ <code>append</code> လုပ်ပြီး နောက်ဆုံးတွင် <code>toString()</code> ဖြင့် String ပြောင်းပါ။</li>
+<li>စာလုံးကြီး ဖြစ်လျှင် <code>_</code> ကို အရင်ထည့်ပြီး <code>Character.toLowerCase(c)</code> ကို ထည့်ပါ။</li>
+<li><code>String +=</code> ဖြင့် ဆက်လည်း ရသော်လည်း အကြိမ်တိုင်း String အသစ် ဖန်တီးသဖြင့် ရှည်သော string များအတွက် <code>StringBuilder</code> ကို သုံးပါ။</li>
+</ul>
+<p><code>for (char c : s.toCharArray())</code> ကို သုံးလျှင် index မလိုဘဲ စာလုံးတစ်လုံးချင်းကို ပတ်ကြည့်နိုင်သည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        StringBuilder sb = new StringBuilder();
+        for (char c : s.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                sb.append('_').append(Character.toLowerCase(c));
+            } else {
+                sb.append(c);
+            }
+        }
+        System.out.println(sb.toString());
+    }
+}
+</code></pre>
+</body></html>

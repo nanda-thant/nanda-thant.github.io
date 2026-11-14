@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>エラーの少ない時間帯</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>エラーの少ない時間帯</h1><p class="meta">The calmest stretch of minutes</p><p class="meta">2026-11-14 · ふつう <span class="tag">しゃくとり法</span><span class="tag">尺取り法</span></p><h2>問題</h2>
+<p>監視システムは 1 分ごとに、その 1 分間に出たエラーの件数を記録しています。N 分ぶんの記録があり、i 分目のエラーは Aᵢ 件です。</p>
+<p>連続する何分間かを選び、その間のエラー件数の合計が K 件<strong>以下</strong>になるようにします。そのような区間のうち、最も長いものは何分間ですか。1 分も選べないときは 0 を出力してください。</p>
+<h2>問題 (en)</h2>
+<p>A monitoring system records, every minute, how many errors happened in that minute. You have records for N minutes: minute i had Aᵢ errors.</p>
+<p>Choose a run of consecutive minutes whose errors add up to K <strong>or fewer</strong>. How many minutes long is the longest such run? Print 0 if not even one minute can be chosen.</p>
+<h2>問題 (my)</h2>
+<p>စောင့်ကြည့်စနစ် (monitoring system) တစ်ခုသည် တစ်မိနစ်ချင်းစီတွင် ထိုမိနစ်အတွင်း ဖြစ်ခဲ့သော error အရေအတွက်ကို မှတ်တမ်းတင်ထားသည်။ N မိနစ်စာ မှတ်တမ်း ရှိပြီး i မိနစ်မြောက်တွင် error Aᵢ ခု ဖြစ်ခဲ့သည်။</p>
+<p>ဆက်တိုက်ဖြစ်သော မိနစ်များကို ရွေးပြီး ထိုအတွင်း error စုစုပေါင်းသည် K ခု <strong>နှင့်အောက်</strong> ဖြစ်ရမည်။ ထိုသို့ ရွေးနိုင်သော အပိုင်းများထဲမှ အရှည်ဆုံးသည် မည်မျှ မိနစ်ကြာသနည်း။ တစ်မိနစ်မျှ မရွေးနိုင်လျှင် 0 ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N ≤ 2×10⁵</li>
+<li>0 ≤ Aᵢ ≤ 10⁹</li>
+<li>0 ≤ K ≤ 10¹⁴</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N K
+A_1 A_2 … A_N
+</code></pre>
+<h2>出力</h2>
+<p>最も長い区間の長さ（分）を 1 行で出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>7 5
+2 0 3 1 4 0 1
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>3
+</code></pre>
+<p>たとえば 2, 0, 3（合計 5）や 4, 0, 1（合計 5）が 3 分間です。4 分間の区間はどれも合計が 5 を超えます。</p>
+<h2>入力例 2</h2>
+<pre><code>3 0
+1 2 3
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>0
+</code></pre>
+<h2>入力例 3</h2>
+<pre><code>4 10
+1 1 1 1
+</code></pre>
+<h2>出力例 3</h2>
+<pre><code>4
+</code></pre>
+<h2>ヒント</h2>
+<p>区間の左端を 1 つ右に動かすと、右端はそれより左に戻る必要がありません。左端と右端の 2 本の指を、どちらも右にだけ動かしてみましょう。</p>
+<h2>ヒント (en)</h2>
+<p>When the left end of the range moves one step right, the right end never has to move back left. Try moving two fingers, the left end and the right end, only ever to the right.</p>
+<h2>ヒント (my)</h2>
+<p>အပိုင်း၏ ဘယ်ဘက်အစွန်းကို ညာဘက်သို့ တစ်နေရာ ရွှေ့လိုက်လျှင် ညာဘက်အစွန်းသည် ဘယ်ဘက်သို့ ပြန်ဆုတ်ရန် မလိုပါ။ ဘယ်အစွန်းနှင့် ညာအစွန်း လက်ချောင်းနှစ်ချောင်းကို ညာဘက်သို့သာ ရွှေ့ကြည့်ပါ။</p>
+<h2>解説</h2>
+<p>すべての区間を調べると O(N²) で、N = 2×10⁵ では間に合いません。</p>
+<p>件数はどれも 0 以上なので、区間を広げると合計は増え、縮めると減ります。そこで右端 <code>right</code> を 1 つずつ進めて A を足し、合計が K を超えたら、K 以下に戻るまで左端 <code>left</code> を進めて A を引きます。こうすると、どの右端についても「そこで終わる一番長い区間」が <code>left</code> から <code>right</code> までになります。</p>
+<p><code>left</code> も <code>right</code> も N 回しか進まないので、全体で O(N) です。この方法を<strong>しゃくとり法</strong>（尺取り法）と呼びます。合計は最大で 2×10⁵ × 10⁹ になるので、<code>long</code> を使います。</p>
+<h2>解説 (en)</h2>
+<p>Checking every range is O(N²), too slow for N = 2×10⁵.</p>
+<p>Every count is 0 or more, so a wider range never has a smaller total. Move the right end one step at a time and add A; whenever the total goes over K, move the left end and subtract until it is K or less again. For each right end, <code>left</code>…<code>right</code> is then the longest range ending there.</p>
+<p>Both ends move at most N times, so the whole thing is O(N). This is the <strong>two-pointer</strong> (sliding window) technique, called しゃくとり法 in Japanese. The total can reach 2×10⁵ × 10⁹, so use <code>long</code>.</p>
+<h2>解説 (my)</h2>
+<p>အပိုင်းအားလုံးကို စစ်လျှင် O(N²) ဖြစ်ပြီး N = 2×10⁵ အတွက် အချိန်မမီပါ။</p>
+<p>အရေအတွက်အားလုံးသည် 0 နှင့်အထက် ဖြစ်သောကြောင့် အပိုင်းကို ချဲ့လျှင် စုစုပေါင်း မလျော့ပါ။ ညာအစွန်း <code>right</code> ကို တစ်နေရာချင်း ရွှေ့ပြီး A ကို ပေါင်းပါ။ စုစုပေါင်းသည် K ထက် ကျော်သွားလျှင် K နှင့်အောက် ပြန်ဖြစ်သည်အထိ ဘယ်အစွန်း <code>left</code> ကို ရွှေ့ပြီး A ကို နုတ်ပါ။ ထိုအခါ ညာအစွန်းတိုင်းအတွက် <code>left</code> မှ <code>right</code> အထိသည် ထိုနေရာတွင် ဆုံးသော အရှည်ဆုံး အပိုင်း ဖြစ်သည်။</p>
+<p>အစွန်းနှစ်ဖက်စလုံး N ကြိမ်သာ ရွှေ့သောကြောင့် စုစုပေါင်း O(N) ဖြစ်သည်။ ဤနည်းကို <strong>two pointers (しゃくとり法)</strong> ဟု ခေါ်သည်။ စုစုပေါင်းသည် 2×10⁵ × 10⁹ အထိ ရောက်နိုင်သောကြောင့် <code>long</code> ကို သုံးပါ။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        long k = Long.parseLong(st.nextToken());
+
+        long[] a = new long[n];
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i &lt; n; i++) a[i] = Long.parseLong(st.nextToken());
+
+        long sum = 0;   // errors in a[left..right]
+        int left = 0, best = 0;
+        for (int right = 0; right &lt; n; right++) {
+            sum += a[right];
+            while (sum &gt; k) sum -= a[left++];      // shrink until the total is K or less
+            best = Math.max(best, right - left + 1);  // an empty range (left &gt; right) counts as 0
+        }
+        System.out.println(best);
+    }
+}
+</code></pre>
+</body></html>

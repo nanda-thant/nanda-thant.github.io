@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門13 最初に失敗したテスト</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>入門13 最初に失敗したテスト</h1><p class="meta">Basics 13 · The first failed test</p><p class="meta">2026-11-08 · やさしい <span class="tag">入門</span><span class="tag">ループ</span></p><h2>問題</h2>
+<p>N 個のテストを順番に実行しました。i 番目の結果 Rᵢ は <code>OK</code> か <code>NG</code> です。</p>
+<p>最初に <code>NG</code> になったテストの番号を出力してください。全部 <code>OK</code> なら <code>ALL OK</code> と出力してください。</p>
+<h2>問題 (en)</h2>
+<p>You ran N tests in order. The result Rᵢ of test i is <code>OK</code> or <code>NG</code>.</p>
+<p>Print the number of the first test that was <code>NG</code>. If all of them are <code>OK</code>, print <code>ALL OK</code>.</p>
+<h2>問題 (my)</h2>
+<p>test N ခုကို အစဉ်လိုက် run ခဲ့သည်။ i ခုမြောက် ရလဒ် Rᵢ သည် <code>OK</code> သို့မဟုတ် <code>NG</code> ဖြစ်သည်။</p>
+<p>ပထမဆုံး <code>NG</code> ဖြစ်သော test ၏ နံပါတ်ကို ထုတ်ပြပါ။ အားလုံး <code>OK</code> ဖြစ်လျှင် <code>ALL OK</code> ဟု ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N ≤ 100</li>
+<li>Rᵢ は <code>OK</code> または <code>NG</code></li>
+</ul>
+<h2>入力</h2>
+<pre><code>N
+R_1 R_2 … R_N
+</code></pre>
+<h2>出力</h2>
+<p>最初の <code>NG</code> の番号（1 から N）、または <code>ALL OK</code> を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>5
+OK OK NG OK NG
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>3
+</code></pre>
+<h2>入力例 2</h2>
+<pre><code>3
+OK OK OK
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>ALL OK
+</code></pre>
+<h2>ヒント</h2>
+<p>見つかった番号を入れる変数を、「まだ見つかっていない」を表す値（たとえば <code>-1</code>）で始めます。<code>NG</code> を見つけたら番号を入れて、<code>break</code> でループを抜けましょう。</p>
+<h2>ヒント (en)</h2>
+<p>Start a variable at a value meaning "not found yet", such as <code>-1</code>. When you see <code>NG</code>, store its number and leave the loop with <code>break</code>.</p>
+<h2>ヒント (my)</h2>
+<p>ရှာတွေ့သည့် နံပါတ်အတွက် variable ကို «မတွေ့သေး» ဟု ဆိုလိုသော တန်ဖိုး (ဥပမာ <code>-1</code>) ဖြင့် စပါ။ <code>NG</code> ကို တွေ့လျှင် နံပါတ်ကို သိမ်းပြီး <code>break</code> ဖြင့် loop မှ ထွက်ပါ။</p>
+<h2>解説</h2>
+<p><code>break</code> はいちばん内側のループをすぐに終わらせます。最初の 1 つだけ欲しいときに、残りを調べずにすみます。</p>
+<p><code>break</code> を忘れると、最後の <code>NG</code>（入力例 1 では 5）が答えになってしまいます。</p>
+<p>ループの後で <code>-1</code> のままなら一度も見つからなかったので、<code>ALL OK</code> を出力します。このように「見つかったかどうか」を表す変数を<strong>フラグ</strong>と呼びます。<code>boolean found = false;</code> を使っても同じことができます。</p>
+<h2>解説 (en)</h2>
+<p><code>break</code> ends the innermost loop at once, so you stop at the first match without checking the rest.</p>
+<p>Without <code>break</code>, you would print the last <code>NG</code> (5 in sample 1).</p>
+<p>If the variable is still <code>-1</code> after the loop, nothing was found, so print <code>ALL OK</code>. A variable like this is called a <strong>flag</strong>; <code>boolean found = false;</code> works too.</p>
+<h2>解説 (my)</h2>
+<p><code>break</code> သည် အတွင်းဆုံး loop ကို ချက်ချင်း ရပ်စေသည်။ ပထမဆုံး တစ်ခုသာ လိုလျှင် ကျန်တာ ဆက်မစစ်ရတော့ပါ။</p>
+<p><code>break</code> မေ့လျှင် နောက်ဆုံး <code>NG</code> (ဥပမာ ၁ တွင် 5) ကို ဖြေမိပါမည်။</p>
+<p>Loop ပြီးနောက် <code>-1</code> အတိုင်း ရှိနေလျှင် တစ်ခုမှ မတွေ့သဖြင့် <code>ALL OK</code> ကို ထုတ်ပါ။ ဤကဲ့သို့ variable ကို <strong>flag</strong> ဟုခေါ်သည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int first = -1;
+        for (int i = 1; i &lt;= n; i++) {
+            String r = sc.next();
+            if (r.equals(&quot;NG&quot;)) {
+                first = i;
+                break;
+            }
+        }
+        if (first == -1) {
+            System.out.println(&quot;ALL OK&quot;);
+        } else {
+            System.out.println(first);
+        }
+    }
+}
+</code></pre>
+</body></html>

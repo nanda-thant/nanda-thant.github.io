@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門12 リトライは何回できる？</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>入門12 リトライは何回できる？</h1><p class="meta">Basics 12 · How many retries?</p><p class="meta">2026-11-08 · やさしい <span class="tag">入門</span><span class="tag">ループ</span></p><h2>問題</h2>
+<p>API の呼び出しが失敗したら、少し待ってからリトライ（再試行）します。待ち時間は 1 回目が 1 秒で、そのあと 2 秒、4 秒、8 秒…と毎回 2 倍になります。</p>
+<p>待ち時間の合計が T 秒を超えない範囲で、最大何回リトライできるか出力してください。</p>
+<h2>問題 (en)</h2>
+<p>When an API call fails, you wait a little and then retry. The first wait is 1 second, then 2 seconds, 4 seconds, 8 seconds … doubling each time.</p>
+<p>Print the largest number of retries you can make while the total waiting time stays at T seconds or less.</p>
+<h2>問題 (my)</h2>
+<p>API ခေါ်ဆိုမှု မအောင်မြင်လျှင် ခဏစောင့်ပြီး retry (ထပ်ကြိုးစား) လုပ်သည်။ စောင့်ချိန်သည် ပထမအကြိမ် 1 စက္ကန့်၊ ထို့နောက် 2 စက္ကန့်၊ 4 စက္ကန့်၊ 8 စက္ကန့် … ဟု အကြိမ်တိုင်း နှစ်ဆ တိုးသည်။</p>
+<p>စောင့်ချိန် စုစုပေါင်း T စက္ကန့် မကျော်သရွေ့ retry အများဆုံး မည်မျှ လုပ်နိုင်သည်ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>0 ≤ T ≤ 10⁹</li>
+<li>T は整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>T
+</code></pre>
+<h2>出力</h2>
+<p>リトライの最大回数を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>10
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>3
+</code></pre>
+<p>1 + 2 + 4 = 7 秒で 3 回です。4 回目まで待つと 7 + 8 = 15 秒になり、10 秒を超えます。</p>
+<h2>入力例 2</h2>
+<pre><code>0
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>0
+</code></pre>
+<h2>入力例 3</h2>
+<pre><code>1000000000
+</code></pre>
+<h2>出力例 3</h2>
+<pre><code>29
+</code></pre>
+<h2>ヒント</h2>
+<p>何回繰り返すか最初にはわからないので、<code>for</code> ではなく <code>while</code> が向いています。「次の待ち時間を足しても T 以下なら、足して回数を 1 増やす」を繰り返しましょう。</p>
+<h2>ヒント (en)</h2>
+<p>You do not know in advance how many times to repeat, so <code>while</code> fits better than <code>for</code>. Repeat: "if adding the next wait still stays within T, add it and count one more retry".</p>
+<h2>ヒント (my)</h2>
+<p>ဘယ်နှစ်ကြိမ် ပတ်ရမလဲ ကြိုမသိသဖြင့် <code>for</code> ထက် <code>while</code> က ပိုသင့်တော်သည်။ «နောက်ထပ် စောင့်ချိန်ကို ပေါင်းလည်း T ထက် မကျော်လျှင် ပေါင်းပြီး အကြိမ်ရေ ၁ တိုး» ကို ထပ်ခါထပ်ခါ လုပ်ပါ။</p>
+<h2>解説</h2>
+<pre><code class="language-java">long total = 0, wait = 1;
+int count = 0;
+while (total + wait &lt;= t) {
+    total += wait;
+    wait *= 2;
+    count++;
+}
+</code></pre>
+<p><code>while (条件)</code> は条件が <code>true</code> の間ずっと繰り返します。条件がいつか必ず <code>false</code> になることを確かめましょう。ならないと<strong>無限ループ</strong>です。ここでは <code>wait</code> が毎回 2 倍になるので、すぐに T を超えます。</p>
+<p>T が大きいと <code>total + wait</code> が <code>int</code> の範囲に近づくので、<code>long</code> にしておくと安心です。</p>
+<p>この「待ち時間を 2 倍ずつ増やす」方法は<strong>エクスポネンシャルバックオフ</strong>と呼ばれ、実際の API クライアントでもよく使われます。</p>
+<h2>解説 (en)</h2>
+<p><code>while (condition)</code> repeats as long as the condition is <code>true</code>. Make sure it eventually becomes <code>false</code>, or you get an <strong>infinite loop</strong>. Here <code>wait</code> doubles each time, so it passes T quickly.</p>
+<p>For large T, <code>total + wait</code> gets close to the <code>int</code> limit, so <code>long</code> is the safe choice.</p>
+<p>Doubling the wait is called <strong>exponential backoff</strong>, and real API clients use it.</p>
+<h2>解説 (my)</h2>
+<p><code>while (condition)</code> သည် condition <code>true</code> ဖြစ်နေသရွေ့ ထပ်ခါထပ်ခါ လုပ်သည်။ တစ်ချိန်ချိန်တွင် <code>false</code> ဖြစ်မည်ကို သေချာပါစေ။ မဟုတ်လျှင် <strong>infinite loop</strong> ဖြစ်ပါမည်။ ဤနေရာတွင် <code>wait</code> သည် အကြိမ်တိုင်း နှစ်ဆ ဖြစ်သဖြင့် T ကို မကြာမီ ကျော်သွားသည်။</p>
+<p>စောင့်ချိန်ကို နှစ်ဆစီ တိုးသည့်နည်းကို <strong>exponential backoff</strong> ဟုခေါ်ပြီး လက်တွေ့ API client များတွင် အသုံးများသည်။</p>
+<p>T ကြီးမားသောအခါ <code>total + wait</code> သည် <code>int</code> ကန့်သတ်ချက်ကို ကျော်နိုင်သဖြင့် <code>long</code> သုံးခြင်းက ပိုလုံခြုံသည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        long t = sc.nextLong();
+        long total = 0;
+        long wait = 1;
+        int count = 0;
+        while (total + wait &lt;= t) {
+            total += wait;
+            wait *= 2;
+            count++;
+        }
+        System.out.println(count);
+    }
+}
+</code></pre>
+</body></html>

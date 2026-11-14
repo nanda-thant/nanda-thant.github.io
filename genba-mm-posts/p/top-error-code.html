@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ステップアップ2 一番多いエラーコード</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>ステップアップ2 一番多いエラーコード</h1><p class="meta">Step up 2 · The most frequent error code</p><p class="meta">2026-11-08 · ふつう <span class="tag">ステップアップ</span><span class="tag">HashMap</span><span class="tag">文字列</span></p><h2>問題</h2>
+<p>障害ログに N 件のエラーコード Cᵢ が記録されています。一番多く出てきたエラーコードを出力してください。</p>
+<p>同じ回数のものが複数あるときは、辞書順で一番小さいものを出力してください。</p>
+<h2>問題 (en)</h2>
+<p>An incident log records N error codes Cᵢ. Print the error code that appears most often.</p>
+<p>If several codes appear the same number of times, print the one that comes first in dictionary order.</p>
+<h2>問題 (my)</h2>
+<p>ချို့ယွင်းချက် log (障害ログ) တွင် error code Cᵢ N ခု မှတ်တမ်းတင်ထားသည်။ အကြိမ်အများဆုံး ပေါ်သော error code ကို ထုတ်ပြပါ။</p>
+<p>အကြိမ်ရေ တူသော code တစ်ခုထက်ပို ရှိလျှင် dictionary order (အက္ခရာစဉ်) အရ အငယ်ဆုံးကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N ≤ 2×10⁵</li>
+<li>Cᵢ は英大文字と数字からなる 1〜10 文字の文字列</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N
+C_1 C_2 … C_N
+</code></pre>
+<h2>出力</h2>
+<p>エラーコードを出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>6
+E404 E500 E404 E503 E500 E404
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>E404
+</code></pre>
+<h2>入力例 2</h2>
+<pre><code>4
+B2 A1 B2 A1
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>A1
+</code></pre>
+<p><code>A1</code> と <code>B2</code> が 2 回ずつなので、辞書順で小さい <code>A1</code> です。</p>
+<h2>ヒント</h2>
+<p>コードは数字ではなく文字列なので、ステップアップ1 のように配列の添字には使えません。「文字列 → 回数」を覚えておける <code>HashMap&lt;String, Integer&gt;</code> を使いましょう。</p>
+<h2>ヒント (en)</h2>
+<p>The codes are strings, not numbers, so they cannot be array indexes as in Step up 1. Use a <code>HashMap&lt;String, Integer&gt;</code> that maps each code to its count.</p>
+<h2>ヒント (my)</h2>
+<p>Code များသည် ဂဏန်းမဟုတ်ဘဲ string ဖြစ်သဖြင့် အဆင့်မြှင့် ၁ ကဲ့သို့ array index အဖြစ် မသုံးနိုင်ပါ။ «string → အကြိမ်ရေ» ကို မှတ်ထားနိုင်သော <code>HashMap&lt;String, Integer&gt;</code> ကို သုံးပါ။</p>
+<h2>解説</h2>
+<pre><code class="language-java">Map&lt;String, Integer&gt; count = new HashMap&lt;&gt;();
+count.merge(code, 1, Integer::sum);   // なければ 1、あれば +1
+</code></pre>
+<p><code>count.put(code, count.getOrDefault(code, 0) + 1)</code> と書いても同じです。</p>
+<p>最後に全部のエントリを見て、回数が多いもの、同じなら <code>compareTo</code> で小さいものを選びます。<code>a.compareTo(b) &lt; 0</code> は「a が辞書順で b より前」という意味です。</p>
+<p><code>HashMap</code> の追加・検索は平均 O(1) なので、全体で O(N) です。<code>HashMap</code> は順番を保証しないので、「辞書順で最小」は自分で比べる必要があります。</p>
+<h2>解説 (en)</h2>
+<p><code>count.merge(code, 1, Integer::sum)</code> adds 1, starting from 1 for a new code. <code>count.put(code, count.getOrDefault(code, 0) + 1)</code> does the same.</p>
+<p>Then look at every entry and keep the one with the highest count, using <code>compareTo</code> on ties: <code>a.compareTo(b) &lt; 0</code> means a comes before b in dictionary order.</p>
+<p><code>HashMap</code> insert and lookup take O(1) on average, so the whole program is O(N). A <code>HashMap</code> has no order, so you must compare for "smallest in dictionary order" yourself.</p>
+<h2>解説 (my)</h2>
+<p><code>count.merge(code, 1, Integer::sum)</code> သည် code အသစ်ဆိုလျှင် 1၊ ရှိပြီးသားဆိုလျှင် +1 လုပ်သည်။</p>
+<p>နောက်ဆုံးတွင် entry အားလုံးကို ကြည့်ပြီး အကြိမ်ရေ အများဆုံးကို ရွေးပါ။ တူလျှင် <code>compareTo</code> ဖြင့် ငယ်သည့်တစ်ခုကို ရွေးပါ။ <code>a.compareTo(b) &lt; 0</code> ဆိုသည်မှာ အက္ခရာစဉ်အရ a သည် b ၏ ရှေ့တွင် ရှိသည်ဟု ဆိုလိုသည်။</p>
+<p><code>HashMap</code> တွင် ထည့်ခြင်း၊ ရှာခြင်းသည် ပျမ်းမျှ O(1) ဖြစ်သဖြင့် စုစုပေါင်း O(N) ဖြစ်သည်။</p>
+<p><code>count.put(code, count.getOrDefault(code, 0) + 1)</code> ဖြင့်လည်း တူညီစွာ ရေတွက်နိုင်သည်။ <code>HashMap</code> မှာ အစဉ်လိုက်စီထားခြင်း မရှိသဖြင့် အက္ခရာစဉ်အရ အငယ်ဆုံးကို ကိုယ်တိုင် နှိုင်းယှဉ်ရွေးရမည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Map&lt;String, Integer&gt; count = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            count.merge(sc.next(), 1, Integer::sum);
+        }
+        String best = null;
+        int bestCount = 0;
+        for (Map.Entry&lt;String, Integer&gt; e : count.entrySet()) {
+            String code = e.getKey();
+            int c = e.getValue();
+            if (c &gt; bestCount || (c == bestCount &amp;&amp; code.compareTo(best) &lt; 0)) {
+                best = code;
+                bestCount = c;
+            }
+        }
+        System.out.println(best);
+    }
+}
+</code></pre>
+</body></html>

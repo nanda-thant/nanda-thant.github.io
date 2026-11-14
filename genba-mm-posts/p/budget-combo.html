@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ステップアップ10 予算内で機材をそろえる</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>ステップアップ10 予算内で機材をそろえる</h1><p class="meta">Step up 10 · Equipment within the budget</p><p class="meta">2026-11-08 · ふつう <span class="tag">ステップアップ</span><span class="tag">全探索</span></p><h2>問題</h2>
+<p>新しいメンバーのために、ノート PC、モニター、キーボードを 1 つずつ買います。ノート PC は N 種類（価格 Aᵢ）、モニターは M 種類（価格 Bⱼ）、キーボードは L 種類（価格 Cₖ）あります。</p>
+<p>合計が予算 X 円以下になる買い方のうち、合計金額の最大値を出力してください。どう買っても予算を超えるときは <code>-1</code> を出力してください。</p>
+<h2>問題 (en)</h2>
+<p>For a new team member you buy one laptop, one monitor and one keyboard. There are N laptops (prices Aᵢ), M monitors (prices Bⱼ) and L keyboards (prices Cₖ).</p>
+<p>Among the ways to buy whose total is within the budget of X yen, print the largest total. If every way goes over the budget, print <code>-1</code>.</p>
+<h2>問題 (my)</h2>
+<p>အဖွဲ့ဝင်သစ်အတွက် laptop၊ monitor နှင့် keyboard တစ်ခုစီ ဝယ်မည်။ laptop N မျိုး (ဈေးနှုန်း Aᵢ)၊ monitor M မျိုး (ဈေးနှုန်း Bⱼ)၊ keyboard L မျိုး (ဈေးနှုန်း Cₖ) ရှိသည်။</p>
+<p>စုစုပေါင်း ဘတ်ဂျက် X ယန်း နှင့်အောက် ဖြစ်သော ဝယ်နည်းများထဲမှ စုစုပေါင်း ငွေပမာဏ အများဆုံးကို ထုတ်ပြပါ။ မည်သို့ ဝယ်ဝယ် ဘတ်ဂျက် ကျော်လျှင် <code>-1</code> ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N, M, L ≤ 100</li>
+<li>1 ≤ Aᵢ, Bⱼ, Cₖ ≤ 10⁶</li>
+<li>1 ≤ X ≤ 3×10⁶</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N M L X
+A_1 … A_N
+B_1 … B_M
+C_1 … C_L
+</code></pre>
+<h2>出力</h2>
+<p>合計金額の最大値、または <code>-1</code> を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>3 2 2 100
+50 70 30
+20 40
+10 25
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>100
+</code></pre>
+<p>70 + 20 + 10 = 100 円、または 50 + 40 + 10 = 100 円です。</p>
+<h2>入力例 2</h2>
+<pre><code>1 1 1 10
+5
+5
+5
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>-1
+</code></pre>
+<h2>ヒント</h2>
+<p>組み合わせは最大 100 × 100 × 100 = 10⁶ 通りです。これなら全部調べても十分間に合います。</p>
+<h2>ヒント (en)</h2>
+<p>There are at most 100 × 100 × 100 = 10⁶ combinations, few enough to try them all.</p>
+<h2>ヒント (my)</h2>
+<p>ပေါင်းစပ်မှုသည် အများဆုံး 100 × 100 × 100 = 10⁶ မျိုးသာ ရှိသဖြင့် အားလုံးကို စစ်လည်း အချိန်မီပါသည်။</p>
+<h2>解説</h2>
+<p>三重ループで全部の組を調べ、予算以内で一番大きい合計を覚えておきます（<strong>全探索</strong>）。答えの初期値を <code>-1</code> にしておけば、1 つも見つからないときにそのまま出力できます。</p>
+<p>全探索は、まず<strong>組み合わせの数を数えて</strong>から使います。10⁶ なら一瞬、10⁸ でぎりぎり、10¹⁰ なら無理です。たとえば各 10⁵ 種類あれば 10¹⁵ 通りになり、ソートと二分探索のような工夫が必要になります。それがこの次の「ふつう」の問題です。</p>
+<h2>解説 (en)</h2>
+<p>Try every combination with three nested loops and keep the largest total within the budget (<strong>brute force</strong>). Starting the answer at <code>-1</code> means you can print it as is when nothing fits.</p>
+<p>Before using brute force, <strong>count the combinations</strong>: 10⁶ is instant, 10⁸ is borderline, 10¹⁰ is too slow. With 10⁵ of each item there would be 10¹⁵ combinations, and you would need ideas like sorting and binary search. That is what the ふつう problems after this one are about.</p>
+<h2>解説 (my)</h2>
+<p>Nested loop သုံးထပ်ဖြင့် ပေါင်းစပ်မှုအားလုံးကို စစ်ပြီး ဘတ်ဂျက်အတွင်း အကြီးဆုံး စုစုပေါင်းကို မှတ်ထားပါ (<strong>全探索</strong>)။ အဖြေကို <code>-1</code> ဖြင့် စထားလျှင် တစ်ခုမှ မတွေ့သည့်အခါ ဒီအတိုင်း ထုတ်နိုင်သည်။</p>
+<p>全探索 မသုံးမီ <strong>ပေါင်းစပ်မှု အရေအတွက်ကို အရင်တွက်ပါ</strong>: 10⁶ ဆိုလျှင် ချက်ချင်း၊ 10⁸ ဆိုလျှင် နယ်စပ်၊ 10¹⁰ ဆိုလျှင် မဖြစ်နိုင်ပါ။ ထိုအခါ sort နှင့် binary search ကဲ့သို့ နည်းလမ်းများ လိုအပ်ပြီး ၎င်းတို့ကို နောက် «ふつう» ပုစ္ဆာများတွင် လေ့လာပါ။</p>
+<p>ပစ္စည်းတစ်မျိုးစီ 10⁵ ခု ရှိလျှင် ပေါင်းစပ်မှု 10¹⁵ မျိုး ဖြစ်နိုင်သဖြင့် sort နှင့် binary search ကဲ့သို့ ပိုထိရောက်သောနည်းများ လိုအပ်သည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    static int[] read(Scanner sc, int n) {
+        int[] a = new int[n];
+        for (int i = 0; i &lt; n; i++) a[i] = sc.nextInt();
+        return a;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(), m = sc.nextInt(), l = sc.nextInt(), x = sc.nextInt();
+        int[] a = read(sc, n), b = read(sc, m), c = read(sc, l);
+        int best = -1;
+        for (int pc : a) {
+            for (int monitor : b) {
+                for (int keyboard : c) {
+                    int total = pc + monitor + keyboard;
+                    if (total &lt;= x &amp;&amp; total &gt; best) {
+                        best = total;
+                    }
+                }
+            }
+        }
+        System.out.println(best);
+    }
+}
+</code></pre>
+</body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ステップアップ1 アンケートの集計</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>ステップアップ1 アンケートの集計</h1><p class="meta">Step up 1 · Counting survey votes</p><p class="meta">2026-11-08 · ふつう <span class="tag">ステップアップ</span><span class="tag">配列</span><span class="tag">計算量</span></p><h2>問題</h2>
+<p>社内アンケートで、M 個の案（1 番から M 番）に N 人が 1 票ずつ投票しました。i 番目の人は Vᵢ 番の案に投票しました。</p>
+<p>各案の得票数を、1 番から順に空白区切りで出力してください。</p>
+<h2>問題 (en)</h2>
+<p>In an in-house survey, N people each cast one vote for one of M proposals (numbered 1 to M). Person i voted for proposal Vᵢ.</p>
+<p>Print the number of votes for each proposal, starting from proposal 1, separated by spaces.</p>
+<h2>問題 (my)</h2>
+<p>ကုမ္ပဏီတွင်း စစ်တမ်းတွင် အဆိုပြုချက် M ခု (1 မှ M အထိ) အတွက် လူ N ယောက်က တစ်ယောက်လျှင် တစ်မဲ ပေးခဲ့သည်။ i ယောက်မြောက်သည် Vᵢ နံပါတ် အဆိုပြုချက်ကို မဲပေးခဲ့သည်။</p>
+<p>အဆိုပြုချက် တစ်ခုချင်းစီ ရရှိသော မဲအရေအတွက်ကို 1 မှ စ၍ space ခြားပြီး ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N, M ≤ 2×10⁵</li>
+<li>1 ≤ Vᵢ ≤ M</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N M
+V_1 V_2 … V_N
+</code></pre>
+<h2>出力</h2>
+<p>M 個の得票数を空白区切りで 1 行に出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>6 3
+1 3 3 2 3 1
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>2 1 3
+</code></pre>
+<h2>入力例 2</h2>
+<pre><code>2 4
+4 4
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>0 0 0 2
+</code></pre>
+<h2>ヒント</h2>
+<p>案ごとに「全員の票を見て数える」と、M × N = 4×10¹⁰ 回の計算になり間に合いません。票を 1 回読むだけで数えられる方法を考えましょう。</p>
+<h2>ヒント (en)</h2>
+<p>Counting each option by scanning every vote takes M × N = 4×10¹⁰ steps, which is too slow. Find a way to count while reading the votes only once.</p>
+<h2>ヒント (my)</h2>
+<p>အစီအစဉ်တစ်ခုချင်းအတွက် မဲအားလုံးကို ပြန်ကြည့်ပြီး ရေတွက်လျှင် M × N = 4×10¹⁰ ကြိမ် တွက်ရပြီး အချိန်မမီပါ။ မဲများကို တစ်ကြိမ်တည်း ဖတ်ရင်း ရေတွက်နိုင်သည့် နည်းကို စဉ်းစားပါ။</p>
+<h2>解説</h2>
+<p>長さ M + 1 の配列 <code>cnt</code> を用意し、票 v を読むたびに <code>cnt[v]++</code> します。案の番号をそのまま配列の添字に使うのがポイントです。計算量は O(N + M) です。</p>
+<p><strong>計算量</strong>の目安：Java は 1 秒に約 10⁸〜10⁹ 回の簡単な計算ができます。制約の最大値を入れて、回数がそれより十分小さいか確かめましょう。</p>
+<p>出力が多いので、<code>System.out.println</code> を何十万回も呼ぶと遅くなります。<code>StringBuilder</code> にまとめてから 1 回で出力します。</p>
+<h2>解説 (en)</h2>
+<p>Make an array <code>cnt</code> of length M + 1 and do <code>cnt[v]++</code> for each vote v. The trick is to use the option number directly as the array index. This is O(N + M).</p>
+<p>A rule of thumb for <strong>time complexity</strong>: Java does about 10⁸–10⁹ simple steps per second. Put the largest values from the constraints into your step count and check it stays well below that.</p>
+<p>The output is long, so calling <code>System.out.println</code> hundreds of thousands of times is slow. Collect it in a <code>StringBuilder</code> and print once.</p>
+<h2>解説 (my)</h2>
+<p>အရှည် M + 1 ရှိသော array <code>cnt</code> ကို ပြင်ပြီး မဲ v ကို ဖတ်တိုင်း <code>cnt[v]++</code> လုပ်ပါ။ အစီအစဉ် နံပါတ်ကို array index အဖြစ် တိုက်ရိုက်သုံးခြင်းသည် အဓိကဖြစ်သည်။ O(N + M) ဖြစ်သည်။</p>
+<p><strong>計算量 (time complexity)</strong> အတွက် မှတ်ချက်: Java သည် တစ်စက္ကန့်လျှင် ရိုးရှင်းသော တွက်ချက်မှု 10⁸–10⁹ ခန့် လုပ်နိုင်သည်။ ကန့်သတ်ချက်၏ အမြင့်ဆုံးတန်ဖိုးဖြင့် တွက်ကြည့်ပါ။</p>
+<p>Output အလွန်ရှည်နိုင်သဖြင့် <code>System.out.println</code> ကို သိန်းနှင့်ချီ ခေါ်ခြင်းက နှေးသည်။ <code>StringBuilder</code> ထဲ စုထားပြီး တစ်ကြိမ်တည်း ထုတ်ပါ။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        int[] cnt = new int[m + 1];        // cnt[v] = votes for option v
+        for (int i = 0; i &lt; n; i++) {
+            cnt[sc.nextInt()]++;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int v = 1; v &lt;= m; v++) {
+            if (v &gt; 1) sb.append(' ');
+            sb.append(cnt[v]);
+        }
+        System.out.println(sb);
+    }
+}
+</code></pre>
+</body></html>

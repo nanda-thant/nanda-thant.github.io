@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>つながったサーバーのグループ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>つながったサーバーのグループ</h1><p class="meta">Groups of connected servers</p><p class="meta">2026-11-14 · ふつう <span class="tag">Union-Find</span><span class="tag">グラフ</span></p><h2>問題</h2>
+<p>データセンターに 1 から N までの番号のサーバーが N 台あり、最初はどれもつながっていません。これから M 本のケーブルを順に配線します。j 本目のケーブルはサーバー aⱼ と bⱼ をつなぎます。</p>
+<p>ケーブルで（ほかのサーバーを経由してもよいので）行き来できるサーバーどうしを 1 つのグループと考えます。ケーブルを 1 本つなぐたびに、グループがいくつあるかを出力してください。</p>
+<h2>問題 (en)</h2>
+<p>A data centre has N servers numbered 1 to N, none of them connected yet. M cables are now plugged in one after another; cable j connects servers aⱼ and bⱼ.</p>
+<p>Servers that can reach each other through cables (possibly via other servers) form one group. After each cable, print how many groups there are.</p>
+<h2>問題 (my)</h2>
+<p>data center တစ်ခုတွင် 1 မှ N အထိ နံပါတ်တပ်ထားသော server N လုံး ရှိပြီး အစတွင် မည်သည့် server မျှ ချိတ်ဆက်မထားပါ။ ယခု cable M ကြိုးကို တစ်ကြိုးပြီးတစ်ကြိုး တပ်ဆင်မည်။ j ကြိုးမြောက် cable သည် server aⱼ နှင့် bⱼ ကို ချိတ်ဆက်သည်။</p>
+<p>cable ဖြင့် (အခြား server များကို ဖြတ်၍လည်း ရသည်) အပြန်အလှန် သွားနိုင်သော server များကို အုပ်စုတစ်စု ဟု သတ်မှတ်သည်။ cable တစ်ကြိုး ချိတ်ပြီးတိုင်း အုပ်စု မည်မျှ ရှိသည်ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N, M ≤ 2×10⁵</li>
+<li>1 ≤ aⱼ, bⱼ ≤ N</li>
+<li>同じ 2 台をつなぐケーブルが何本あってもよい</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N M
+a_1 b_1
+⋮
+a_M b_M
+</code></pre>
+<h2>出力</h2>
+<p>M 行出力してください。j 行目には j 本目のケーブルをつないだあとのグループの数を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>5 4
+1 2
+3 4
+2 1
+2 3
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>4
+3
+3
+2
+</code></pre>
+<p>3 本目のケーブルは、もう同じグループの 1 と 2 をつなぐので、数は変わりません。</p>
+<h2>入力例 2</h2>
+<pre><code>3 2
+1 3
+3 2
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>2
+1
+</code></pre>
+<h2>ヒント</h2>
+<p>最初はグループが N 個です。ケーブルが<strong>別々のグループ</strong>をつないだときだけ、グループが 1 つ減ります。「この 2 台は同じグループか」をすばやく調べるには？</p>
+<h2>ヒント (en)</h2>
+<p>There are N groups at the start, and the count drops by one only when a cable joins <strong>two different groups</strong>. How can you check quickly whether two servers are already in the same group?</p>
+<h2>ヒント (my)</h2>
+<p>အစတွင် အုပ်စု N စု ရှိသည်။ cable သည် <strong>မတူညီသော အုပ်စုနှစ်စု</strong> ကို ချိတ်ဆက်မှသာ အုပ်စုအရေအတွက် တစ်ခု လျော့သည်။ "ဤ server နှစ်လုံးသည် အုပ်စုတစ်စုတည်း ဖြစ်ပြီးပြီလား" ကို မြန်မြန် စစ်ရန် မည်သို့ လုပ်မည်နည်း။</p>
+<h2>解説</h2>
+<p><strong>Union-Find</strong>（素集合データ構造）を使います。各サーバーに「親」を 1 つ持たせ、親をたどって行き着く先（根）をグループの代表にします。</p>
+<ul>
+<li><code>find(x)</code>：x の根を返す。たどりながら親を根に付け替えると（経路圧縮）、次からは速くなります。</li>
+<li><code>union(a, b)</code>：根が違えば、片方の根をもう片方の下につなぎ、グループの数を 1 減らします。</li>
+</ul>
+<p>小さいほうの木を大きいほうの下につなぐ工夫も入れると、1 回の操作はほぼ定数時間になり、全体で O((N + M) α(N)) です（α はとても増え方の遅い関数で、実用上 5 以下）。</p>
+<h2>解説 (en)</h2>
+<p>Use <strong>Union-Find</strong> (a disjoint-set structure). Each server has one parent; following parents leads to the root, which stands for the group.</p>
+<ul>
+<li><code>find(x)</code> returns the root of x. Pointing every server on the way straight at the root (path compression) makes later calls fast.</li>
+<li><code>union(a, b)</code>: if the roots differ, hang one root under the other and the group count drops by one.</li>
+</ul>
+<p>Together with hanging the smaller tree under the larger one, each operation takes almost constant time, O((N + M) α(N)) in total (α grows so slowly that it is at most 5 in practice).</p>
+<h2>解説 (my)</h2>
+<p><strong>Union-Find (素集合データ構造)</strong> ကို သုံးပါ။ server တစ်လုံးချင်းစီတွင် "parent" တစ်ခု ရှိပြီး parent ကို လိုက်သွားလျှင် ရောက်သော နေရာ (root) သည် အုပ်စု၏ ကိုယ်စားလှယ် ဖြစ်သည်။</p>
+<ul>
+<li><code>find(x)</code>: x ၏ root ကို ပြန်ပေးသည်။ လိုက်သွားရင်း parent ကို root သို့ တိုက်ရိုက် ပြောင်းချိတ်လျှင် (path compression) နောက်တစ်ကြိမ်မှစ၍ မြန်လာသည်။</li>
+<li><code>union(a, b)</code>: root မတူလျှင် root တစ်ခုကို နောက်တစ်ခု၏ အောက်တွင် ချိတ်ပြီး အုပ်စုအရေအတွက်ကို တစ်ခု လျှော့ပါ။</li>
+</ul>
+<p>သေးသော tree ကို ကြီးသော tree အောက်တွင် ချိတ်ခြင်းကိုပါ ထည့်လျှင် လုပ်ဆောင်ချက်တစ်ခုသည် အချိန်အားဖြင့် constant နီးပါး ဖြစ်ပြီး စုစုပေါင်း O((N + M) α(N)) ဖြစ်သည် (α သည် အလွန်နှေးကွေးစွာ ကြီးသော function ဖြစ်ပြီး လက်တွေ့တွင် 5 ထက် မကျော်ပါ)။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.io.*;
+import java.util.*;
+
+public class Main {
+    static int[] parent, size;
+
+    static int find(int x) {
+        while (parent[x] != x) {
+            parent[x] = parent[parent[x]];   // path compression (halving)
+            x = parent[x];
+        }
+        return x;
+    }
+
+    /** Joins the groups of a and b; false if they were already one group. */
+    static boolean union(int a, int b) {
+        a = find(a);
+        b = find(b);
+        if (a == b) return false;
+        if (size[a] &lt; size[b]) { int t = a; a = b; b = t; }
+        parent[b] = a;   // the smaller tree goes under the larger one
+        size[a] += size[b];
+        return true;
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+
+        parent = new int[n + 1];
+        size = new int[n + 1];
+        for (int i = 1; i &lt;= n; i++) {
+            parent[i] = i;
+            size[i] = 1;
+        }
+
+        int groups = n;
+        StringBuilder out = new StringBuilder();
+        for (int j = 0; j &lt; m; j++) {
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            if (union(a, b)) groups--;
+            out.append(groups).append('\n');
+        }
+        System.out.print(out);
+    }
+}
+</code></pre>
+</body></html>

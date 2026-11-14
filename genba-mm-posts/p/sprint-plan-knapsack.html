@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>スプリントに入れるタスク</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>スプリントに入れるタスク</h1><p class="meta">Which tasks fit in the sprint</p><p class="meta">2026-11-14 · むずかしい <span class="tag">動的計画法</span><span class="tag">DP</span><span class="tag">ナップサック</span></p><h2>問題</h2>
+<p>次のスプリントで使える作業時間は W 時間です。候補のタスクが N 個あり、i 番目のタスクは Hᵢ 時間かかり、価値（ストーリーポイント）は Pᵢ です。</p>
+<p>かかる時間の合計が W 以下になるようにタスクを選びます（同じタスクは 1 回だけ）。選んだタスクの価値の合計の最大値を出力してください。</p>
+<h2>問題 (en)</h2>
+<p>The next sprint has W hours of work time. There are N candidate tasks; task i takes Hᵢ hours and is worth Pᵢ story points.</p>
+<p>Choose tasks whose hours add up to W or less (each task at most once). Print the largest total of story points you can get.</p>
+<h2>問題 (my)</h2>
+<p>နောက် sprint တွင် အလုပ်လုပ်နိုင်သော အချိန် W နာရီ ရှိသည်။ ရွေးချယ်နိုင်သော task N ခု ရှိပြီး i ခုမြောက် task သည် Hᵢ နာရီ ကြာပြီး တန်ဖိုး (story point) Pᵢ ရှိသည်။</p>
+<p>ကြာချိန် စုစုပေါင်း W နှင့်အောက် ဖြစ်အောင် task များကို ရွေးပါ (task တစ်ခုကို တစ်ကြိမ်သာ)။ ရွေးထားသော task များ၏ တန်ဖိုး စုစုပေါင်း အများဆုံးကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N ≤ 100</li>
+<li>1 ≤ W ≤ 10⁵</li>
+<li>1 ≤ Hᵢ ≤ W</li>
+<li>1 ≤ Pᵢ ≤ 10⁹</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N W
+H_1 P_1
+⋮
+H_N P_N
+</code></pre>
+<h2>出力</h2>
+<p>価値の合計の最大値を 1 行で出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>4 10
+5 8
+4 5
+6 10
+3 4
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>15
+</code></pre>
+<p>2 番目と 3 番目（4 + 6 = 10 時間）を選ぶと 5 + 10 = 15 です。価値の高い順に 3 番目、1 番目と選ぶと 11 時間で入りません。</p>
+<h2>入力例 2</h2>
+<pre><code>2 3
+4 10
+5 20
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>0
+</code></pre>
+<h2>ヒント</h2>
+<p>選び方は 2ᴺ 通りあり、N = 100 では全部は調べられません。また、価値の高い順や「時間あたりの価値」の高い順に選ぶ方法では、入力例 1 のように最適にならないことがあります。</p>
+<p>「最初の i 個のタスクだけを使って、合計 w 時間以内で取れる価値の最大」を表にしてみましょう。</p>
+<h2>ヒント (en)</h2>
+<p>There are 2ᴺ ways to choose, far too many for N = 100. Picking by highest value, or by value per hour, is not always best either (see sample 1).</p>
+<p>Try a table: "the best value using only the first i tasks within w hours".</p>
+<h2>ヒント (my)</h2>
+<p>ရွေးနည်း 2ᴺ မျိုး ရှိပြီး N = 100 တွင် အားလုံးကို မစစ်နိုင်ပါ။ တန်ဖိုး မြင့်သည့်အစဉ် သို့မဟုတ် "တစ်နာရီလျှင် တန်ဖိုး" မြင့်သည့်အစဉ်ဖြင့် ရွေးသော နည်းသည်လည်း ဥပမာ 1 ကဲ့သို့ အကောင်းဆုံး မဖြစ်နိုင်ပါ။</p>
+<p>"ပထမ task i ခုကိုသာ သုံးပြီး w နာရီအတွင်း ရနိုင်သော အများဆုံး တန်ဖိုး" ကို ဇယားအဖြစ် လုပ်ကြည့်ပါ။</p>
+<h2>解説</h2>
+<p><strong>動的計画法</strong>（DP）で解きます。<code>dp[w]</code> を「ここまでのタスクから選んで、合計 w 時間以内で取れる価値の最大」とします。最初はすべて 0 です。</p>
+<p>タスク (H, P) を 1 つ加えるたびに、w = W から H まで<strong>大きいほうから</strong>順に</p>
+<p><code>dp[w] = max(dp[w], dp[w − H] + P)</code></p>
+<p>と更新します（そのタスクを選ばない場合と選ぶ場合の良いほう）。w を大きいほうから回すのは、同じタスクを 2 回使わないためです。小さいほうから回すと、更新したばかりの <code>dp[w − H]</code> を使ってしまいます。</p>
+<p>計算量は O(NW) で、最大 10⁷ 回ほどです。価値の合計は最大 10¹¹ なので <code>long</code> を使います。この形の問題は<strong>ナップサック問題</strong>と呼ばれ、DP の代表的な例です。</p>
+<h2>解説 (en)</h2>
+<p>Solve it with <strong>dynamic programming</strong> (DP). Let <code>dp[w]</code> be the best value you can get from the tasks seen so far within w hours; it starts at 0 everywhere.</p>
+<p>For each task (H, P), go from w = W down to H, <strong>largest first</strong>, and set</p>
+<p><code>dp[w] = max(dp[w], dp[w − H] + P)</code></p>
+<p>(the better of skipping the task and taking it). Going from the top down keeps each task from being used twice: going upwards would reuse a <code>dp[w − H]</code> that already includes this task.</p>
+<p>That is O(NW), about 10⁷ steps at most. Totals reach 10¹¹, so use <code>long</code>. This is the classic <strong>0/1 knapsack problem</strong>.</p>
+<h2>解説 (my)</h2>
+<p><strong>DP (動的計画法 dynamic programming)</strong> ဖြင့် ဖြေရှင်းပါ။ <code>dp[w]</code> ကို "ယခုအထိ task များထဲမှ ရွေးပြီး w နာရီအတွင်း ရနိုင်သော အများဆုံး တန်ဖိုး" ဟု သတ်မှတ်ပါ။ အစတွင် အားလုံး 0 ဖြစ်သည်။</p>
+<p>task (H, P) တစ်ခု ထည့်တိုင်း w = W မှ H အထိ <strong>ကြီးရာမှ ငယ်ရာသို့</strong> အစဉ်အတိုင်း</p>
+<p><code>dp[w] = max(dp[w], dp[w − H] + P)</code></p>
+<p>ဟု ပြောင်းပါ (ထို task ကို မရွေးခြင်းနှင့် ရွေးခြင်း နှစ်ခုထဲမှ ပိုကောင်းသည့်ဘက်)။ w ကို ကြီးရာမှ စ၍ လှည့်ခြင်းသည် task တစ်ခုတည်းကို နှစ်ကြိမ် မသုံးမိစေရန် ဖြစ်သည်။ ငယ်ရာမှ စလျှင် ပြောင်းပြီးခါစ <code>dp[w − H]</code> ကို ပြန်သုံးမိမည်။</p>
+<p>တွက်ချက်မှု O(NW) ဖြစ်ပြီး အများဆုံး 10⁷ ကြိမ်ခန့် ဖြစ်သည်။ တန်ဖိုး စုစုပေါင်း 10¹¹ အထိ ရောက်နိုင်သောကြောင့် <code>long</code> ကို သုံးပါ။ ဤပုံစံ ပြဿနာကို <strong>knapsack problem (ナップサック問題)</strong> ဟု ခေါ်ပြီး DP ၏ ကိုယ်စားပြု ဥပမာ ဖြစ်သည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int cap = Integer.parseInt(st.nextToken());
+
+        long[] dp = new long[cap + 1];   // dp[w] = best value within w hours
+        for (int i = 0; i &lt; n; i++) {
+            st = new StringTokenizer(br.readLine());
+            int h = Integer.parseInt(st.nextToken());
+            long p = Long.parseLong(st.nextToken());
+            for (int w = cap; w &gt;= h; w--) {   // downwards: each task at most once
+                dp[w] = Math.max(dp[w], dp[w - h] + p);
+            }
+        }
+        System.out.println(dp[cap]);
+    }
+}
+</code></pre>
+</body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門1 残業時間の合計</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>入門1 残業時間の合計</h1><p class="meta">Basics 1 · Total overtime</p><p class="meta">2026-11-08 · やさしい <span class="tag">入門</span><span class="tag">入出力</span></p><h2>問題</h2>
+<p>今月、あなたは前半に A 時間、後半に B 時間の残業をしました。今月の残業時間の合計を出力してください。</p>
+<h2>問題 (en)</h2>
+<p>This month you did A hours of overtime in the first half and B hours in the second half. Print your total overtime for the month.</p>
+<h2>問題 (my)</h2>
+<p>ဤလတွင် သင်သည် လ၏ ပထမပိုင်းတွင် A နာရီ၊ ဒုတိယပိုင်းတွင် B နာရီ အချိန်ပို (overtime) လုပ်ခဲ့သည်။ ဤလ၏ အချိန်ပို စုစုပေါင်းကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>0 ≤ A, B ≤ 100</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>A B
+</code></pre>
+<h2>出力</h2>
+<p>合計の残業時間を 1 行で出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>12 8
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>20
+</code></pre>
+<h2>入力例 2</h2>
+<pre><code>0 0
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>0
+</code></pre>
+<h2>ヒント</h2>
+<p>これは「入力を読んで、計算して、出力する」練習です。Java では <code>Scanner</code> を使うと数字を簡単に読めます。<code>sc.nextInt()</code> を呼ぶたびに、整数が 1 つ読まれます。</p>
+<h2>ヒント (en)</h2>
+<p>This problem practises the basic pattern: read the input, calculate, print. In Java, <code>Scanner</code> reads numbers easily: every call to <code>sc.nextInt()</code> reads one integer.</p>
+<h2>ヒント (my)</h2>
+<p>ဒီပုစ္ဆာက «input ဖတ်၊ တွက်၊ output ထုတ်» ဆိုတဲ့ အခြေခံပုံစံကို လေ့ကျင့်ဖို့ပါ။ Java မှာ <code>Scanner</code> ကို သုံးရင် ဂဏန်းတွေကို လွယ်လွယ်ဖတ်နိုင်ပါတယ်။ <code>sc.nextInt()</code> ကို တစ်ခါခေါ်တိုင်း ကိန်းပြည့်တစ်လုံး ဖတ်ပါတယ်။</p>
+<h2>解説</h2>
+<ol>
+<li><code>Scanner sc = new Scanner(System.in);</code> で入力を読む準備をします。</li>
+<li><code>int a = sc.nextInt();</code> と <code>int b = sc.nextInt();</code> で 2 つの数を読みます。</li>
+<li><code>System.out.println(a + b);</code> で合計を出力します。</li>
+</ol>
+<p>多くのジャッジ（AtCoder、paiza など）では、クラス名を <strong><code>Main</code></strong> にする必要があります。</p>
+<p>注意：<code>System.out.println("合計: " + a + b);</code> と書くと、文字列の連結になって <code>合計: 128</code> と出力されてしまいます。計算は先に括弧で囲みましょう：<code>("合計: " + (a + b))</code>。</p>
+<h2>解説 (en)</h2>
+<ol>
+<li><code>Scanner sc = new Scanner(System.in);</code> gets ready to read the input.</li>
+<li><code>sc.nextInt()</code> twice reads the two numbers.</li>
+<li><code>System.out.println(a + b);</code> prints the total.</li>
+</ol>
+<p>Most judges (AtCoder, paiza and others) require the class to be named <strong><code>Main</code></strong>.</p>
+<p>Watch out: <code>System.out.println("Total: " + a + b);</code> joins strings and prints <code>Total: 128</code>. Put the calculation in brackets first: <code>("Total: " + (a + b))</code>.</p>
+<h2>解説 (my)</h2>
+<ol>
+<li><code>Scanner sc = new Scanner(System.in);</code> ဖြင့် input ဖတ်ရန် ပြင်ဆင်ပါ။</li>
+<li><code>sc.nextInt()</code> ကို နှစ်ကြိမ်ခေါ်ပြီး ဂဏန်းနှစ်လုံးကို ဖတ်ပါ။</li>
+<li><code>System.out.println(a + b);</code> ဖြင့် စုစုပေါင်းကို ထုတ်ပါ။</li>
+</ol>
+<p>Judge အများစု (AtCoder၊ paiza စသည်) တွင် class အမည်ကို <strong><code>Main</code></strong> ဟု ပေးရပါမည်။</p>
+<p>သတိ: <code>"Total: " + a + b</code> ဟု ရေးလျှင် စာသားအဖြစ် ဆက်သွားပြီး <code>Total: 128</code> ထွက်ပါမည်။ တွက်ချက်မှုကို ကွင်းထဲ အရင်ထည့်ပါ: <code>("Total: " + (a + b))</code>။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        System.out.println(a + b);
+    }
+}
+</code></pre>
+</body></html>

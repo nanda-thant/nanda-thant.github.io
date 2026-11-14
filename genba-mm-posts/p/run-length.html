@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ステップアップ7 ステータス履歴の圧縮</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>ステップアップ7 ステータス履歴の圧縮</h1><p class="meta">Step up 7 · Compressing a status history</p><p class="meta">2026-11-08 · ふつう <span class="tag">ステップアップ</span><span class="tag">文字列</span></p><h2>問題</h2>
+<p>監視ツールが 1 分ごとにサーバーの状態を 1 文字（英大文字）で記録しています。同じ文字が続く部分を「文字 + 続いた回数」にまとめて、記録を短くしてください。</p>
+<p>例：<code>AAABCC</code> → <code>A3B1C2</code></p>
+<h2>問題 (en)</h2>
+<p>A monitoring tool records a server's state every minute as one capital letter. Shorten the record by writing each run of the same letter as "letter + how many times in a row".</p>
+<p>Example: <code>AAABCC</code> → <code>A3B1C2</code></p>
+<h2>問題 (my)</h2>
+<p>စောင့်ကြည့်ရေး tool တစ်ခုသည် server ၏ အခြေအနေကို တစ်မိနစ်လျှင် English စာလုံးကြီး တစ်လုံးဖြင့် မှတ်တမ်းတင်သည်။ တူညီသော စာလုံး ဆက်တိုက်ပေါ်သည့် အပိုင်းကို "စာလုံး + ဆက်တိုက်ပေါ်သည့် အကြိမ်ရေ" အဖြစ် စုပြီး မှတ်တမ်းကို တိုအောင် လုပ်ပါ။</p>
+<p>ဥပမာ: <code>AAABCC</code> → <code>A3B1C2</code></p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ |S| ≤ 2×10⁵</li>
+<li>S は英大文字だけからなる</li>
+</ul>
+<h2>入力</h2>
+<pre><code>S
+</code></pre>
+<h2>出力</h2>
+<p>まとめた文字列を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>AAABCC
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>A3B1C2
+</code></pre>
+<h2>入力例 2</h2>
+<pre><code>Z
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>Z1
+</code></pre>
+<h2>入力例 3</h2>
+<pre><code>OOOOOOOOOOOOOX
+</code></pre>
+<h2>出力例 3</h2>
+<pre><code>O13X1
+</code></pre>
+<h2>ヒント</h2>
+<p>「今の文字」と「それが何回続いているか」を覚えながら進みます。違う文字が来たら、それまでの分を出力用に足して、数え直します。最後の 1 かたまりを足し忘れないようにしましょう。</p>
+<h2>ヒント (en)</h2>
+<p>Walk along the string, remembering the current character and how many times in a row it has appeared. When a different character comes, add the finished run to the output and start counting again. Do not forget the last run.</p>
+<h2>ヒント (my)</h2>
+<p>«လက်ရှိ စာလုံး» နှင့် «ဆက်တိုက် ဘယ်နှစ်ကြိမ်» ကို မှတ်ရင်း ရှေ့ဆက်ပါ။ မတူသော စာလုံး ရောက်လာလျှင် ယခင်အစုကို output ထဲ ထည့်ပြီး ပြန်ရေတွက်ပါ။ နောက်ဆုံးအစုကို ထည့်ရန် မမေ့ပါနှင့်။</p>
+<h2>解説</h2>
+<p>この方法を<strong>ランレングス圧縮</strong>と呼びます。画像形式や通信でも使われています。</p>
+<p>「最後のかたまりを足し忘れる」のが一番多いバグです。ここでは、<code>i</code> を進めながら「次の文字が違う、または文字列の終わり」のときにかたまりを出力することで、最後の分も同じ処理で扱っています。</p>
+<p><code>String</code> に <code>+=</code> で足していくと、毎回コピーが作られて O(|S|²) になることがあります。2×10⁵ 文字では遅いので、<code>StringBuilder</code> を使いましょう。</p>
+<h2>解説 (en)</h2>
+<p>This is called <strong>run-length encoding</strong>, and image formats and network protocols use it.</p>
+<p>Forgetting the last run is the most common bug. Here a run is written whenever the next character differs <strong>or</strong> the string ends, so the last run goes through the same code.</p>
+<p>Adding to a <code>String</code> with <code>+=</code> copies it every time and can become O(|S|²), too slow for 2×10⁵ characters. Use <code>StringBuilder</code>.</p>
+<h2>解説 (my)</h2>
+<p>ဤနည်းကို <strong>run-length encoding</strong> ဟုခေါ်ပြီး ပုံ format များနှင့် ဆက်သွယ်ရေးတွင် အသုံးပြုသည်။</p>
+<p>နောက်ဆုံးအစုကို ထည့်ရန် မေ့ခြင်းသည် အဖြစ်အများဆုံး bug ဖြစ်သည်။ ဤနေရာတွင် နောက်စာလုံး မတူလျှင် <strong>သို့မဟုတ်</strong> string ဆုံးလျှင် အစုကို ရေးသဖြင့် နောက်ဆုံးအစုလည်း တူညီသော code ဖြင့် ပြီးသည်။</p>
+<p><code>String +=</code> သည် အကြိမ်တိုင်း ကူးယူသဖြင့် နှေးနိုင်သည်။ <code>StringBuilder</code> ကို သုံးပါ။</p>
+<p>စာလုံးတစ်လုံးချင်း <code>String</code> ကို <code>+=</code> ဖြင့် ဆက်လျှင် အချိန်ရှုပ်ထွေးမှု O(|S|²) အထိ ဖြစ်နိုင်ပြီး 2×10⁵ စာလုံးအတွက် နှေးလွန်းသည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        StringBuilder sb = new StringBuilder();
+        int run = 0;
+        for (int i = 0; i &lt; s.length(); i++) {
+            run++;
+            boolean last = i == s.length() - 1;
+            if (last || s.charAt(i + 1) != s.charAt(i)) {
+                sb.append(s.charAt(i)).append(run);
+                run = 0;
+            }
+        }
+        System.out.println(sb);
+    }
+}
+</code></pre>
+</body></html>

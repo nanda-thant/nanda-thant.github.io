@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ステップアップ5 おつりの硬貨を少なく</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>ステップアップ5 おつりの硬貨を少なく</h1><p class="meta">Step up 5 · Change with the fewest coins</p><p class="meta">2026-11-08 · ふつう <span class="tag">ステップアップ</span><span class="tag">貪欲法</span></p><h2>問題</h2>
+<p>社内の自動販売機のプログラムを作っています。おつり N 円を、500 円、100 円、50 円、10 円、5 円、1 円の硬貨で払います。硬貨の枚数を最も少なくしたときの枚数を出力してください。</p>
+<h2>問題 (en)</h2>
+<p>You are writing the program for the office vending machine. It pays N yen of change in 500, 100, 50, 10, 5 and 1 yen coins. Print the number of coins when as few coins as possible are used.</p>
+<h2>問題 (my)</h2>
+<p>ရုံးရှိ အလိုအလျောက် ရောင်းစက် (自動販売機) ၏ program ကို ရေးနေသည်။ ပြန်အမ်းငွေ N ယန်းကို 500၊ 100၊ 50၊ 10၊ 5၊ 1 ယန်း အကြွေစေ့များဖြင့် ပေးသည်။ အကြွေစေ့ အရေအတွက် အနည်းဆုံး ဖြစ်အောင် ပေးသောအခါ၏ အရေအတွက်ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N ≤ 10⁹</li>
+<li>N は整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N
+</code></pre>
+<h2>出力</h2>
+<p>硬貨の最少枚数を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>768
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>9
+</code></pre>
+<p>500 円 1 枚、100 円 2 枚、50 円 1 枚、10 円 1 枚、5 円 1 枚、1 円 3 枚です。</p>
+<h2>入力例 2</h2>
+<pre><code>1000
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>2
+</code></pre>
+<h2>ヒント</h2>
+<p>大きい硬貨から、使えるだけ使っていきましょう。「使えるだけ」は割り算で一度に求められます。</p>
+<h2>ヒント (en)</h2>
+<p>Start with the largest coin and use as many as you can. "As many as you can" is one division.</p>
+<h2>ヒント (my)</h2>
+<p>အကြီးဆုံး အကြွေစေ့မှ စ၍ သုံးနိုင်သမျှ သုံးပါ။ «သုံးနိုင်သမျှ» ကို စားခြင်းတစ်ကြိမ်ဖြင့် ရှာနိုင်သည်။</p>
+<h2>解説</h2>
+<p>硬貨 c について、<code>n / c</code> 枚使い、残りは <code>n % c</code> 円です。これを大きい順にくり返します。</p>
+<p>このように「その場で一番よさそうなものを選び続ける」方法を<strong>貪欲法</strong>（greedy）と呼びます。</p>
+<p>ただし、貪欲法はいつも正しいとは限りません。たとえば硬貨が 1 円、3 円、4 円で 6 円を払うとき、貪欲法では 4 + 1 + 1 の 3 枚ですが、3 + 3 の 2 枚が正解です。日本の硬貨では貪欲法で正しく求められますが、貪欲法を使うときは「本当に正しいか」を考える習慣をつけましょう。</p>
+<h2>解説 (en)</h2>
+<p>For coin c, use <code>n / c</code> coins and continue with <code>n % c</code> yen, from the largest coin down.</p>
+<p>Always taking the choice that looks best right now is called a <strong>greedy algorithm</strong> (貪欲法).</p>
+<p>Greedy is not always right. With coins of 1, 3 and 4 yen, greedy pays 6 yen as 4 + 1 + 1 (3 coins), but 3 + 3 (2 coins) is better. It works for Japanese coins, but always ask whether greedy is really correct before using it.</p>
+<h2>解説 (my)</h2>
+<p>အကြွေစေ့ c အတွက် <code>n / c</code> စေ့ သုံးပြီး ကျန်သည့် <code>n % c</code> ယန်းဖြင့် ဆက်လုပ်ပါ။ အကြီးမှ အငယ်သို့ ထပ်ခါထပ်ခါ လုပ်ပါ။</p>
+<p>ယခုအချိန်တွင် အကောင်းဆုံးထင်ရသည်ကို ဆက်တိုက်ရွေးသည့်နည်းကို <strong>貪欲法 (greedy)</strong> ဟုခေါ်သည်။</p>
+<p>Greedy သည် အမြဲမှန်သည် မဟုတ်ပါ။ ဥပမာ 1၊ 3၊ 4 ယန်း အကြွေစေ့ဖြင့် 6 ယန်း ပေးလျှင် greedy က 4 + 1 + 1 (၃ စေ့) ဟု ဖြေသော်လည်း 3 + 3 (၂ စေ့) က ပိုကောင်းသည်။ ဂျပန်အကြွေစေ့များတွင်မူ မှန်ပါသည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] coins = {500, 100, 50, 10, 5, 1};
+        int count = 0;
+        for (int c : coins) {
+            count += n / c;
+            n %= c;
+        }
+        System.out.println(count);
+    }
+}
+</code></pre>
+</body></html>

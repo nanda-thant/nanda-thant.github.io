@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>区間の売上合計</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>区間の売上合計</h1><p class="meta">Sales in a range of days</p><p class="meta">2026-11-08 · ふつう <span class="tag">累積和</span><span class="tag">配列</span></p><h2>問題</h2>
+<p>あるお店の N 日間の売上が与えられます。i 日目の売上は Aᵢ 円です。</p>
+<p>Q 個の質問に答えてください。j 番目の質問では整数 Lⱼ, Rⱼ が与えられるので、Lⱼ 日目から Rⱼ 日目までの売上の合計を出力してください。</p>
+<h2>問題 (en)</h2>
+<p>You are given a shop's sales for N days; the sales on day i are Aᵢ yen.</p>
+<p>Answer Q questions. Question j gives integers Lⱼ and Rⱼ: print the total sales from day Lⱼ to day Rⱼ.</p>
+<h2>問題 (my)</h2>
+<p>ဆိုင်တစ်ဆိုင်၏ N ရက်စာ ရောင်းအားကို ပေးထားသည်။ i ရက်မြောက်နေ့၏ ရောင်းအားသည် Aᵢ ယန်း ဖြစ်သည်။</p>
+<p>မေးခွန်း Q ခုကို ဖြေပါ။ j ခုမြောက် မေးခွန်းတွင် ကိန်းပြည့် Lⱼ, Rⱼ ကို ပေးထားသောကြောင့် Lⱼ ရက်မြောက်မှ Rⱼ ရက်မြောက်အထိ ရောင်းအား စုစုပေါင်းကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N, Q ≤ 2×10⁵</li>
+<li>0 ≤ Aᵢ ≤ 10⁹</li>
+<li>1 ≤ Lⱼ ≤ Rⱼ ≤ N</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N Q
+A_1 A_2 … A_N
+L_1 R_1
+⋮
+L_Q R_Q
+</code></pre>
+<h2>出力</h2>
+<p>Q 行出力してください。j 行目には j 番目の質問の答えを出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>5 3
+3 1 4 1 5
+1 3
+2 5
+4 4
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>8
+11
+1
+</code></pre>
+<p>1 日目から 3 日目までの売上は 3 + 1 + 4 = 8 円です。</p>
+<h2>ヒント</h2>
+<p>質問ごとに足し算をすると、最大で 2×10⁵ × 2×10⁵ = 4×10¹⁰ 回の計算になり、間に合いません。先に何かを計算しておけないでしょうか。</p>
+<h2>ヒント (en)</h2>
+<p>Adding up the range for every question can take 4×10¹⁰ steps, which is too slow. What could you calculate once, before reading the questions?</p>
+<h2>ヒント (my)</h2>
+<p>မေးခွန်းတစ်ခုချင်းစီအတွက် ပေါင်းနေလျှင် အကြိမ် 4×10¹⁰ အထိ တွက်ရပြီး အချိန်မမီပါ။ မေးခွန်းများ မဖတ်မီ တစ်ကြိမ်တည်း ကြိုတွက်ထားနိုင်သည့်အရာ ရှိပါသလား။</p>
+<h2>解説</h2>
+<p><strong>累積和</strong>を使います。S₀ = 0、Sᵢ = A₁ + A₂ + … + Aᵢ とすると、L 日目から R 日目までの合計は S_R − S_{L−1} です。</p>
+<p>S は最初に O(N) で作れるので、各質問には O(1) で答えられます。全体の計算量は O(N + Q) です。</p>
+<p>合計は最大で 2×10⁵ × 10⁹ = 2×10¹⁴ になり、<code>int</code> には入りません。<code>long</code> を使いましょう。入力が多いので、<code>Scanner</code> ではなく <code>BufferedReader</code> で読むと速くなります。</p>
+<h2>解説 (en)</h2>
+<p>Use <strong>prefix sums</strong> (累積和). With S₀ = 0 and Sᵢ = A₁ + … + Aᵢ, the total from day L to day R is S_R − S_{L−1}. Building S takes O(N), and then each question takes O(1), so the whole program is O(N + Q).</p>
+<p>A total can reach 2×10¹⁴, which does not fit in an <code>int</code>: use <code>long</code>. The input is large, so read it with <code>BufferedReader</code> rather than <code>Scanner</code>.</p>
+<h2>解説 (my)</h2>
+<p><strong>累積和 (prefix sum)</strong> ကို သုံးပါ။ S₀ = 0၊ Sᵢ = A₁ + … + Aᵢ ဟု ထားလျှင် L ရက်မှ R ရက်အထိ စုစုပေါင်းမှာ S_R − S_{L−1} ဖြစ်သည်။ S ကို O(N) ဖြင့် ကြိုတည်ဆောက်ပြီးနောက် မေးခွန်းတစ်ခုကို O(1) ဖြင့် ဖြေနိုင်သည်။</p>
+<p>စုစုပေါင်းသည် 2×10¹⁴ အထိ ရောက်နိုင်သဖြင့် <code>int</code> ထဲ မဆံ့ပါ။ <code>long</code> ကို သုံးပါ။</p>
+<p>Input ပမာဏ ကြီးမားသဖြင့် <code>Scanner</code> ထက် <code>BufferedReader</code> ကို သုံးပြီး ဖတ်ခြင်းက ပိုသင့်တော်သည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int q = Integer.parseInt(st.nextToken());
+
+        long[] sum = new long[n + 1];          // sum[i] = A_1 + ... + A_i
+        st = new StringTokenizer(br.readLine());
+        for (int i = 1; i &lt;= n; i++) {
+            sum[i] = sum[i - 1] + Long.parseLong(st.nextToken());
+        }
+
+        StringBuilder out = new StringBuilder();
+        for (int j = 0; j &lt; q; j++) {
+            st = new StringTokenizer(br.readLine());
+            int l = Integer.parseInt(st.nextToken());
+            int r = Integer.parseInt(st.nextToken());
+            out.append(sum[r] - sum[l - 1]).append('\n');
+        }
+        System.out.print(out);
+    }
+}
+</code></pre>
+</body></html>

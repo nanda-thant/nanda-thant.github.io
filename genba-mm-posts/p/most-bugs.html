@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門4 バグが一番多い画面</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>入門4 バグが一番多い画面</h1><p class="meta">Basics 4 · The screen with the most bugs</p><p class="meta">2026-11-08 · やさしい <span class="tag">入門</span><span class="tag">ループ</span><span class="tag">最大値</span></p><h2>問題</h2>
+<p>テストで N 個の画面を確認しました。i 番目の画面で見つかったバグは Bᵢ 件です。</p>
+<p>バグが一番多い画面の番号を出力してください。一番多い画面が複数あるときは、番号が一番小さいものを出力してください。</p>
+<h2>問題 (en)</h2>
+<p>You tested N screens. Bᵢ bugs were found on screen i.</p>
+<p>Print the number of the screen with the most bugs. If several screens share the largest count, print the smallest number.</p>
+<h2>問題 (my)</h2>
+<p>စမ်းသပ်မှုတွင် screen N ခုကို စစ်ဆေးခဲ့သည်။ i ခုမြောက် screen တွင် bug Bᵢ ခု တွေ့ခဲ့သည်။</p>
+<p>bug အများဆုံး screen ၏ နံပါတ်ကို ထုတ်ပြပါ။ bug အများဆုံး screen တစ်ခုထက်ပို ရှိလျှင် နံပါတ် အငယ်ဆုံးကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N ≤ 100</li>
+<li>0 ≤ Bᵢ ≤ 1000</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N
+B_1 B_2 … B_N
+</code></pre>
+<h2>出力</h2>
+<p>画面の番号（1 から N）を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>4
+3 7 2 5
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>2
+</code></pre>
+<h2>入力例 2</h2>
+<pre><code>4
+3 7 2 7
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>2
+</code></pre>
+<p>2 番と 4 番が 7 件で同じなので、小さい方の 2 を出力します。</p>
+<h2>ヒント</h2>
+<p>「今までで一番多い件数」と「その画面の番号」の 2 つを覚えながら、順番に見ていきます。新しい数が今までの最大より<strong>大きいときだけ</strong>更新しましょう。</p>
+<h2>ヒント (en)</h2>
+<p>Go through the screens in order, remembering two things: the largest count so far and the number of that screen. Update them <strong>only when</strong> the new count is larger.</p>
+<h2>ヒント (my)</h2>
+<p>ယခုထိ အများဆုံး bug အရေအတွက်နှင့် ထို screen ၏ နံပါတ် နှစ်ခုကို မှတ်ထားရင်း အစဉ်လိုက် ကြည့်ပါ။ ဂဏန်းအသစ်က ယခုထိ အများဆုံးထက် <strong>ကြီးမှသာ</strong> ပြောင်းပါ။</p>
+<h2>解説</h2>
+<p>最大値を探す基本の形です。</p>
+<ul>
+<li>比較に <code>&gt;</code> を使うと、同じ件数のときは更新されないので、最初に出てきた（番号が小さい）画面が残ります。</li>
+<li><code>&gt;=</code> にすると、最後に出てきた画面になってしまい、入力例 2 で <code>4</code> と答えてしまいます。</li>
+<li>配列の番号は 0 から、画面の番号は 1 から始まります。出力するときに <code>+ 1</code> を忘れないようにしましょう。</li>
+</ul>
+<h2>解説 (en)</h2>
+<p>This is the basic pattern for finding a maximum.</p>
+<ul>
+<li>Comparing with <code>&gt;</code> keeps the first screen on a tie, which is the smallest number.</li>
+<li>With <code>&gt;=</code> you keep the last one, and sample 2 would print <code>4</code>.</li>
+<li>Loop indexes start at 0 but screen numbers start at 1, so remember the <code>+ 1</code> when printing.</li>
+</ul>
+<h2>解説 (my)</h2>
+<p>အကြီးဆုံးတန်ဖိုး ရှာသည့် အခြေခံပုံစံ ဖြစ်သည်။</p>
+<ul>
+<li><code>&gt;</code> ဖြင့် နှိုင်းယှဉ်လျှင် တူညီသည့်အခါ မပြောင်းသဖြင့် ပထမဆုံး (နံပါတ်အငယ်ဆုံး) screen ကျန်ပါမည်။</li>
+<li><code>&gt;=</code> ကို သုံးလျှင် နောက်ဆုံး screen ဖြစ်သွားပြီး ဥပမာ ၂ တွင် <code>4</code> ဟု မှားဖြေပါမည်။</li>
+<li>Loop index သည် 0 မှ စပြီး screen နံပါတ်သည် 1 မှ စသဖြင့် ထုတ်သည့်အခါ <code>+ 1</code> ကို မမေ့ပါနှင့်။</li>
+</ul>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int best = -1;      // largest count so far
+        int bestNo = 0;     // screen number with that count
+        for (int i = 0; i &lt; n; i++) {
+            int b = sc.nextInt();
+            if (b &gt; best) {
+                best = b;
+                bestNo = i + 1;
+            }
+        }
+        System.out.println(bestNo);
+    }
+}
+</code></pre>
+</body></html>

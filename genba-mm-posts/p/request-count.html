@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門10 1 年間のリクエスト数</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>入門10 1 年間のリクエスト数</h1><p class="meta">Basics 10 · Requests in a year</p><p class="meta">2026-11-08 · やさしい <span class="tag">入門</span><span class="tag">計算</span><span class="tag">オーバーフロー</span></p><h2>問題</h2>
+<p>あるサーバーには 1 秒に A 件のリクエストが来ます。S 秒間に来るリクエストの数を出力してください。</p>
+<h2>問題 (en)</h2>
+<p>A server receives A requests per second. Print the number of requests it receives in S seconds.</p>
+<h2>問題 (my)</h2>
+<p>server တစ်ခုသို့ တစ်စက္ကန့်လျှင် request A ခု ရောက်လာသည်။ S စက္ကန့်အတွင်း ရောက်လာသော request အရေအတွက်ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ A ≤ 10⁶</li>
+<li>1 ≤ S ≤ 31536000（1 年の秒数）</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>A S
+</code></pre>
+<h2>出力</h2>
+<p>リクエストの数を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>1000 86400
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>86400000
+</code></pre>
+<p>1 日（86400 秒）の場合です。</p>
+<h2>入力例 2</h2>
+<pre><code>50000 31536000
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>1576800000000
+</code></pre>
+<h2>ヒント</h2>
+<p><code>int</code> に入るのは約 21 億（2147483647）までです。入力例 2 の答えは約 1.5 兆なので、<code>long</code> を使いましょう。</p>
+<h2>ヒント (en)</h2>
+<p>An <code>int</code> holds values up to about 2.1 billion (2147483647). Sample 2's answer is about 1.5 trillion, so use <code>long</code>.</p>
+<h2>ヒント (my)</h2>
+<p><code>int</code> ထဲတွင် သန်း ၂၁၀၀ ခန့် (2147483647) အထိသာ ဆံ့သည်။ ဥပမာ ၂ ၏ အဖြေသည် 1.5 trillion ခန့် ဖြစ်သဖြင့် <code>long</code> ကို သုံးပါ။</p>
+<h2>解説</h2>
+<p><code>int</code> で <code>a * s</code> を計算すると、範囲を超えた分が回り込んで（<strong>オーバーフロー</strong>）、エラーも出ずに間違った数が出力されます。入力例 2 では <code>547002368</code> という、まったく違う数になります。</p>
+<p>注意：<code>long ans = a * s;</code> と書いても、<code>a</code> と <code>s</code> が <code>int</code> なら、掛け算は <code>int</code> のまま行われてからの代入なので間違えます。最初から <code>long a = sc.nextLong();</code> と読むか、<code>(long) a * s</code> と書きます。</p>
+<p>答えがどこまで大きくなるか、制約の最大値を掛け算して確かめる習慣をつけましょう：10⁶ × 3.2×10⁷ ≒ 3.2×10¹³。</p>
+<h2>解説 (en)</h2>
+<p>With <code>int</code>, <code>a * s</code> silently wraps around (<strong>overflow</strong>): no error, just a wrong number. Sample 2 would print <code>547002368</code>, a completely different number.</p>
+<p>Careful: <code>long ans = a * s;</code> is still wrong if <code>a</code> and <code>s</code> are <code>int</code>s, because the multiplication happens in <code>int</code> before the assignment. Read them with <code>sc.nextLong()</code>, or write <code>(long) a * s</code>.</p>
+<p>Make it a habit to multiply the largest values in the constraints: 10⁶ × 3.2×10⁷ ≈ 3.2×10¹³.</p>
+<h2>解説 (my)</h2>
+<p><code>int</code> ဖြင့် <code>a * s</code> ကို တွက်လျှင် အပိုင်းအခြားကို ကျော်သွားပြီး (<strong>overflow</strong>) error မပြဘဲ ဂဏန်းမှားကို ထုတ်ပါမည်။ ဥပမာ ၂ တွင် <code>547002368</code> ဟူသော လုံးဝမဆိုင်သည့် ဂဏန်း ထွက်ပါမည်။</p>
+<p>သတိ: <code>a</code> နှင့် <code>s</code> သည် <code>int</code> ဖြစ်နေလျှင် <code>long ans = a * s;</code> ဟု ရေးသော်လည်း မြှောက်ခြင်းကို <code>int</code> ဖြင့် အရင်တွက်ပြီးမှ ထည့်သဖြင့် မှားပါမည်။ <code>sc.nextLong()</code> ဖြင့် ဖတ်ပါ သို့မဟုတ် <code>(long) a * s</code> ဟု ရေးပါ။</p>
+<p>ကန့်သတ်ချက်တွင် အများဆုံးဖြစ်နိုင်သော တန်ဖိုးများကို မြှောက်ပြီး အဖြေ၏ အမြင့်ဆုံးပမာဏကို စစ်ဆေးသည့် အကျင့် ပြုလုပ်ထားပါ: 10⁶ × 3.2×10⁷ ≈ 3.2×10¹³။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        long a = sc.nextLong();
+        long s = sc.nextLong();
+        System.out.println(a * s);
+    }
+}
+</code></pre>
+</body></html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門3 今週の作業時間</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>入門3 今週の作業時間</h1><p class="meta">Basics 3 · Hours worked this week</p><p class="meta">2026-11-08 · やさしい <span class="tag">入門</span><span class="tag">ループ</span></p><h2>問題</h2>
+<p>あなたは今週 N 日働きました。i 日目の作業時間は Hᵢ 時間です。今週の作業時間の合計を出力してください。</p>
+<h2>問題 (en)</h2>
+<p>You worked N days this week. On day i you worked Hᵢ hours. Print your total working hours for the week.</p>
+<h2>問題 (my)</h2>
+<p>သင်သည် ဤအပတ်တွင် N ရက် အလုပ်လုပ်ခဲ့သည်။ i ရက်မြောက်နေ့တွင် Hᵢ နာရီ အလုပ်လုပ်ခဲ့သည်။ ဤအပတ်၏ အလုပ်ချိန် စုစုပေါင်းကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N ≤ 100</li>
+<li>0 ≤ Hᵢ ≤ 24</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N
+H_1 H_2 … H_N
+</code></pre>
+<h2>出力</h2>
+<p>合計の作業時間を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>5
+8 9 8 10 7
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>42
+</code></pre>
+<h2>入力例 2</h2>
+<pre><code>1
+0
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>0
+</code></pre>
+<h2>ヒント</h2>
+<p>数がいくつあるかは N で決まるので、<code>for</code> ループで N 回読みます。合計を入れる変数を 0 から始めて、読むたびに足していきましょう。</p>
+<h2>ヒント (en)</h2>
+<p>How many numbers there are depends on N, so read them with a <code>for</code> loop that runs N times. Start a total at 0 and add each number as you read it.</p>
+<h2>ヒント (my)</h2>
+<p>ဂဏန်း ဘယ်နှစ်လုံးရှိလဲဆိုတာ N ပေါ် မူတည်သဖြင့် N ကြိမ် ပတ်သော <code>for</code> loop ဖြင့် ဖတ်ပါ။ စုစုပေါင်းအတွက် variable ကို 0 မှ စပြီး ဖတ်တိုင်း ပေါင်းထည့်ပါ။</p>
+<h2>解説</h2>
+<pre><code class="language-java">int sum = 0;
+for (int i = 0; i &lt; n; i++) {
+    sum += sc.nextInt();
+}
+</code></pre>
+<p><code>sum += x</code> は <code>sum = sum + x</code> と同じ意味です。</p>
+<p><code>Scanner</code> は空白と改行を区別しないので、数が 1 行に並んでいても、1 行に 1 つずつでも同じコードで読めます。</p>
+<h2>解説 (en)</h2>
+<p>Keep a running total in a loop. <code>sum += x</code> means <code>sum = sum + x</code>.</p>
+<p><code>Scanner</code> treats spaces and line breaks the same, so this code works whether the numbers are on one line or one per line.</p>
+<h2>解説 (my)</h2>
+<p>Loop ထဲတွင် စုစုပေါင်းကို တဖြည်းဖြည်း ပေါင်းပါ။ <code>sum += x</code> သည် <code>sum = sum + x</code> နှင့် အဓိပ္ပာယ်တူသည်။</p>
+<p><code>Scanner</code> သည် space နှင့် စာကြောင်းအသစ်ကို ခွဲမခြားသဖြင့် ဂဏန်းများ တစ်ကြောင်းတည်းတွင် ရှိစေ၊ တစ်ကြောင်းစီ ရှိစေ ဤ code ဖြင့်ပင် ဖတ်နိုင်ပါသည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int sum = 0;
+        for (int i = 0; i &lt; n; i++) {
+            sum += sc.nextInt();
+        }
+        System.out.println(sum);
+    }
+}
+</code></pre>
+</body></html>

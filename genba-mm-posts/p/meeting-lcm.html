@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ステップアップ8 定例会議が重なる日</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>ステップアップ8 定例会議が重なる日</h1><p class="meta">Step up 8 · When the regular meetings fall on the same day</p><p class="meta">2026-11-08 · ふつう <span class="tag">ステップアップ</span><span class="tag">数学</span><span class="tag">最大公約数</span></p><h2>問題</h2>
+<p>チーム A の定例会議は A 日ごと、チーム B の定例会議は B 日ごとに開かれます。今日は両方の会議がありました。</p>
+<p>次に両方の会議が同じ日になるのは何日後か出力してください。</p>
+<h2>問題 (en)</h2>
+<p>Team A's regular meeting is held every A days and team B's every B days. Both meetings were held today.</p>
+<p>Print how many days from now both meetings will next fall on the same day.</p>
+<h2>問題 (my)</h2>
+<p>အဖွဲ့ A ၏ ပုံမှန် အစည်းအဝေးကို A ရက်တစ်ကြိမ်၊ အဖွဲ့ B ၏ ပုံမှန် အစည်းအဝေးကို B ရက်တစ်ကြိမ် ကျင်းပသည်။ ယနေ့ အစည်းအဝေး နှစ်ခုစလုံး ရှိခဲ့သည်။</p>
+<p>နောက်တစ်ကြိမ် အစည်းအဝေး နှစ်ခု တစ်နေ့တည်း ကျမည့်နေ့သည် ယနေ့မှ ရက်မည်မျှ အကြာ ဖြစ်သည်ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ A, B ≤ 10⁹</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>A B
+</code></pre>
+<h2>出力</h2>
+<p>何日後かを出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>4 6
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>12
+</code></pre>
+<h2>入力例 2</h2>
+<pre><code>7 7
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>7
+</code></pre>
+<h2>入力例 3</h2>
+<pre><code>1000000000 999999999
+</code></pre>
+<h2>出力例 3</h2>
+<pre><code>999999999000000000
+</code></pre>
+<h2>ヒント</h2>
+<p>答えは A と B の<strong>最小公倍数</strong>です。1 日ずつ調べると、入力例 3 では 10¹⁸ 日近く調べることになります。最小公倍数は最大公約数を使うと一瞬で求められます。</p>
+<h2>ヒント (en)</h2>
+<p>The answer is the <strong>least common multiple</strong> of A and B. Checking day by day would take nearly 10¹⁸ steps for sample 3. The LCM comes instantly from the greatest common divisor.</p>
+<h2>ヒント (my)</h2>
+<p>အဖြေသည် A နှင့် B ၏ <strong>အငယ်ဆုံး ဘုံဆတိုးကိန်း (LCM)</strong> ဖြစ်သည်။ တစ်ရက်ချင်း စစ်လျှင် ဥပမာ ၃ တွင် 10¹⁸ ရက်နီးပါး စစ်ရမည်။ LCM ကို အကြီးဆုံး ဘုံဆခွဲကိန်း (GCD) ဖြင့် ချက်ချင်း ရှာနိုင်သည်။</p>
+<h2>解説</h2>
+<p><strong>ユークリッドの互除法</strong>で最大公約数（GCD）を求めます。</p>
+<pre><code class="language-java">static long gcd(long a, long b) {
+    return b == 0 ? a : gcd(b, a % b);
+}
+</code></pre>
+<p>「a と b の GCD は、b と a % b の GCD に等しい」ことをくり返し使います。数が毎回大きく減るので、10⁹ でも 50 回もかかりません。</p>
+<p>最小公倍数は <code>a / gcd(a, b) * b</code> です。<code>a * b / gcd</code> の順に計算すると、途中の a × b が 10¹⁸ になり、さらに大きい値では <code>long</code> でもあふれることがあります。<strong>先に割ってから掛ける</strong>のが安全です。</p>
+<h2>解説 (en)</h2>
+<p>Find the greatest common divisor (GCD) with the <strong>Euclidean algorithm</strong>: the GCD of a and b equals the GCD of b and a % b. The numbers shrink fast, so even 10⁹ takes fewer than 50 steps.</p>
+<p>The LCM is <code>a / gcd(a, b) * b</code>. Computing <code>a * b / gcd</code> makes the intermediate a × b reach 10¹⁸, which can overflow even a <code>long</code> for bigger inputs. <strong>Divide first, then multiply.</strong></p>
+<h2>解説 (my)</h2>
+<p>GCD ကို <strong>Euclid ၏ algorithm</strong> ဖြင့် ရှာပါ: a နှင့် b ၏ GCD သည် b နှင့် a % b ၏ GCD နှင့် တူညီသည်။ ဂဏန်းများ မြန်မြန် ငယ်သွားသဖြင့် 10⁹ ဖြစ်သော်လည်း ၅၀ ကြိမ်ပင် မကြာပါ။</p>
+<p>LCM သည် <code>a / gcd(a, b) * b</code> ဖြစ်သည်။ <code>a * b / gcd</code> ဟု တွက်လျှင် ကြားတန်ဖိုး ကြီးလွန်းပြီး overflow ဖြစ်နိုင်သည်။ <strong>အရင်စားပြီးမှ မြှောက်ပါ။</strong></p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    static long gcd(long a, long b) {
+        return b == 0 ? a : gcd(b, a % b);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        long a = sc.nextLong();
+        long b = sc.nextLong();
+        System.out.println(a / gcd(a, b) * b);
+    }
+}
+</code></pre>
+</body></html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門6 勤務時間は何分？</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>入門6 勤務時間は何分？</h1><p class="meta">Basics 6 · How many minutes did you work?</p><p class="meta">2026-11-08 · やさしい <span class="tag">入門</span><span class="tag">文字列</span><span class="tag">計算</span></p><h2>問題</h2>
+<p>出勤時刻 S と退勤時刻 T が <code>HH:MM</code> の形で与えられます。S から T まで何分あるかを出力してください。</p>
+<h2>問題 (en)</h2>
+<p>You are given the time you started work, S, and the time you left, T, in the form <code>HH:MM</code>. Print how many minutes there are from S to T.</p>
+<h2>問題 (my)</h2>
+<p>အလုပ်စချိန် S နှင့် အလုပ်ဆင်းချိန် T ကို <code>HH:MM</code> ပုံစံဖြင့် ပေးထားသည်။ S မှ T အထိ မိနစ် မည်မျှ ရှိသည်ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>S と T は <code>00:00</code> から <code>23:59</code> までの時刻</li>
+<li>S は T と同じか、T より前</li>
+</ul>
+<h2>入力</h2>
+<pre><code>S T
+</code></pre>
+<h2>出力</h2>
+<p>S から T までの分数を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>09:00 18:30
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>570
+</code></pre>
+<p>9 時間 30 分 = 570 分です。</p>
+<h2>入力例 2</h2>
+<pre><code>08:45 17:15
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>510
+</code></pre>
+<h2>ヒント</h2>
+<p>時刻をそのまま引き算することはできません。どちらも「0 時 0 分から何分か」に直してから引きましょう。<code>"09:00".split(":")</code> で <code>"09"</code> と <code>"00"</code> に分けられます。</p>
+<h2>ヒント (en)</h2>
+<p>You cannot subtract times as they are. Turn each into "minutes since 00:00" first, then subtract. <code>"09:00".split(":")</code> splits it into <code>"09"</code> and <code>"00"</code>.</p>
+<h2>ヒント (my)</h2>
+<p>အချိန်ကို ဒီအတိုင်း နုတ်၍ မရပါ။ နှစ်ခုလုံးကို «00:00 မှ စ၍ မိနစ်ပေါင်း» အဖြစ် အရင်ပြောင်းပြီးမှ နုတ်ပါ။ <code>"09:00".split(":")</code> ဖြင့် <code>"09"</code> နှင့် <code>"00"</code> ဟု ခွဲနိုင်သည်။</p>
+<h2>解説</h2>
+<p><code>HH:MM</code> を分に直すと <code>HH × 60 + MM</code> です。09:00 は 540 分、18:30 は 1110 分なので、答えは 1110 − 540 = 570 です。</p>
+<p><code>Integer.parseInt("09")</code> は先頭の 0 があっても 9 を返します。</p>
+<p>同じ処理を 2 回使うので、メソッドにまとめると読みやすくなります。</p>
+<h2>解説 (en)</h2>
+<p><code>HH:MM</code> in minutes is <code>HH × 60 + MM</code>. 09:00 is 540 and 18:30 is 1110, so the answer is 1110 − 540 = 570.</p>
+<p><code>Integer.parseInt("09")</code> returns 9; the leading zero is fine.</p>
+<p>The conversion is needed twice, so a small method keeps the code readable.</p>
+<h2>解説 (my)</h2>
+<p><code>HH:MM</code> ကို မိနစ်ပြောင်းလျှင် <code>HH × 60 + MM</code> ဖြစ်သည်။ 09:00 သည် ၅၄၀ မိနစ်၊ 18:30 သည် ၁၁၁၀ မိနစ် ဖြစ်သဖြင့် အဖြေမှာ 1110 − 540 = 570 ဖြစ်သည်။</p>
+<p><code>Integer.parseInt("09")</code> သည် ရှေ့က 0 ရှိသော်လည်း 9 ကို ပြန်ပေးသည်။ တူညီသော တွက်ချက်မှုကို နှစ်ကြိမ် သုံးရသဖြင့် method တစ်ခုအဖြစ် ခွဲရေးလျှင် ဖတ်ရလွယ်ပါသည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    static int toMinutes(String time) {
+        String[] parts = time.split(&quot;:&quot;);
+        int h = Integer.parseInt(parts[0]);
+        int m = Integer.parseInt(parts[1]);
+        return h * 60 + m;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        String t = sc.next();
+        System.out.println(toMinutes(t) - toMinutes(s));
+    }
+}
+</code></pre>
+</body></html>

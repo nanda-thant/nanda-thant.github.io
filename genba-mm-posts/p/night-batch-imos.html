@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>夜間バッチの同時実行数</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>夜間バッチの同時実行数</h1><p class="meta">Night batches running at once</p><p class="meta">2026-11-14 · ふつう <span class="tag">いもす法</span><span class="tag">累積和</span></p><h2>問題</h2>
+<p>夜間に N 本のバッチ処理が動きます。i 本目のバッチは Sᵢ 分に始まり、Eᵢ 分に終わります。つまり Sᵢ 分から Eᵢ − 1 分までの各分に動いています。</p>
+<p>0 分から T − 1 分までの各分について、動いているバッチの本数を考えます。その最大値と、最大になる<strong>最初の</strong>分を出力してください。</p>
+<h2>問題 (en)</h2>
+<p>N batch jobs run at night. Job i starts at minute Sᵢ and ends at minute Eᵢ, so it is running in every minute from Sᵢ to Eᵢ − 1.</p>
+<p>For each minute from 0 to T − 1, count the jobs that are running. Print the largest count and the <strong>first</strong> minute at which it happens.</p>
+<h2>問題 (my)</h2>
+<p>ညဘက်တွင် batch အလုပ် N ခု အလုပ်လုပ်သည်။ i ခုမြောက် batch သည် Sᵢ မိနစ်တွင် စပြီး Eᵢ မိနစ်တွင် ပြီးသည်။ ဆိုလိုသည်မှာ Sᵢ မိနစ်မှ Eᵢ − 1 မိနစ်အထိ မိနစ်တိုင်းတွင် အလုပ်လုပ်နေသည်။</p>
+<p>0 မိနစ်မှ T − 1 မိနစ်အထိ မိနစ်တစ်ခုချင်းစီတွင် အလုပ်လုပ်နေသော batch အရေအတွက်ကို စဉ်းစားပါ။ ထိုအရေအတွက်၏ အများဆုံးတန်ဖိုးနှင့် ထိုတန်ဖိုး <strong>ပထမဆုံး</strong> ရောက်သော မိနစ်ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N ≤ 2×10⁵</li>
+<li>1 ≤ T ≤ 10⁶</li>
+<li>0 ≤ Sᵢ &lt; Eᵢ ≤ T</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N T
+S_1 E_1
+S_2 E_2
+⋮
+S_N E_N
+</code></pre>
+<h2>出力</h2>
+<p>最大の本数と、その最初の分を空白区切りで 1 行に出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>4 10
+1 5
+3 7
+4 6
+8 10
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>3 4
+</code></pre>
+<p>4 分には 1, 2, 3 本目の 3 本が動いています。1 本目は 5 分に終わるので、5 分には 2 本です。</p>
+<h2>入力例 2</h2>
+<pre><code>2 5
+0 2
+2 5
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>1 0
+</code></pre>
+<h2>ヒント</h2>
+<p>バッチごとに Sᵢ から Eᵢ − 1 まで 1 ずつ足すと、最悪 N × T 回の計算になります。「ここで 1 本増える」「ここで 1 本減る」という変化だけを記録できないでしょうか。</p>
+<h2>ヒント (en)</h2>
+<p>Adding 1 to every minute from Sᵢ to Eᵢ − 1 for each job can take N × T steps. Could you record only the changes: "one more job from here" and "one fewer job from here"?</p>
+<h2>ヒント (my)</h2>
+<p>batch တစ်ခုချင်းစီအတွက် Sᵢ မှ Eᵢ − 1 အထိ မိနစ်တိုင်းကို 1 ပေါင်းလျှင် အဆိုးဆုံး N × T ကြိမ် တွက်ရမည်။ "ဤနေရာမှစ၍ တစ်ခု တိုးသည်"၊ "ဤနေရာမှစ၍ တစ်ခု လျော့သည်" ဟူသော ပြောင်းလဲမှုကိုသာ မှတ်ထား၍ မရနိုင်ဘူးလား။</p>
+<h2>解説</h2>
+<p>長さ T + 1 の配列 <code>diff</code> を用意し、バッチごとに <code>diff[S]</code> に +1、<code>diff[E]</code> に −1 を書きます。これを左から足していく（<strong>累積和</strong>をとる）と、各分に動いている本数になります。</p>
+<p>書き込みは 1 本につき 2 回、足し合わせは T 回なので、全体で O(N + T) です。区間にまとめて足す処理を、このように「始まりと終わりの変化だけ書いて、最後に累積和をとる」形にする方法を<strong>いもす法</strong>と呼びます。</p>
+<p>「最初の分」を答えるので、最大値を更新するのは本数が今までより<strong>大きい</strong>ときだけにします。</p>
+<h2>解説 (en)</h2>
+<p>Make an array <code>diff</code> of length T + 1. For each job, add +1 at <code>diff[S]</code> and −1 at <code>diff[E]</code>. Adding the array up from the left (a <strong>prefix sum</strong>) gives the number of jobs running in each minute.</p>
+<p>That is two writes per job and T additions, O(N + T) in total. Writing only where a range starts and ends and taking the prefix sum at the end is known in Japan as <strong>いもす法</strong> (the imos method, a difference array).</p>
+<p>Because the question asks for the first minute, update the best only when the count is <strong>greater</strong> than before.</p>
+<h2>解説 (my)</h2>
+<p>အရှည် T + 1 ရှိသော array <code>diff</code> ကို ပြင်ဆင်ပြီး batch တစ်ခုချင်းစီအတွက် <code>diff[S]</code> တွင် +1၊ <code>diff[E]</code> တွင် −1 ကို ရေးပါ။ ထို array ကို ဘယ်မှ ညာသို့ ပေါင်းသွားလျှင် (<strong>累積和 prefix sum</strong>) မိနစ်တိုင်းတွင် အလုပ်လုပ်နေသော batch အရေအတွက် ရမည်။</p>
+<p>batch တစ်ခုလျှင် နှစ်ကြိမ်သာ ရေးပြီး ပေါင်းခြင်းကို T ကြိမ် လုပ်သောကြောင့် စုစုပေါင်း O(N + T) ဖြစ်သည်။ အပိုင်း၏ အစနှင့် အဆုံးတွင်သာ ပြောင်းလဲမှုကို ရေးပြီး နောက်ဆုံးတွင် prefix sum ယူသော ဤနည်းကို <strong>いもす法 (imos method, difference array)</strong> ဟု ခေါ်သည်။</p>
+<p>"ပထမဆုံး မိနစ်" ကို ဖြေရမည် ဖြစ်သောကြောင့် အရေအတွက်သည် ယခင်ထက် <strong>ပိုကြီး</strong> မှသာ အများဆုံးတန်ဖိုးကို ပြောင်းပါ။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int t = Integer.parseInt(st.nextToken());
+
+        int[] diff = new int[t + 1];
+        for (int i = 0; i &lt; n; i++) {
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+            diff[s]++;   // one more job from minute s
+            diff[e]--;   // one fewer from minute e
+        }
+
+        int running = 0, best = -1, bestMinute = 0;
+        for (int m = 0; m &lt; t; m++) {
+            running += diff[m];
+            if (running &gt; best) {   // strictly greater: keep the first minute
+                best = running;
+                bestMinute = m;
+            }
+        }
+        System.out.println(best + &quot; &quot; + bestMinute);
+    }
+}
+</code></pre>
+</body></html>

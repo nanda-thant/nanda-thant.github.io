@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ビルドマシンの割り当て</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>ビルドマシンの割り当て</h1><p class="meta">Sharing the build machines</p><p class="meta">2026-11-14 · ふつう <span class="tag">優先度付きキュー</span><span class="tag">シミュレーション</span></p><h2>問題</h2>
+<p>CI には M 台のビルドマシンがあり、時刻 0 にはすべて空いています。ビルド待ちのジョブが N 個あり、i 番目のジョブには Dᵢ 分かかります。</p>
+<p>ジョブは番号の順に、そのとき<strong>一番早く空く</strong>マシンで実行されます（空いた瞬間に次のジョブが始まります）。すべてのジョブが終わる時刻を出力してください。</p>
+<h2>問題 (en)</h2>
+<p>The CI has M build machines, all free at time 0. N jobs are waiting, and job i takes Dᵢ minutes.</p>
+<p>The jobs start in order, each on the machine that becomes <strong>free first</strong> (the next job starts the moment a machine is free). Print the time at which all the jobs have finished.</p>
+<h2>問題 (my)</h2>
+<p>CI တွင် build စက် M လုံး ရှိပြီး အချိန် 0 တွင် အားလုံး အားနေသည်။ build စောင့်နေသော job N ခု ရှိပြီး i ခုမြောက် job သည် Dᵢ မိနစ် ကြာသည်။</p>
+<p>job များကို နံပါတ်အစဉ်အတိုင်း ထိုအချိန်တွင် <strong>အစောဆုံး အားမည့်</strong> စက်ပေါ်တွင် run သည် (စက် အားသည့် ချက်ချင်း နောက် job စသည်)။ job အားလုံး ပြီးဆုံးသည့် အချိန်ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N, M ≤ 2×10⁵</li>
+<li>1 ≤ Dᵢ ≤ 10⁹</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N M
+D_1 D_2 … D_N
+</code></pre>
+<h2>出力</h2>
+<p>すべてのジョブが終わる時刻を 1 行で出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>5 2
+4 2 3 1 5
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>10
+</code></pre>
+<p>1 番目はマシン A で 0〜4 分、2 番目はマシン B で 0〜2 分、3 番目は B で 2〜5 分、4 番目は A で 4〜5 分、5 番目は 5〜10 分に動きます。</p>
+<h2>入力例 2</h2>
+<pre><code>1 3
+7
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>7
+</code></pre>
+<h2>入力例 3</h2>
+<pre><code>3 1
+1 2 3
+</code></pre>
+<h2>出力例 3</h2>
+<pre><code>6
+</code></pre>
+<h2>ヒント</h2>
+<p>ジョブごとに M 台すべてを見て一番早く空くマシンを探すと O(NM) です。「一番小さい値を取り出す」「値を入れる」の 2 つが速くできる入れ物を使いましょう。</p>
+<h2>ヒント (en)</h2>
+<p>Looking at all M machines for every job is O(NM). Use a container that is fast at two things: taking out the smallest value and putting a value in.</p>
+<h2>ヒント (my)</h2>
+<p>job တစ်ခုချင်းစီအတွက် စက် M လုံးလုံးကို ကြည့်ပြီး အစောဆုံး အားမည့်စက်ကို ရှာလျှင် O(NM) ဖြစ်သည်။ "အငယ်ဆုံးတန်ဖိုးကို ထုတ်ယူခြင်း" နှင့် "တန်ဖိုး ထည့်ခြင်း" နှစ်ခုကို မြန်မြန် လုပ်နိုင်သော container ကို သုံးပါ။</p>
+<h2>解説</h2>
+<p>各マシンが「次に空く時刻」を<strong>優先度付きキュー</strong>（Java では <code>PriorityQueue</code>）に入れておきます。最初は 0 が M 個です。</p>
+<p>ジョブごとに、一番小さい時刻 <code>free</code> を取り出し、<code>free + D</code> を入れ直します。これがそのジョブの終わる時刻なので、その最大値が答えです。取り出しと追加はどちらも O(log M) なので、全体で O(N log M + M) です。</p>
+<p>時刻は最大で 2×10⁵ × 10⁹ になるので <code>long</code> を使います。</p>
+<h2>解説 (en)</h2>
+<p>Keep the time at which each machine is next free in a <strong>priority queue</strong> (<code>PriorityQueue</code> in Java). At the start it holds M zeros.</p>
+<p>For each job, take out the smallest time <code>free</code> and put <code>free + D</code> back. That is when this job ends, and the answer is the largest of those times. Both operations are O(log M), so the total is O(N log M + M).</p>
+<p>Times can reach 2×10⁵ × 10⁹, so use <code>long</code>.</p>
+<h2>解説 (my)</h2>
+<p>စက်တစ်လုံးချင်းစီ၏ "နောက်တစ်ကြိမ် အားမည့်အချိန်" ကို <strong>priority queue (優先度付きキュー)</strong> (Java တွင် <code>PriorityQueue</code>) ထဲ ထည့်ထားပါ။ အစတွင် 0 ကို M ခု ထည့်ထားသည်။</p>
+<p>job တစ်ခုချင်းစီအတွက် အငယ်ဆုံးအချိန် <code>free</code> ကို ထုတ်ယူပြီး <code>free + D</code> ကို ပြန်ထည့်ပါ။ ၎င်းသည် ထို job ပြီးမည့်အချိန် ဖြစ်ပြီး ထိုအချိန်များ၏ အကြီးဆုံးတန်ဖိုးသည် အဖြေ ဖြစ်သည်။ ထုတ်ယူခြင်းနှင့် ထည့်ခြင်း နှစ်ခုစလုံး O(log M) ဖြစ်သောကြောင့် စုစုပေါင်း O(N log M + M) ဖြစ်သည်။</p>
+<p>အချိန်သည် 2×10⁵ × 10⁹ အထိ ရောက်နိုင်သောကြောင့် <code>long</code> ကို သုံးပါ။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+
+        PriorityQueue&lt;Long&gt; freeAt = new PriorityQueue&lt;&gt;();   // smallest time first
+        for (int i = 0; i &lt; m; i++) freeAt.add(0L);
+
+        long last = 0;
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i &lt; n; i++) {
+            long d = Long.parseLong(st.nextToken());
+            long end = freeAt.poll() + d;   // the machine that is free first
+            freeAt.add(end);
+            last = Math.max(last, end);
+        }
+        System.out.println(last);
+    }
+}
+</code></pre>
+</body></html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門7 研修の評価 A・B・C</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>入門7 研修の評価 A・B・C</h1><p class="meta">Basics 7 · Grade A, B or C</p><p class="meta">2026-11-08 · やさしい <span class="tag">入門</span><span class="tag">条件分岐</span></p><h2>問題</h2>
+<p>研修の最終テストで S 点を取りました。評価は次のとおりです。</p>
+<ul>
+<li>80 点以上：<code>A</code></li>
+<li>60 点以上 80 点未満：<code>B</code></li>
+<li>60 点未満：<code>C</code></li>
+</ul>
+<p>評価を出力してください。</p>
+<h2>問題 (en)</h2>
+<p>You scored S points on the final test of your training. The grade is:</p>
+<ul>
+<li>80 or more: <code>A</code></li>
+<li>60 or more and under 80: <code>B</code></li>
+<li>under 60: <code>C</code></li>
+</ul>
+<p>Print the grade.</p>
+<h2>問題 (my)</h2>
+<p>သင်တန်း၏ နောက်ဆုံး စာမေးပွဲတွင် S မှတ် ရခဲ့သည်။ အဆင့် သတ်မှတ်ချက်မှာ အောက်ပါအတိုင်း ဖြစ်သည်။</p>
+<ul>
+<li>80 မှတ်နှင့်အထက်: <code>A</code></li>
+<li>60 မှတ်နှင့်အထက်၊ 80 မှတ်အောက်: <code>B</code></li>
+<li>60 မှတ်အောက်: <code>C</code></li>
+</ul>
+<p>အဆင့်ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>0 ≤ S ≤ 100</li>
+<li>S は整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>S
+</code></pre>
+<h2>出力</h2>
+<p><code>A</code>、<code>B</code>、<code>C</code> のどれかを出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>85
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>A
+</code></pre>
+<h2>入力例 2</h2>
+<pre><code>80
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>A
+</code></pre>
+<h2>入力例 3</h2>
+<pre><code>60
+</code></pre>
+<h2>出力例 3</h2>
+<pre><code>B
+</code></pre>
+<h2>入力例 4</h2>
+<pre><code>12
+</code></pre>
+<h2>出力例 4</h2>
+<pre><code>C
+</code></pre>
+<h2>ヒント</h2>
+<p>3 つ以上に分けるときは <code>if … else if … else</code> を使います。条件を<strong>上から順に</strong>調べて、最初に当てはまったものだけが実行されます。</p>
+<h2>ヒント (en)</h2>
+<p>For three or more cases, use <code>if … else if … else</code>. The conditions are checked <strong>from the top</strong>, and only the first one that matches runs.</p>
+<h2>ヒント (my)</h2>
+<p>အခြေအနေ သုံးမျိုးနှင့်အထက် ခွဲရန် <code>if … else if … else</code> ကို သုံးပါ။ အခြေအနေများကို <strong>အပေါ်မှ အစဉ်လိုက်</strong> စစ်ပြီး ပထမဆုံး ကိုက်ညီသည့် အပိုင်းသာ အလုပ်လုပ်သည်။</p>
+<h2>解説</h2>
+<pre><code class="language-java">if (s &gt;= 80) {
+    System.out.println(&quot;A&quot;);
+} else if (s &gt;= 60) {
+    System.out.println(&quot;B&quot;);
+} else {
+    System.out.println(&quot;C&quot;);
+}
+</code></pre>
+<p>2 つ目の条件は <code>s &gt;= 60</code> だけで十分です。そこに来た時点で「80 点未満」だとわかっているからです。</p>
+<p>順番を逆にして <code>s &gt;= 60</code> を先に書くと、85 点も <code>B</code> になってしまいます。厳しい条件から先に書きましょう。</p>
+<h2>解説 (en)</h2>
+<p>The second condition only needs <code>s &gt;= 60</code>: if the program gets there, the score is already known to be under 80.</p>
+<p>If you check <code>s &gt;= 60</code> first, 85 would also print <code>B</code>. Put the strictest condition first.</p>
+<h2>解説 (my)</h2>
+<p>ဒုတိယ အခြေအနေတွင် <code>s &gt;= 60</code> တစ်ခုတည်း လုံလောက်သည်။ ထိုနေရာသို့ ရောက်လာလျှင် ၈၀ အောက် ဖြစ်ကြောင်း သိပြီးသား ဖြစ်သောကြောင့်ပါ။</p>
+<p><code>s &gt;= 60</code> ကို အရင်စစ်လျှင် ၈၅ မှတ်လည်း <code>B</code> ဖြစ်သွားပါမည်။ အတင်းကျပ်ဆုံး အခြေအနေကို အရင်ရေးပါ။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int s = sc.nextInt();
+        if (s &gt;= 80) {
+            System.out.println(&quot;A&quot;);
+        } else if (s &gt;= 60) {
+            System.out.println(&quot;B&quot;);
+        } else {
+            System.out.println(&quot;C&quot;);
+        }
+    }
+}
+</code></pre>
+</body></html>

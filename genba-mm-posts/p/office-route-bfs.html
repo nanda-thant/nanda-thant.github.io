@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>会議室までの最短ルート</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>会議室までの最短ルート</h1><p class="meta">The shortest way to the meeting room</p><p class="meta">2026-11-14 · ふつう <span class="tag">幅優先探索</span><span class="tag">BFS</span><span class="tag">グリッド</span></p><h2>問題</h2>
+<p>オフィスのフロアは縦 H マス、横 W マスのマス目で表されます。各マスは次のどれかです。</p>
+<ul>
+<li><code>.</code>：通れる床</li>
+<li><code>#</code>：壁や机で通れない</li>
+<li><code>S</code>：自分の席（通れる）</li>
+<li><code>G</code>：会議室（通れる）</li>
+</ul>
+<p>1 歩で上下左右のとなりのマスに動けます。自分の席から会議室まで最短で何歩かを出力してください。たどり着けないときは -1 を出力してください。</p>
+<h2>問題 (en)</h2>
+<p>An office floor is a grid of H rows and W columns. Each cell is one of:</p>
+<ul>
+<li><code>.</code>: floor you can walk on</li>
+<li><code>#</code>: a wall or desk you cannot pass</li>
+<li><code>S</code>: your seat (walkable)</li>
+<li><code>G</code>: the meeting room (walkable)</li>
+</ul>
+<p>One step moves you to the next cell up, down, left or right. Print the fewest steps from your seat to the meeting room, or -1 if you cannot get there.</p>
+<h2>問題 (my)</h2>
+<p>ရုံးခန်း၏ ကြမ်းပြင်ကို ဒေါင်လိုက် H ကွက်၊ အလျားလိုက် W ကွက် ရှိသော grid ဖြင့် ဖော်ပြသည်။ အကွက်တစ်ကွက်ချင်းစီသည် အောက်ပါတို့ထဲမှ တစ်ခု ဖြစ်သည်။</p>
+<ul>
+<li><code>.</code>: လမ်းလျှောက်နိုင်သော ကြမ်းပြင်</li>
+<li><code>#</code>: နံရံ သို့မဟုတ် စားပွဲ (ဖြတ်၍ မရ)</li>
+<li><code>S</code>: ကျွန်တော့် ထိုင်ခုံ (လျှောက်နိုင်သည်)</li>
+<li><code>G</code>: အစည်းအဝေးခန်း (လျှောက်နိုင်သည်)</li>
+</ul>
+<p>တစ်လှမ်းဖြင့် အပေါ်၊ အောက်၊ ဘယ်၊ ညာ ဘေးကပ်အကွက်သို့ ရွှေ့နိုင်သည်။ ထိုင်ခုံမှ အစည်းအဝေးခန်းအထိ အနည်းဆုံး ခြေလှမ်းအရေအတွက်ကို ထုတ်ပြပါ။ မရောက်နိုင်လျှင် -1 ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ H, W ≤ 1000</li>
+<li>各行は <code>.</code> <code>#</code> <code>S</code> <code>G</code> だけからなる長さ W の文字列</li>
+<li><code>S</code> と <code>G</code> はちょうど 1 つずつある</li>
+</ul>
+<h2>入力</h2>
+<pre><code>H W
+1 行目の文字列
+⋮
+H 行目の文字列
+</code></pre>
+<h2>出力</h2>
+<p>最短の歩数、または -1 を 1 行で出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>4 5
+S..#.
+.#...
+.#.#.
+...#G
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>7
+</code></pre>
+<p>右に 2 歩、下に 1 歩、右に 2 歩、下に 2 歩で 7 歩です。</p>
+<h2>入力例 2</h2>
+<pre><code>2 3
+S#G
+.#.
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>-1
+</code></pre>
+<h2>ヒント</h2>
+<p>自分の席から「1 歩で行けるマス」「2 歩で行けるマス」…と、近い順に広げていくとどうなるでしょうか。一度たどり着いたマスは、もう一度調べる必要はありません。</p>
+<h2>ヒント (en)</h2>
+<p>What if you spread out from your seat in order of distance: the cells one step away, then two steps away, and so on? A cell you have already reached never needs to be looked at again.</p>
+<h2>ヒント (my)</h2>
+<p>ထိုင်ခုံမှစ၍ "တစ်လှမ်းဖြင့် ရောက်နိုင်သော အကွက်များ"၊ "နှစ်လှမ်းဖြင့် ရောက်နိုင်သော အကွက်များ" ... ဟု နီးသည့်အစဉ်အတိုင်း ချဲ့သွားလျှင် မည်သို့ ဖြစ်မည်နည်း။ တစ်ကြိမ် ရောက်ပြီးသော အကွက်ကို ထပ်စစ်ရန် မလိုပါ။</p>
+<h2>解説</h2>
+<p><strong>幅優先探索</strong>（BFS）を使います。キューに S を入れ、取り出したマスの上下左右のうち、通れてまだ距離が決まっていないマスに「今の距離 + 1」を書いてキューに入れます。</p>
+<p>キューは先に入れたものから出てくるので、マスは S から近い順に調べられます。そのため、最初に書いた距離がそのマスの最短距離になります。各マスは 1 回しかキューに入らないので O(HW) です。</p>
+<p>距離の配列を -1 で埋めておけば、「まだ来ていない」の印と、たどり着けないときの答えを兼ねられます。</p>
+<h2>解説 (en)</h2>
+<p>Use <strong>breadth-first search</strong> (BFS). Put S in a queue. For each cell taken out, look at its four neighbours; every walkable one without a distance yet gets "this distance + 1" and goes into the queue.</p>
+<p>A queue hands cells back in the order they went in, so cells are visited nearest first, and the first distance written for a cell is its shortest one. Each cell enters the queue once: O(HW).</p>
+<p>Filling the distance array with -1 marks "not reached yet" and is also the answer when G cannot be reached.</p>
+<h2>解説 (my)</h2>
+<p><strong>BFS (幅優先探索)</strong> ကို သုံးပါ။ S ကို queue ထဲ ထည့်ပါ။ queue မှ ထုတ်ယူသော အကွက်၏ အပေါ်၊ အောက်၊ ဘယ်၊ ညာ အကွက်များထဲမှ လျှောက်နိုင်ပြီး အကွာအဝေး မသတ်မှတ်ရသေးသော အကွက်တွင် "လက်ရှိ အကွာအဝေး + 1" ကို ရေးပြီး queue ထဲ ထည့်ပါ။</p>
+<p>queue သည် အရင်ထည့်သည့်အရာကို အရင်ထုတ်ပေးသောကြောင့် အကွက်များကို S နှင့် နီးသည့်အစဉ်အတိုင်း စစ်သည်။ ထို့ကြောင့် အကွက်တစ်ခုတွင် ပထမဆုံး ရေးသော အကွာအဝေးသည် အတိုဆုံး အကွာအဝေး ဖြစ်သည်။ အကွက်တိုင်း queue ထဲသို့ တစ်ကြိမ်သာ ဝင်သောကြောင့် O(HW) ဖြစ်သည်။</p>
+<p>အကွာအဝေး array ကို -1 ဖြင့် ဖြည့်ထားလျှင် "မရောက်ရသေး" ဟူသော အမှတ်အသားနှင့် မရောက်နိုင်သည့်အခါ၏ အဖြေ နှစ်ခုစလုံး ဖြစ်သည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int h = Integer.parseInt(st.nextToken());
+        int w = Integer.parseInt(st.nextToken());
+
+        char[][] grid = new char[h][];
+        int start = 0, goal = 0;   // cell number = row * w + column
+        for (int r = 0; r &lt; h; r++) {
+            grid[r] = br.readLine().trim().toCharArray();
+            for (int c = 0; c &lt; w; c++) {
+                if (grid[r][c] == 'S') start = r * w + c;
+                if (grid[r][c] == 'G') goal = r * w + c;
+            }
+        }
+
+        int[] dist = new int[h * w];
+        Arrays.fill(dist, -1);   // -1 = not reached yet
+        ArrayDeque&lt;Integer&gt; queue = new ArrayDeque&lt;&gt;();
+        dist[start] = 0;
+        queue.add(start);
+        int[] dr = {-1, 1, 0, 0};
+        int[] dc = {0, 0, -1, 1};
+        while (!queue.isEmpty()) {
+            int cell = queue.poll();
+            int r = cell / w, c = cell % w;
+            for (int k = 0; k &lt; 4; k++) {
+                int nr = r + dr[k], nc = c + dc[k];
+                if (nr &lt; 0 || nr &gt;= h || nc &lt; 0 || nc &gt;= w || grid[nr][nc] == '#') continue;
+                int next = nr * w + nc;
+                if (dist[next] != -1) continue;
+                dist[next] = dist[cell] + 1;
+                queue.add(next);
+            }
+        }
+        System.out.println(dist[goal]);
+    }
+}
+</code></pre>
+</body></html>

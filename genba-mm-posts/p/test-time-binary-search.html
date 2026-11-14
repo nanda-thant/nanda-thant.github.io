@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>時間内に終わるテスト</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>時間内に終わるテスト</h1><p class="meta">Tests that finish in time</p><p class="meta">2026-11-08 · ふつう <span class="tag">二分探索</span><span class="tag">ソート</span></p><h2>問題</h2>
+<p>あるシステムには N 個の自動テストがあり、i 番目のテストの実行時間は Tᵢ 秒です。</p>
+<p>Q 個の質問に答えてください。j 番目の質問では整数 Xⱼ が与えられるので、実行時間が Xⱼ 秒<strong>以下</strong>のテストがいくつあるかを出力してください。</p>
+<h2>問題 (en)</h2>
+<p>A system has N automated tests, and test i takes Tᵢ seconds to run.</p>
+<p>Answer Q questions. Question j gives an integer Xⱼ: print how many tests take Xⱼ seconds <strong>or less</strong>.</p>
+<h2>問題 (my)</h2>
+<p>စနစ်တစ်ခုတွင် automated test N ခု ရှိပြီး i ခုမြောက် test ၏ run ချိန်သည် Tᵢ စက္ကန့် ဖြစ်သည်။</p>
+<p>မေးခွန်း Q ခုကို ဖြေပါ။ j ခုမြောက် မေးခွန်းတွင် ကိန်းပြည့် Xⱼ ကို ပေးထားသောကြောင့် run ချိန် Xⱼ စက္ကန့် <strong>နှင့်အောက်</strong> ဖြစ်သော test မည်မျှ ရှိသည်ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N, Q ≤ 2×10⁵</li>
+<li>1 ≤ Tᵢ, Xⱼ ≤ 10⁹</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N Q
+T_1 T_2 … T_N
+X_1
+⋮
+X_Q
+</code></pre>
+<h2>出力</h2>
+<p>Q 行出力してください。j 行目には j 番目の質問の答えを出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>5 3
+30 10 20 20 50
+20
+5
+100
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>3
+0
+5
+</code></pre>
+<p>20 秒以下のテストは 10, 20, 20 秒の 3 個です。</p>
+<h2>ヒント</h2>
+<p>T を小さい順に並べ替えると、「X 秒以下」のテストは配列の前のほうにまとまります。その境目を速く見つける方法は？</p>
+<h2>ヒント (en)</h2>
+<p>Once T is sorted, the tests that take X seconds or less are all at the front of the array. How can you find where they end quickly?</p>
+<h2>ヒント (my)</h2>
+<p>T ကို ငယ်စဉ်ကြီးလိုက် စီလိုက်လျှင် X စက္ကန့် နှင့်အောက် စမ်းသပ်မှုများသည် array ၏ ရှေ့ပိုင်းတွင် စုနေမည်။ ထိုနယ်နိမိတ်ကို မြန်မြန် ရှာနိုင်မည့် နည်းလမ်း ရှိပါသလား။</p>
+<h2>解説</h2>
+<p>まず T を<strong>ソート</strong>します（O(N log N)）。すると答えは「X より大きい最初の位置」と同じです。この位置は<strong>二分探索</strong>で O(log N) で見つかります。</p>
+<p>全体の計算量は O((N + Q) log N) です。質問ごとに全部を数えると O(NQ) で、最大 4×10¹⁰ 回になり間に合いません。</p>
+<p>二分探索では「条件を満たす範囲」と「満たさない範囲」の境目を <code>lo</code> と <code>hi</code> ではさんでいき、ずれやすい <code>+1</code> / <code>-1</code> に注意しましょう。下のコードでは <code>t[lo] &lt;= x</code> が常に成り立ち、<code>t[hi] &gt; x</code> が常に成り立つように書いています。</p>
+<h2>解説 (en)</h2>
+<p><strong>Sort</strong> T first (O(N log N)). The answer is then the index of the first value greater than X, which <strong>binary search</strong> finds in O(log N). In total that is O((N + Q) log N), while counting every test for every question would be O(NQ), up to 4×10¹⁰ steps.</p>
+<p>Keep an invariant to avoid off-by-one bugs: in the code below <code>t[lo] &lt;= x</code> and <code>t[hi] &gt; x</code> always hold (with imaginary values at −1 and N).</p>
+<h2>解説 (my)</h2>
+<p>ပထမဦးစွာ T ကို <strong>sort</strong> လုပ်ပါ (O(N log N))။ ထို့နောက် အဖြေသည် X ထက် ကြီးသော ပထမဆုံး နေရာ ဖြစ်ပြီး <strong>binary search (二分探索)</strong> ဖြင့် O(log N) အတွင်း ရှာနိုင်သည်။ စုစုပေါင်း O((N + Q) log N) ဖြစ်သည်။</p>
+<p>Off-by-one bug ကို ရှောင်ရန် invariant ကို ထိန်းထားပါ: အောက်ပါ code တွင် <code>t[lo] &lt;= x</code> နှင့် <code>t[hi] &gt; x</code> သည် အမြဲမှန်ရမည် (−1 နှင့် N နေရာများကို စိတ်ကူးယဉ်နယ်နိမိတ်အဖြစ် သတ်မှတ်ထားသည်)။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int q = Integer.parseInt(st.nextToken());
+
+        int[] t = new int[n];
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i &lt; n; i++) t[i] = Integer.parseInt(st.nextToken());
+        Arrays.sort(t);
+
+        StringBuilder out = new StringBuilder();
+        for (int j = 0; j &lt; q; j++) {
+            int x = Integer.parseInt(br.readLine().trim());
+            // Invariant: t[lo] &lt;= x (lo = -1 means &quot;before the array&quot;), t[hi] &gt; x (hi = n means &quot;after it&quot;).
+            int lo = -1, hi = n;
+            while (hi - lo &gt; 1) {
+                int mid = (lo + hi) &gt;&gt;&gt; 1;
+                if (t[mid] &lt;= x) lo = mid; else hi = mid;
+            }
+            out.append(hi).append('\n');   // hi = number of values &lt;= x
+        }
+        System.out.print(out);
+    }
+}
+</code></pre>
+</body></html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門9 平均より時間がかかったタスク</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>入門9 平均より時間がかかったタスク</h1><p class="meta">Basics 9 · Tasks that took longer than average</p><p class="meta">2026-11-08 · やさしい <span class="tag">入門</span><span class="tag">配列</span></p><h2>問題</h2>
+<p>N 個のタスクがあり、i 番目のタスクには Tᵢ 時間かかりました。かかった時間が平均より<strong>長い</strong>タスクはいくつありますか。</p>
+<h2>問題 (en)</h2>
+<p>There are N tasks, and task i took Tᵢ hours. How many tasks took <strong>longer</strong> than the average?</p>
+<h2>問題 (my)</h2>
+<p>task N ခု ရှိပြီး i ခုမြောက် task သည် Tᵢ နာရီ ကြာခဲ့သည်။ ကြာချိန်သည် ပျမ်းမျှထက် <strong>ပိုကြာ</strong> သော task မည်မျှ ရှိသနည်း။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N ≤ 100</li>
+<li>1 ≤ Tᵢ ≤ 100</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N
+T_1 T_2 … T_N
+</code></pre>
+<h2>出力</h2>
+<p>平均より長いタスクの数を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>4
+2 4 6 8
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>2
+</code></pre>
+<p>平均は 5 時間なので、6 と 8 の 2 つです。</p>
+<h2>入力例 2</h2>
+<pre><code>3
+5 5 5
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>0
+</code></pre>
+<h2>入力例 3</h2>
+<pre><code>3
+1 1 2
+</code></pre>
+<h2>出力例 3</h2>
+<pre><code>1
+</code></pre>
+<p>平均は 1.333… 時間です。</p>
+<h2>ヒント</h2>
+<p>平均は全部読んでからでないとわかりません。読んだ数を<strong>配列</strong>に入れておけば、あとでもう一度見られます。<code>int[] t = new int[n];</code></p>
+<h2>ヒント (en)</h2>
+<p>You only know the average after reading every number, so keep them in an <strong>array</strong> to look at them again: <code>int[] t = new int[n];</code></p>
+<h2>ヒント (my)</h2>
+<p>ပျမ်းမျှကို ဂဏန်းအားလုံး ဖတ်ပြီးမှသာ သိနိုင်သည်။ ထို့ကြောင့် ဂဏန်းများကို <strong>array</strong> ထဲ သိမ်းထားပြီး နောက်တစ်ကြိမ် ပြန်ကြည့်ပါ: <code>int[] t = new int[n];</code></p>
+<h2>解説</h2>
+<p>1 回目のループで配列に入れながら合計を出し、2 回目のループで平均と比べます。</p>
+<p>平均は 1.333… のように割り切れないことがあります。<code>Tᵢ &gt; 合計 / N</code> の両辺に N を掛けて <strong><code>Tᵢ × N &gt; 合計</code></strong> と比べると、小数を使わずに正確に判定できます。<code>int</code> の割り算は切り捨てなので、<code>t[i] &gt; sum / n</code> と書くと入力例 3 で間違えます。</p>
+<h2>解説 (en)</h2>
+<p>Loop once to fill the array and add up the total, then loop again to compare.</p>
+<p>The average can be 1.333…, so multiply both sides by N and compare <strong><code>Tᵢ × N &gt; total</code></strong>: exact, with no decimals. Since <code>int</code> division rounds down, <code>t[i] &gt; sum / n</code> would get sample 3 wrong.</p>
+<h2>解説 (my)</h2>
+<p>ပထမ loop တွင် array ထဲ ထည့်ရင်း စုစုပေါင်းကို တွက်ပြီး ဒုတိယ loop တွင် နှိုင်းယှဉ်ပါ။</p>
+<p>ပျမ်းမျှသည် 1.333… ကဲ့သို့ ဖြစ်နိုင်သဖြင့် ဘက်နှစ်ဘက်လုံးကို N ဖြင့် မြှောက်ပြီး <strong><code>Tᵢ × N &gt; စုစုပေါင်း</code></strong> ဟု နှိုင်းယှဉ်လျှင် ဒသမမသုံးဘဲ တိကျစွာ စစ်နိုင်သည်။ <code>t[i] &gt; sum / n</code> ဟု ရေးလျှင် ဥပမာ ၃ တွင် မှားပါမည်။</p>
+<p><code>int</code> ဖြင့် စားလျှင် ဒသမအပိုင်းကို ဖြတ်ပစ်သောကြောင့် ဖြစ်သည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] t = new int[n];
+        int sum = 0;
+        for (int i = 0; i &lt; n; i++) {
+            t[i] = sc.nextInt();
+            sum += t[i];
+        }
+        int count = 0;
+        for (int i = 0; i &lt; n; i++) {
+            if (t[i] * n &gt; sum) {
+                count++;
+            }
+        }
+        System.out.println(count);
+    }
+}
+</code></pre>
+</body></html>

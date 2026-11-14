@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ステップアップ3 重複した社員ID</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>ステップアップ3 重複した社員ID</h1><p class="meta">Step up 3 · A duplicated employee ID</p><p class="meta">2026-11-08 · ふつう <span class="tag">ステップアップ</span><span class="tag">HashSet</span></p><h2>問題</h2>
+<p>CSV から N 件の社員 ID を順番に取り込みます。すでに取り込んだ ID がもう一度出てきたら、そこでエラーになります。</p>
+<p>最初にエラーになる ID を出力してください。重複がなければ <code>NONE</code> と出力してください。</p>
+<h2>問題 (en)</h2>
+<p>You import N employee IDs from a CSV file, one after another. If an ID that was already imported appears again, the import fails at that point.</p>
+<p>Print the first ID that causes an error. If there are no duplicates, print <code>NONE</code>.</p>
+<h2>問題 (my)</h2>
+<p>CSV မှ ဝန်ထမ်း ID N ခုကို အစဉ်လိုက် ထည့်သွင်း (import) သည်။ ထည့်ပြီးသား ID တစ်ခု ထပ်ပေါ်လာလျှင် ထိုနေရာတွင် error ဖြစ်သည်။</p>
+<p>ပထမဆုံး error ဖြစ်စေသော ID ကို ထုတ်ပြပါ။ ထပ်နေသော ID မရှိလျှင် <code>NONE</code> ဟု ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N ≤ 2×10⁵</li>
+<li>各 ID は英小文字と数字からなる 1〜10 文字の文字列</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N
+D_1 D_2 … D_N
+</code></pre>
+<h2>出力</h2>
+<p>最初に重複した ID、または <code>NONE</code> を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>5
+u3 u1 u4 u1 u3
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>u1
+</code></pre>
+<p>4 件目の <code>u1</code> で初めて重複します。<code>u3</code> も重複していますが、5 件目なので後です。</p>
+<h2>入力例 2</h2>
+<pre><code>3
+a b c
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>NONE
+</code></pre>
+<h2>ヒント</h2>
+<p>「今までに出てきた ID」を、すぐに調べられる形で覚えておきましょう。配列やリストで毎回全部探すと、最悪 N² / 2 ≒ 2×10¹⁰ 回になります。</p>
+<h2>ヒント (en)</h2>
+<p>Remember the IDs seen so far in a form you can check instantly. Searching a list each time costs up to N² / 2 ≈ 2×10¹⁰ steps.</p>
+<h2>ヒント (my)</h2>
+<p>ယခုထိ တွေ့ခဲ့သော ID များကို ချက်ချင်း စစ်နိုင်သည့်ပုံစံဖြင့် မှတ်ထားပါ။ List ထဲတွင် အကြိမ်တိုင်း ရှာလျှင် အဆိုးဆုံး N² / 2 ≒ 2×10¹⁰ ကြိမ် ဖြစ်နိုင်သည်။</p>
+<h2>解説</h2>
+<p><code>HashSet&lt;String&gt;</code> は「入っているかどうか」を平均 O(1) で調べられます。</p>
+<p><code>seen.add(id)</code> は、すでに入っていたら <code>false</code> を返します。これを使うと、調べて追加するのが 1 行で書けます。</p>
+<pre><code class="language-java">if (!seen.add(id)) {   // 2 回目
+    System.out.println(id);
+    return;
+}
+</code></pre>
+<p><code>List.contains</code> は先頭から順に探すので O(N) です。名前は似ていても速さがまったく違うことを覚えておきましょう。</p>
+<h2>解説 (en)</h2>
+<p>A <code>HashSet&lt;String&gt;</code> checks "is it already in?" in O(1) on average.</p>
+<p><code>seen.add(id)</code> returns <code>false</code> when the ID was already there, so checking and adding fit in one line.</p>
+<p><code>List.contains</code> searches from the start and is O(N). The method names look alike, but the speed is completely different.</p>
+<h2>解説 (my)</h2>
+<p><code>HashSet&lt;String&gt;</code> သည် «ပါပြီးသားလား» ကို ပျမ်းမျှ O(1) ဖြင့် စစ်နိုင်သည်။</p>
+<p><code>seen.add(id)</code> သည် ပါပြီးသားဖြစ်လျှင် <code>false</code> ကို ပြန်ပေးသဖြင့် စစ်ခြင်းနှင့် ထည့်ခြင်းကို တစ်ကြောင်းတည်းဖြင့် ရေးနိုင်သည်။</p>
+<p><code>List.contains</code> သည် အစမှ အစဉ်လိုက် ရှာသဖြင့် O(N) ဖြစ်သည်။ နာမည်ဆင်တူသော်လည်း မြန်နှုန်း လုံးဝကွာပါသည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Set&lt;String&gt; seen = new HashSet&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            String id = sc.next();
+            if (!seen.add(id)) {
+                System.out.println(id);
+                return;
+            }
+        }
+        System.out.println(&quot;NONE&quot;);
+    }
+}
+</code></pre>
+</body></html>

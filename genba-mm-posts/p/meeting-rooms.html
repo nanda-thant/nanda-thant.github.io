@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門8 会議室はいくつ必要？</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>入門8 会議室はいくつ必要？</h1><p class="meta">Basics 8 · How many meeting rooms?</p><p class="meta">2026-11-08 · やさしい <span class="tag">入門</span><span class="tag">計算</span></p><h2>問題</h2>
+<p>N 人で勉強会をします。会議室は 1 部屋に K 人まで入れます。全員が入るには、会議室が最低いくつ必要か出力してください。</p>
+<h2>問題 (en)</h2>
+<p>N people are holding a study session. One meeting room holds up to K people. Print the smallest number of rooms needed so that everyone fits.</p>
+<h2>問題 (my)</h2>
+<p>လူ N ယောက်ဖြင့် လေ့လာရေး အစည်းအဝေး (勉強会) လုပ်မည်။ အစည်းအဝေးခန်း တစ်ခန်းတွင် လူ K ယောက်အထိ ဝင်ဆံ့သည်။ လူအားလုံး ဝင်ဆံ့ရန် အနည်းဆုံး အခန်း မည်မျှ လိုသည်ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N, K ≤ 1000</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N K
+</code></pre>
+<h2>出力</h2>
+<p>必要な会議室の数を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>10 4
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>3
+</code></pre>
+<p>4 人、4 人、2 人の 3 部屋です。</p>
+<h2>入力例 2</h2>
+<pre><code>8 4
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>2
+</code></pre>
+<h2>入力例 3</h2>
+<pre><code>1 10
+</code></pre>
+<h2>出力例 3</h2>
+<pre><code>1
+</code></pre>
+<h2>ヒント</h2>
+<p>Java の <code>int</code> 同士の割り算 <code>/</code> は、小数点以下を切り捨てます（<code>10 / 4</code> は <code>2</code>）。余りは <code>%</code> でわかります（<code>10 % 4</code> は <code>2</code>）。余りがあるときは部屋が 1 つ多く必要です。</p>
+<h2>ヒント (en)</h2>
+<p>Dividing two <code>int</code>s with <code>/</code> drops the fraction (<code>10 / 4</code> is <code>2</code>). <code>%</code> gives the remainder (<code>10 % 4</code> is <code>2</code>). If there is a remainder, you need one more room.</p>
+<h2>ヒント (my)</h2>
+<p>Java တွင် <code>int</code> နှစ်ခုကို <code>/</code> ဖြင့် စားလျှင် ဒသမနောက်ကို ဖြတ်ပစ်သည် (<code>10 / 4</code> သည် <code>2</code>)။ အကြွင်းကို <code>%</code> ဖြင့် သိနိုင်သည် (<code>10 % 4</code> သည် <code>2</code>)။ အကြွင်းရှိလျှင် အခန်း တစ်ခန်း ပိုလိုသည်။</p>
+<h2>解説</h2>
+<p>素直に書くと次のようになります。</p>
+<pre><code class="language-java">int rooms = n / k;
+if (n % k != 0) {
+    rooms++;
+}
+</code></pre>
+<p>よく使う書き方として、<code>(n + k - 1) / k</code> でも同じ答えになります。「切り上げの割り算」として覚えておくと便利です。</p>
+<p><code>Math.ceil(n / k)</code> は間違いです。<code>n / k</code> の時点で切り捨てられているので、<code>Math.ceil</code> には <code>2.0</code> が渡されます。</p>
+<h2>解説 (en)</h2>
+<p>The plain way: divide, then add one room if <code>n % k != 0</code>.</p>
+<p>A common shortcut gives the same answer: <code>(n + k - 1) / k</code>, "division rounding up".</p>
+<p><code>Math.ceil(n / k)</code> is wrong: <code>n / k</code> has already been rounded down before <code>Math.ceil</code> sees it.</p>
+<h2>解説 (my)</h2>
+<p>ရိုးရိုးနည်း: စားပြီး <code>n % k != 0</code> ဖြစ်လျှင် အခန်း တစ်ခန်း ထပ်ပေါင်းပါ။</p>
+<p>အသုံးများသော နည်းလမ်းတိုအဖြစ် <code>(n + k - 1) / k</code> ဖြင့်လည်း အဖြေတူရသည် («အပေါ်သို့ ပိုင်းစားခြင်း»)။</p>
+<p><code>Math.ceil(n / k)</code> သည် မှားသည်။ <code>Math.ceil</code> မရောက်မီ <code>n / k</code> တွင် ဖြတ်ပြီးသား ဖြစ်နေသောကြောင့်ပါ။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        int rooms = n / k;
+        if (n % k != 0) {
+            rooms++;
+        }
+        System.out.println(rooms);
+    }
+}
+</code></pre>
+</body></html>

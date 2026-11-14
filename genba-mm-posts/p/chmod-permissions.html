@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ステップアップ9 chmod の数字を読む</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>ステップアップ9 chmod の数字を読む</h1><p class="meta">Step up 9 · Reading chmod numbers</p><p class="meta">2026-11-08 · ふつう <span class="tag">ステップアップ</span><span class="tag">ビット演算</span><span class="tag">文字列</span></p><h2>問題</h2>
+<p>Linux のファイル権限は <code>chmod 754</code> のように 3 桁の数字で書けます。各桁は左から所有者、グループ、その他の人の権限で、次の数を足したものです。</p>
+<ul>
+<li>4：読み取り <code>r</code></li>
+<li>2：書き込み <code>w</code></li>
+<li>1：実行 <code>x</code></li>
+</ul>
+<p>3 桁の数字 P が与えられるので、<code>ls -l</code> と同じ 9 文字の形（許可されていない所は <code>-</code>）で出力してください。</p>
+<h2>問題 (en)</h2>
+<p>Linux file permissions can be written as three digits, as in <code>chmod 754</code>. From the left, the digits are the permissions of the owner, the group and everyone else, each the sum of:</p>
+<ul>
+<li>4: read <code>r</code></li>
+<li>2: write <code>w</code></li>
+<li>1: execute <code>x</code></li>
+</ul>
+<p>Given the three-digit number P, print it in the 9-character form used by <code>ls -l</code> (<code>-</code> where a permission is not given).</p>
+<h2>問題 (my)</h2>
+<p>Linux ၏ file permission ကို <code>chmod 754</code> ကဲ့သို့ ဂဏန်း ၃ လုံးဖြင့် ရေးနိုင်သည်။ ဘယ်မှ စ၍ ဂဏန်းတစ်လုံးချင်းသည် owner၊ group နှင့် အခြားသူများ၏ permission ဖြစ်ပြီး အောက်ပါ ဂဏန်းများကို ပေါင်းထားခြင်း ဖြစ်သည်။</p>
+<ul>
+<li>4: ဖတ်ခွင့် <code>r</code></li>
+<li>2: ရေးခွင့် <code>w</code></li>
+<li>1: run ခွင့် <code>x</code></li>
+</ul>
+<p>ဂဏန်း ၃ လုံးပါ P ကို ပေးထားသောကြောင့် <code>ls -l</code> နှင့် တူသော စာလုံး 9 လုံး ပုံစံဖြင့် ထုတ်ပြပါ (ခွင့်မပြုထားသော နေရာတွင် <code>-</code>)။</p>
+<h2>制約</h2>
+<ul>
+<li>P は 3 文字の文字列で、各文字は <code>0</code> から <code>7</code></li>
+</ul>
+<h2>入力</h2>
+<pre><code>P
+</code></pre>
+<h2>出力</h2>
+<p>9 文字の権限を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>754
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>rwxr-xr--
+</code></pre>
+<p>7 = 4 + 2 + 1、5 = 4 + 1、4 = 4 です。</p>
+<h2>入力例 2</h2>
+<pre><code>644
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>rw-r--r--
+</code></pre>
+<h2>入力例 3</h2>
+<pre><code>700
+</code></pre>
+<h2>出力例 3</h2>
+<pre><code>rwx------
+</code></pre>
+<h2>ヒント</h2>
+<p>各桁を 2 進数で書くと、7 は <code>111</code>、5 は <code>101</code>、4 は <code>100</code> です。3 つのビットがそれぞれ r、w、x に対応しています。ビットが立っているかは <code>&amp;</code> で調べられます。</p>
+<h2>ヒント (en)</h2>
+<p>In binary, 7 is <code>111</code>, 5 is <code>101</code> and 4 is <code>100</code>: the three bits are r, w and x. Test a bit with <code>&amp;</code>.</p>
+<h2>ヒント (my)</h2>
+<p>ဂဏန်းတစ်လုံးချင်းကို binary ဖြင့် ရေးလျှင် 7 သည် <code>111</code>၊ 5 သည် <code>101</code>၊ 4 သည် <code>100</code> ဖြစ်သည်။ Bit သုံးခုသည် r၊ w၊ x အသီးသီးနှင့် ကိုက်ညီသည်။ Bit ရှိမရှိကို <code>&amp;</code> ဖြင့် စစ်နိုင်သည်။</p>
+<h2>解説</h2>
+<p>文字 <code>'7'</code> を数の 7 にするには <code>c - '0'</code> とします（文字コードの差です）。</p>
+<p><code>d &amp; 4</code> は d の「4 のビット」が立っていれば 4、立っていなければ 0 になります。なので <code>(d &amp; 4) != 0</code> なら <code>r</code>、そうでなければ <code>-</code> です。w（2）と x（1）も同じです。</p>
+<p>このように 1 つの数の各ビットを ON / OFF のフラグとして使う方法は、権限、設定、ゲームの状態など、実務でもよく出てきます。</p>
+<h2>解説 (en)</h2>
+<p>Turn the character <code>'7'</code> into the number 7 with <code>c - '0'</code> (the difference of character codes).</p>
+<p><code>d &amp; 4</code> is 4 if d has the "4" bit set and 0 if not, so <code>(d &amp; 4) != 0</code> means <code>r</code>, otherwise <code>-</code>. Do the same for w (2) and x (1).</p>
+<p>Using each bit of a number as an on/off flag is common in real code: permissions, settings, feature flags.</p>
+<h2>解説 (my)</h2>
+<p>စာလုံး <code>'7'</code> ကို ဂဏန်း 7 အဖြစ် ပြောင်းရန် <code>c - '0'</code> ဟု ရေးပါ။</p>
+<p><code>d &amp; 4</code> သည် d တွင် «4 bit» ရှိလျှင် 4၊ မရှိလျှင် 0 ဖြစ်သည်။ ထို့ကြောင့် <code>(d &amp; 4) != 0</code> ဆိုလျှင် <code>r</code>၊ မဟုတ်လျှင် <code>-</code> ဖြစ်သည်။ w (2) နှင့် x (1) ကိုလည်း ထိုနည်းအတိုင်း စစ်ပါ။</p>
+<p>ဂဏန်းတစ်ခု၏ bit တစ်ခုချင်းကို ON/OFF flag အဖြစ် သုံးခြင်းသည် လုပ်ငန်းခွင်တွင်လည်း အသုံးများသည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String p = sc.next();
+        StringBuilder sb = new StringBuilder();
+        for (char c : p.toCharArray()) {
+            int d = c - '0';
+            sb.append((d &amp; 4) != 0 ? 'r' : '-');
+            sb.append((d &amp; 2) != 0 ? 'w' : '-');
+            sb.append((d &amp; 1) != 0 ? 'x' : '-');
+        }
+        System.out.println(sb);
+    }
+}
+</code></pre>
+</body></html>

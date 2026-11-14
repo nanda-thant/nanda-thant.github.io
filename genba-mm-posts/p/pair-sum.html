@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門14 ペアプロの組み合わせ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>入門14 ペアプロの組み合わせ</h1><p class="meta">Basics 14 · Pair-programming pairs</p><p class="meta">2026-11-08 · やさしい <span class="tag">入門</span><span class="tag">ループ</span><span class="tag">全探索</span></p><h2>問題</h2>
+<p>チームに N 人のエンジニアがいて、i 番目の人の経験年数は Aᵢ 年です。2 人でペアを作るとき、2 人の経験年数の合計がちょうど X 年になるペアは何組ありますか。</p>
+<p>同じ 2 人の順番を入れ替えたものは同じペアとして数えます。</p>
+<h2>問題 (en)</h2>
+<p>A team has N engineers, and engineer i has Aᵢ years of experience. How many pairs of two people have exactly X years of experience in total?</p>
+<p>The same two people in the other order count as the same pair.</p>
+<h2>問題 (my)</h2>
+<p>အဖွဲ့တွင် engineer N ယောက် ရှိပြီး i ယောက်မြောက်၏ အတွေ့အကြုံသည် Aᵢ နှစ် ဖြစ်သည်။ နှစ်ယောက်တွဲ (pair) ဖွဲ့သောအခါ နှစ်ယောက်၏ အတွေ့အကြုံ စုစုပေါင်း X နှစ် အတိအကျ ဖြစ်သော pair မည်မျှ ရှိသနည်း။</p>
+<p>လူနှစ်ယောက်တည်းကို အစဉ်ပြောင်းထားခြင်းကို pair တစ်ခုတည်းအဖြစ် ရေတွက်ပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>2 ≤ N ≤ 100</li>
+<li>1 ≤ Aᵢ, X ≤ 100</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N X
+A_1 A_2 … A_N
+</code></pre>
+<h2>出力</h2>
+<p>ペアの数を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>5 10
+3 7 5 5 2
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>2
+</code></pre>
+<p>（3 年, 7 年）と（5 年, 5 年）の 2 組です。</p>
+<h2>入力例 2</h2>
+<pre><code>3 4
+2 2 2
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>3
+</code></pre>
+<p>1 番と 2 番、1 番と 3 番、2 番と 3 番の 3 組です。</p>
+<h2>ヒント</h2>
+<p>ループの中にループを書く（<strong>二重ループ</strong>）と、すべての 2 人の組を調べられます。同じペアを 2 回数えないように、2 人目は 1 人目より後ろの人だけにしましょう。</p>
+<h2>ヒント (en)</h2>
+<p>A loop inside a loop (a <strong>nested loop</strong>) visits every pair. To count each pair once, let the second person start after the first one.</p>
+<h2>ヒント (my)</h2>
+<p>Loop တစ်ခုအတွင်း loop နောက်တစ်ခု (<strong>nested loop</strong>) ရေးလျှင် လူနှစ်ယောက်တွဲ အားလုံးကို စစ်နိုင်သည်။ အတွဲတစ်တွဲကို နှစ်ခါ မရေတွက်မိစေရန် ဒုတိယလူကို ပထမလူ၏ နောက်ကလူများသာ ယူပါ။</p>
+<h2>解説</h2>
+<pre><code class="language-java">for (int i = 0; i &lt; n; i++) {
+    for (int j = i + 1; j &lt; n; j++) {
+        if (a[i] + a[j] == x) count++;
+    }
+}
+</code></pre>
+<p><code>j</code> を <code>i + 1</code> から始めるのがポイントです。<code>j = 0</code> から始めると、同じペアを 2 回数え、さらに自分自身とのペアまで数えてしまいます。</p>
+<p>このように「考えられるものを全部調べる」方法を<strong>全探索</strong>と呼びます。調べる組の数は約 N² / 2 です。N = 100 なら約 5000 通りで一瞬ですが、N = 10⁵ になると約 50 億通りで間に合いません。そのときはもっと工夫が必要です（ステップアップ編で扱います）。</p>
+<h2>解説 (en)</h2>
+<p>Starting <code>j</code> at <code>i + 1</code> is the key. From <code>j = 0</code> you would count each pair twice and also pair people with themselves.</p>
+<p>Checking every possibility like this is called <strong>brute force</strong> (全探索). It checks about N² / 2 pairs: about 5000 for N = 100, which is instant, but about 5 billion for N = 10⁵, which is too slow. That needs a smarter idea, as in the ステップアップ series.</p>
+<h2>解説 (my)</h2>
+<p><code>j</code> ကို <code>i + 1</code> မှ စခြင်းသည် အဓိကဖြစ်သည်။ <code>j = 0</code> မှ စလျှင် အတွဲတစ်တွဲကို နှစ်ခါ ရေတွက်ပြီး မိမိကိုယ်တိုင်နှင့်ပါ တွဲမိပါမည်။</p>
+<p>ဖြစ်နိုင်သမျှ အားလုံးကို စစ်သည့်နည်းကို <strong>全探索 (brute force)</strong> ဟုခေါ်သည်။ စစ်ရသည့် အတွဲ အရေအတွက်မှာ N² / 2 ခန့် ဖြစ်သည်။ N = 100 ဆိုလျှင် ၅၀၀၀ ခန့်သာ ဖြစ်သော်လည်း N = 10⁵ ဆိုလျှင် အလွန်များပြီး အချိန်မမီပါ။</p>
+<p>N = 10⁵ ဆိုလျှင် အတွဲ 5 billion ခန့် ရှိပြီး အချိန်မမီသောကြောင့် ပိုထိရောက်သည့် နည်းလမ်း လိုအပ်သည်။ ဤအကြောင်းကို ステップアップ အပိုင်းတွင် ဆက်လေ့လာနိုင်သည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int x = sc.nextInt();
+        int[] a = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            a[i] = sc.nextInt();
+        }
+        int count = 0;
+        for (int i = 0; i &lt; n; i++) {
+            for (int j = i + 1; j &lt; n; j++) {
+                if (a[i] + a[j] == x) {
+                    count++;
+                }
+            }
+        }
+        System.out.println(count);
+    }
+}
+</code></pre>
+</body></html>

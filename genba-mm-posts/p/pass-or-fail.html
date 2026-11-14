@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門2 確認テストの合否</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>入門2 確認テストの合否</h1><p class="meta">Basics 2 · Pass or fail</p><p class="meta">2026-11-08 · やさしい <span class="tag">入門</span><span class="tag">条件分岐</span></p><h2>問題</h2>
+<p>新人研修の確認テストで S 点を取りました。60 点以上なら合格です。</p>
+<p>合格なら <code>PASS</code>、そうでなければ <code>FAIL</code> と出力してください。</p>
+<h2>問題 (en)</h2>
+<p>You scored S points on the check test of your new-hire training. 60 points or more is a pass.</p>
+<p>Print <code>PASS</code> if you passed, otherwise <code>FAIL</code>.</p>
+<h2>問題 (my)</h2>
+<p>ဝန်ထမ်းသစ် သင်တန်း၏ စစ်ဆေးမှု စာမေးပွဲတွင် S မှတ် ရခဲ့သည်။ 60 မှတ်နှင့်အထက် ဖြစ်လျှင် အောင်သည်။</p>
+<p>အောင်လျှင် <code>PASS</code>၊ မအောင်လျှင် <code>FAIL</code> ဟု ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>0 ≤ S ≤ 100</li>
+<li>S は整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>S
+</code></pre>
+<h2>出力</h2>
+<p><code>PASS</code> または <code>FAIL</code> を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>75
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>PASS
+</code></pre>
+<h2>入力例 2</h2>
+<pre><code>60
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>PASS
+</code></pre>
+<p>ちょうど 60 点も合格です。</p>
+<h2>入力例 3</h2>
+<pre><code>59
+</code></pre>
+<h2>出力例 3</h2>
+<pre><code>FAIL
+</code></pre>
+<h2>ヒント</h2>
+<p><code>if</code> 文を使います。「60 点以上」は <code>S &gt;= 60</code> です。<code>S &gt; 60</code> にすると、60 点のときに間違えます。</p>
+<h2>ヒント (en)</h2>
+<p>Use an <code>if</code> statement. "60 or more" is <code>S &gt;= 60</code>. With <code>S &gt; 60</code>, a score of exactly 60 gives the wrong answer.</p>
+<h2>ヒント (my)</h2>
+<p><code>if</code> statement ကို သုံးပါ။ «၆၀ နှင့်အထက်» ဆိုသည်မှာ <code>S &gt;= 60</code> ဖြစ်သည်။ <code>S &gt; 60</code> ဟု ရေးလျှင် ၆၀ မှတ်တိတိတွင် အဖြေမှားပါမည်။</p>
+<h2>解説</h2>
+<p>条件で処理を分けるには <code>if (条件) { … } else { … }</code> を使います。</p>
+<p>このような「境界」（ちょうど 60 点）は、競技プログラミングでも実務の単体試験でも、バグが一番出やすい場所です。入力例 2 のように、境界の値で必ず確認しましょう。</p>
+<h2>解説 (en)</h2>
+<p>To choose between two actions, use <code>if (condition) { … } else { … }</code>.</p>
+<p>Boundaries like "exactly 60" are where bugs hide most often, in contests and in unit tests at work alike. Always try the boundary value, as sample 2 does.</p>
+<h2>解説 (my)</h2>
+<p>အခြေအနေအလိုက် ခွဲလုပ်ရန် <code>if (condition) { … } else { … }</code> ကို သုံးပါ။</p>
+<p>«၆၀ တိတိ» ကဲ့သို့ နယ်နိမိတ်တန်ဖိုးများတွင် bug အများဆုံး ပေါ်တတ်ပါသည်။ ပြိုင်ပွဲတွင်ရော လုပ်ငန်းခွင် unit test တွင်ပါ နယ်နိမိတ်တန်ဖိုးကို အမြဲ စစ်ပါ။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int s = sc.nextInt();
+        if (s &gt;= 60) {
+            System.out.println(&quot;PASS&quot;);
+        } else {
+            System.out.println(&quot;FAIL&quot;);
+        }
+    }
+}
+</code></pre>
+</body></html>

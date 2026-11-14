@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ステップアップ4 ポイントの高いタスクを K 個</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>ステップアップ4 ポイントの高いタスクを K 個</h1><p class="meta">Step up 4 · The K tasks with the most points</p><p class="meta">2026-11-08 · ふつう <span class="tag">ステップアップ</span><span class="tag">ソート</span></p><h2>問題</h2>
+<p>スプリントの候補に N 個のタスクがあり、i 番目のタスクの価値は Pᵢ ポイントです。今回は K 個だけ選べます。選んだタスクの価値の合計の最大値を出力してください。</p>
+<h2>問題 (en)</h2>
+<p>There are N candidate tasks for the sprint, and task i is worth Pᵢ points. This time you can choose only K of them. Print the largest total value of the tasks you choose.</p>
+<h2>問題 (my)</h2>
+<p>sprint အတွက် ရွေးချယ်နိုင်သော task N ခု ရှိပြီး i ခုမြောက် task ၏ တန်ဖိုးသည် Pᵢ point ဖြစ်သည်။ ဤတစ်ကြိမ်တွင် K ခုသာ ရွေးနိုင်သည်။ ရွေးထားသော task များ၏ တန်ဖိုး စုစုပေါင်း အများဆုံးကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ K ≤ N ≤ 2×10⁵</li>
+<li>1 ≤ Pᵢ ≤ 10⁹</li>
+<li>入力はすべて整数</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N K
+P_1 P_2 … P_N
+</code></pre>
+<h2>出力</h2>
+<p>合計の最大値を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>5 2
+3 9 1 7 5
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>16
+</code></pre>
+<p>9 と 7 を選びます。</p>
+<h2>入力例 2</h2>
+<pre><code>3 3
+1 2 3
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>6
+</code></pre>
+<h2>ヒント</h2>
+<p>大きい順に K 個取れば最大です。並べ替えは自分で書かずに <code>Arrays.sort</code> を使いましょう。合計がどこまで大きくなるかも確認してください。</p>
+<h2>ヒント (en)</h2>
+<p>Taking the K largest gives the maximum. Do not write your own sort: use <code>Arrays.sort</code>. Also check how large the total can get.</p>
+<h2>ヒント (my)</h2>
+<p>အကြီးဆုံး K ခုကို ယူလျှင် အများဆုံး ရသည်။ Sort ကို ကိုယ်တိုင်မရေးဘဲ <code>Arrays.sort</code> ကို သုံးပါ။ စုစုပေါင်း ဘယ်လောက်အထိ ကြီးနိုင်သလဲလည်း စစ်ပါ။</p>
+<h2>解説</h2>
+<p><code>Arrays.sort(p)</code> で小さい順に並べ、後ろから K 個を足します。ソートは O(N log N) です。</p>
+<p>合計は最大 2×10⁵ × 10⁹ = 2×10¹⁴ なので <code>long</code> を使います。</p>
+<p>大きい順に並べたいときは <code>Integer[]</code> にして <code>Arrays.sort(a, Collections.reverseOrder())</code> とする方法もありますが、<code>int[]</code> を小さい順に並べて後ろから使う方が速く、簡単です。</p>
+<p>自分でバブルソートなどを書くと O(N²) になり、N = 2×10⁵ では間に合いません。</p>
+<h2>解説 (en)</h2>
+<p>Sort ascending with <code>Arrays.sort(p)</code> and add the last K values. Sorting is O(N log N).</p>
+<p>The total can reach 2×10⁵ × 10⁹ = 2×10¹⁴, so use <code>long</code>.</p>
+<p>To sort in descending order you could use <code>Integer[]</code> with <code>Collections.reverseOrder()</code>, but sorting an <code>int[]</code> ascending and reading from the end is faster and simpler.</p>
+<p>A hand-written bubble sort is O(N²) and too slow for N = 2×10⁵.</p>
+<h2>解説 (my)</h2>
+<p><code>Arrays.sort(p)</code> ဖြင့် ငယ်စဉ်ကြီးလိုက် စီပြီး နောက်ဆုံး K ခုကို ပေါင်းပါ။ Sort သည် O(N log N) ဖြစ်သည်။</p>
+<p>စုစုပေါင်းသည် 2×10¹⁴ အထိ ကြီးနိုင်သဖြင့် <code>long</code> ကို သုံးပါ။</p>
+<p>Bubble sort ကဲ့သို့ ကိုယ်တိုင်ရေးလျှင် O(N²) ဖြစ်ပြီး N = 2×10⁵ တွင် အချိန်မမီပါ။</p>
+<p><code>Integer[]</code> ကို <code>Collections.reverseOrder()</code> ဖြင့် ကြီးစဉ်ငယ်လိုက် စီနိုင်သော်လည်း <code>int[]</code> ကို ငယ်စဉ်ကြီးလိုက် စီပြီး နောက်မှ ပြန်ဖတ်ခြင်းက ပိုမြန်၊ ပိုရိုးရှင်းသည်။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        int[] p = new int[n];
+        for (int i = 0; i &lt; n; i++) {
+            p[i] = sc.nextInt();
+        }
+        Arrays.sort(p);
+        long sum = 0;
+        for (int i = n - k; i &lt; n; i++) {
+            sum += p[i];
+        }
+        System.out.println(sum);
+    }
+}
+</code></pre>
+</body></html>

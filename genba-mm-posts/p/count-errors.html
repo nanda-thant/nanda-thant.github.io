@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入門5 ログの ERROR を数える</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Padauk:wght@400;700&display=swap">
+<style>
+ body { font-family: "BIZ UDPGothic", "Padauk", sans-serif; color: #1A2433; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; line-height: 1.8; }
+ :lang(my), .my { font-family: "Padauk", sans-serif; line-height: 2; }
+ a { color: #23407A; }
+ h1 { font-size: 22px; border-bottom: 2px solid #23407A; padding-bottom: 8px; }
+ h2 { font-size: 16px; margin-top: 32px; }
+ pre { background: #F2F4F7; padding: 12px; overflow-x: auto; border-radius: 8px; line-height: 1.5; }
+ code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; }
+ .meta { color: #4A5566; font-size: 14px; }
+ .tag { display: inline-block; border: 1px solid #8FA3C4; border-radius: 8px; padding: 0 8px; margin-right: 4px; font-size: 13px; }
+ ul.posts { list-style: none; padding: 0; } ul.posts li { border-bottom: 1px solid #E4E8EE; padding: 12px 0; }
+</style></head><body>
+<p><a href="../">← 問題一覧</a></p><h1>入門5 ログの ERROR を数える</h1><p class="meta">Basics 5 · Count the ERROR lines</p><p class="meta">2026-11-08 · やさしい <span class="tag">入門</span><span class="tag">文字列</span></p><h2>問題</h2>
+<p>サーバーのログが N 行あります。各行にはログレベル <code>INFO</code>、<code>WARN</code>、<code>ERROR</code> のどれか 1 つが書かれています。</p>
+<p><code>ERROR</code> の行がいくつあるか出力してください。</p>
+<h2>問題 (en)</h2>
+<p>A server log has N lines. Each line has one log level: <code>INFO</code>, <code>WARN</code> or <code>ERROR</code>.</p>
+<p>Print how many lines are <code>ERROR</code>.</p>
+<h2>問題 (my)</h2>
+<p>server log တွင် စာကြောင်း N ကြောင်း ရှိသည်။ စာကြောင်းတိုင်းတွင် log level <code>INFO</code>၊ <code>WARN</code>၊ <code>ERROR</code> ထဲမှ တစ်ခု ရေးထားသည်။</p>
+<p><code>ERROR</code> စာကြောင်း မည်မျှ ရှိသည်ကို ထုတ်ပြပါ။</p>
+<h2>制約</h2>
+<ul>
+<li>1 ≤ N ≤ 100</li>
+<li>各行は <code>INFO</code>、<code>WARN</code>、<code>ERROR</code> のどれか</li>
+</ul>
+<h2>入力</h2>
+<pre><code>N
+L_1
+L_2
+⋮
+L_N
+</code></pre>
+<h2>出力</h2>
+<p><code>ERROR</code> の行の数を出力してください。</p>
+<h2>入力例 1</h2>
+<pre><code>5
+INFO
+ERROR
+WARN
+ERROR
+INFO
+</code></pre>
+<h2>出力例 1</h2>
+<pre><code>2
+</code></pre>
+<h2>入力例 2</h2>
+<pre><code>2
+INFO
+WARN
+</code></pre>
+<h2>出力例 2</h2>
+<pre><code>0
+</code></pre>
+<h2>ヒント</h2>
+<p>文字列は <code>sc.next()</code> で読めます。Java で文字列が同じかどうかを調べるときは、<code>==</code> ではなく <code>equals</code> を使います。</p>
+<h2>ヒント (en)</h2>
+<p>Read a word with <code>sc.next()</code>. To check whether two strings are the same in Java, use <code>equals</code>, not <code>==</code>.</p>
+<h2>ヒント (my)</h2>
+<p>စကားလုံးကို <code>sc.next()</code> ဖြင့် ဖတ်နိုင်သည်။ Java တွင် string နှစ်ခု တူမတူ စစ်ရန် <code>==</code> မဟုတ်ဘဲ <code>equals</code> ကို သုံးပါ။</p>
+<h2>解説</h2>
+<p>Java の <code>==</code> は「同じオブジェクトかどうか」を比べます。読み込んだ文字列は毎回新しいオブジェクトなので、中身が <code>ERROR</code> でも <code>s == "ERROR"</code> は <code>false</code> になることがあります。</p>
+<p>中身を比べるには <code>"ERROR".equals(s)</code> と書きます。定数を左に書くと、<code>s</code> が <code>null</code> でもエラーになりません。これは実務の Java でもよく使う書き方です。</p>
+<h2>解説 (en)</h2>
+<p>In Java, <code>==</code> checks whether two strings are the same object. Each string you read is a new object, so <code>s == "ERROR"</code> can be <code>false</code> even when <code>s</code> holds <code>ERROR</code>.</p>
+<p>Compare the contents with <code>"ERROR".equals(s)</code>. Putting the constant on the left also avoids a crash when <code>s</code> is <code>null</code>, a habit worth keeping in real Java code too.</p>
+<h2>解説 (my)</h2>
+<p>Java တွင် <code>==</code> သည် object တစ်ခုတည်း ဟုတ်မဟုတ်ကို နှိုင်းယှဉ်သည်။ ဖတ်လိုက်သော string တိုင်းသည် object အသစ်ဖြစ်သဖြင့် အထဲတွင် <code>ERROR</code> ရှိသော်လည်း <code>s == "ERROR"</code> သည် <code>false</code> ဖြစ်နိုင်သည်။</p>
+<p>အကြောင်းအရာကို နှိုင်းယှဉ်ရန် <code>"ERROR".equals(s)</code> ဟု ရေးပါ။ Constant ကို ဘယ်ဘက်တွင် ထားလျှင် <code>s</code> သည် <code>null</code> ဖြစ်နေသော်လည်း error မတက်ပါ။</p>
+<h2>解答 (Java)</h2>
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int count = 0;
+        for (int i = 0; i &lt; n; i++) {
+            String level = sc.next();
+            if (&quot;ERROR&quot;.equals(level)) {
+                count++;
+            }
+        }
+        System.out.println(count);
+    }
+}
+</code></pre>
+</body></html>
